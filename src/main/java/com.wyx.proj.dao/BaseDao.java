@@ -28,7 +28,7 @@ public class BaseDao {
         return this.sqlSession;
     }
 
-    public <T> T getMapper1(Class<T> cls){
+    public <T> T getMapper(Class<T> cls){
         return getSqlSession().getMapper(cls);
     }
 

@@ -37,6 +37,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
      * @return
      */
     public UserDao getUserDao() {
-        return getBaseDao().getMapper1(UserDao.class);
+        return getBaseDao().getMapper(UserDao.class);
     }
 }

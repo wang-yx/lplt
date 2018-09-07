@@ -45,24 +45,24 @@ public class ResponseUtil {
      * 内部类 返回结果值
      */
     public static class ReturnResponse{
-        private int code;
+        private int status;
         private String msg;
         private Object data;
         private Map<String, Object> extendInfo = new HashMap<String, Object>();
 
-        public ReturnResponse(int code,String msg,Object data,Map<String, Object> extendInfo){
-            this.code = code;
+        public ReturnResponse(int status,String msg,Object data,Map<String, Object> extendInfo){
+            this.status = status;
             this.msg = msg;
             this.data = data;
             this.extendInfo = extendInfo;
         }
 
-        public int getCode() {
-            return code;
+        public int getStatus() {
+            return status;
         }
 
-        public void setCode(int code) {
-            this.code = code;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
         public String getMsg() {
