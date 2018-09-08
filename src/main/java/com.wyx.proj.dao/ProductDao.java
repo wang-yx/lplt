@@ -29,19 +29,26 @@ public interface ProductDao {
     private int showHomepage; //是否显示在首页，0不显示，1显示
      */
 
-    /*
-    @Select("select id,user_name from t_user ")
-    @Results({
-        @Result(property = "userName",column = "user_name")
-    })
-    public List<User> selectAll();
-    */
 
     /**
      * 所有产品
      * @return
      */
     @Select("select * from t_product order by is_release asc,create_time desc ")
+    @Results({
+            @Result(column = "prod_name", property = "prodName"),
+            @Result(column = "prod_catg", property = "prodCatg"),
+            @Result(column = "prod_imgskey", property = "prodImgskey"),
+            @Result(column = "prod_imgmkey", property = "prodImgmkey"),
+            @Result(column = "prod_imglkey", property = "prodImglkey"),
+            @Result(column = "prod_introduce", property = "prodIntroduce"),
+            @Result(column = "prod_detail", property = "prodDetail"),
+            @Result(column = "prod_comment", property = "prodComment"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "is_release", property = "isRelease"),
+            @Result(column = "release_time", property = "releaseTime"),
+            @Result(column = "show_homepage", property = "showHomepage")
+    })
     public List<Product> selectAllProds();
 
 
@@ -50,6 +57,20 @@ public interface ProductDao {
      * @return
      */
     @Select("select * from t_product where is_release=#{isRelease} order by create_time desc ")
+    @Results({
+            @Result(column = "prod_name", property = "prodName"),
+            @Result(column = "prod_catg", property = "prodCatg"),
+            @Result(column = "prod_imgskey", property = "prodImgskey"),
+            @Result(column = "prod_imgmkey", property = "prodImgmkey"),
+            @Result(column = "prod_imglkey", property = "prodImglkey"),
+            @Result(column = "prod_introduce", property = "prodIntroduce"),
+            @Result(column = "prod_detail", property = "prodDetail"),
+            @Result(column = "prod_comment", property = "prodComment"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "is_release", property = "isRelease"),
+            @Result(column = "release_time", property = "releaseTime"),
+            @Result(column = "show_homepage", property = "showHomepage")
+    })
     public List<Product> selectAllReleaseProds(int isRelease);
 
 
@@ -63,6 +84,20 @@ public interface ProductDao {
      * @return
      */
     @SelectProvider(type =Provider.class,method = "searchProducts")
+    @Results({
+            @Result(column = "prod_name", property = "prodName"),
+            @Result(column = "prod_catg", property = "prodCatg"),
+            @Result(column = "prod_imgskey", property = "prodImgskey"),
+            @Result(column = "prod_imgmkey", property = "prodImgmkey"),
+            @Result(column = "prod_imglkey", property = "prodImglkey"),
+            @Result(column = "prod_introduce", property = "prodIntroduce"),
+            @Result(column = "prod_detail", property = "prodDetail"),
+            @Result(column = "prod_comment", property = "prodComment"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "is_release", property = "isRelease"),
+            @Result(column = "release_time", property = "releaseTime"),
+            @Result(column = "show_homepage", property = "showHomepage")
+    })
     public List<Product> searchProducts(String prodName, Integer prodCatg, Integer isRelease, Date startTime,Date endTime);
 
     /**
@@ -70,6 +105,20 @@ public interface ProductDao {
      * @return
      */
     @Select("select * from t_product where id=#{id} ")
+    @Results({
+            @Result(column = "prod_name", property = "prodName"),
+            @Result(column = "prod_catg", property = "prodCatg"),
+            @Result(column = "prod_imgskey", property = "prodImgskey"),
+            @Result(column = "prod_imgmkey", property = "prodImgmkey"),
+            @Result(column = "prod_imglkey", property = "prodImglkey"),
+            @Result(column = "prod_introduce", property = "prodIntroduce"),
+            @Result(column = "prod_detail", property = "prodDetail"),
+            @Result(column = "prod_comment", property = "prodComment"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "is_release", property = "isRelease"),
+            @Result(column = "release_time", property = "releaseTime"),
+            @Result(column = "show_homepage", property = "showHomepage")
+    })
     public Product selectProdById(int id);
 
     /**
@@ -101,6 +150,16 @@ public interface ProductDao {
     public int updateProdShowHomepage(int id,int showHomepage);
 
     /**
+     *
+     * @param id
+     * @param isRelease
+     * @param releaseTime
+     * @return
+     */
+    @Update("update t_product set is_release=#{isRelease},release_time=#{releaseTime} where id=#{id} ")
+    public int updateProdIsRelease(int id,int isRelease,Date releaseTime);
+
+    /**
      * 批量删除
      * @param ids
      * @return
@@ -114,41 +173,26 @@ public interface ProductDao {
 
         public String searchProducts(String prodName, Integer prodCatg, Integer isRelease, Date startTime,Date endTime){
 
-            System.out.println("-----1111111-->");
-
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_product where 1=1 ");
-
-            System.out.println("-----1111111-->");
 
             if(!StringUtils.isEmpty(prodName)){
                 sb.append(" and prod_name like '%"+ prodName +"%' " );
             }
 
-            System.out.println("-----1111111-->");
-
             if(prodCatg!=null){
                 sb.append(" and prod_catg = "+ prodCatg + " " );
             }
 
-            System.out.println("-----1111111-->");
-//            if(isRelease!=0 && isRelease!=1){
-//                sb.append(" and is_release = "+ isRelease +" " );
-//            }
-
-            System.out.println("-----1111111-->");
+            if(isRelease!=null){
+                sb.append(" and is_release = "+ isRelease +" " );
+            }
             if(startTime!=null){
                 sb.append(" and create_time >= "+ startTime +" " );
             }
-
-            System.out.println("-----1111111-->");
-
             if(endTime!=null){
                 sb.append(" and create_time = "+ endTime +" " );
             }
-
-            System.out.println("------->"+sb.toString());
-
             return sb.toString();
         }
 

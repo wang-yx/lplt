@@ -52,6 +52,10 @@ public class ProductServiceImpl extends BaseServiceImpl<User> implements Product
 
         System.out.println("--------"+bbb);
 
+        List<Product> productsaa = getProdDao().selectAllProds();
+
+        System.out.println("--------"+productsaa.get(0).toString());
+
         return null;
     }
 
