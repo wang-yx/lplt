@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 @Service("userService")
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
@@ -19,17 +20,36 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public List<User> selectAllUsers() throws Exception {
 
-        List<User> users = getUserDao().selectAll();
-
-        System.out.println("--------->"+users.size());
-        System.out.println("--------->"+users.toString());
-
-
-        logger.info("-----log--->"+users.toString());
-
-        return users;
+        return getUserDao().selectAllUsers();
     }
 
+    @Override
+    public int searchUser(String userName, String passWord) throws Exception {
+
+        return getUserDao().selectUser(userName,passWord);
+    }
+
+    @Override
+    public int addUser(User user) throws Exception {
+        return getUserDao().insertUser(user);
+    }
+
+    @Override
+    public int deleteUser(Integer id) throws Exception {
+        List<Integer> ids = new ArrayList<>();
+        ids.add(id);
+        return getUserDao().batchDeleteUsers(ids);
+    }
+
+    @Override
+    public User selectUserById(Integer id) throws Exception {
+        return getUserDao().selectUserById(id);
+    }
+
+    @Override
+    public int updateUser(User user) throws Exception {
+        return getUserDao().updateUser(user);
+    }
 
 
     /**

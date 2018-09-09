@@ -13,13 +13,6 @@ import java.util.Map;
 @Mapper
 public interface UserDao {
 
-    @Select("select id,user_name from t_user ")
-    @Results({
-        @Result(property = "userName",column = "user_name")
-    })
-    public List<User> selectAll();
-
-
     /*
     private String userName;
     private String passWord;
@@ -56,7 +49,7 @@ public interface UserDao {
             @Result(column = "is_admin", property = "isAdmin"),
             @Result(column = "create_time", property = "createTime")
     })
-    public Prodcategory selectUserById(int id);
+    public User selectUserById(int id);
 
     /**
      * 插入数据
@@ -80,7 +73,7 @@ public interface UserDao {
      * @param passWord
      * @return
      */
-    @Select("select * from t_users where user_name=#{userName} and pass_word=#{passWord} limt 1")
+    @Select("select count(1) from t_users where user_name=#{userName} and pass_word=#{passWord} limt 1")
     public int selectUser(String userName,String passWord);
 
     /**
