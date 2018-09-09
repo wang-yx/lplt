@@ -2,10 +2,10 @@ package com.wyx.proj.controller;
 
 import com.wyx.proj.biz.NewsBiz;
 import com.wyx.proj.request.NewsDetailRequest;
-import com.wyx.proj.request.NewsListQueryRequest;
+import com.wyx.proj.request.NewsListRequest;
 import com.wyx.proj.request.NewsSaveRequest;
 import com.wyx.proj.response.NewsDetailResponse;
-import com.wyx.proj.response.NewsListQueryResponse;
+import com.wyx.proj.response.NewsListResponse;
 import com.wyx.proj.response.PageResponse;
 import com.wyx.proj.util.Response;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class NewsController {
     @Resource
     private NewsBiz newsBiz;
 
-    @PostMapping(value = "list/query")
-    public Response<PageResponse<NewsListQueryResponse>> listQuery(@RequestBody NewsListQueryRequest request){
+    @PostMapping(value = "list")
+    public Response<PageResponse<NewsListResponse>> list(@RequestBody NewsListRequest request){
         return Response.success(newsBiz.listQuery(request));
     }
 

@@ -1,10 +1,10 @@
 package com.wyx.proj.biz;
 
 import com.wyx.proj.request.NewsDetailRequest;
-import com.wyx.proj.request.NewsListQueryRequest;
+import com.wyx.proj.request.NewsListRequest;
 import com.wyx.proj.request.NewsSaveRequest;
 import com.wyx.proj.response.NewsDetailResponse;
-import com.wyx.proj.response.NewsListQueryResponse;
+import com.wyx.proj.response.NewsListResponse;
 import com.wyx.proj.response.PageResponse;
 import com.wyx.proj.service.NewsService;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class NewsBiz {
     @Resource
     private NewsService newsService;
 
-    public PageResponse<NewsListQueryResponse> listQuery(@RequestBody NewsListQueryRequest request){
+    public PageResponse<NewsListResponse> listQuery(@RequestBody NewsListRequest request){
 
 
         return null;

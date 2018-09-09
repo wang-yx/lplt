@@ -2,7 +2,7 @@ package com.wyx.proj.response;
 
 import java.util.Date;
 
-public class NewsListQueryResponse {
+public class NewsListResponse {
     private int newsId;
     private String newsTitle;
     private String picKey;
