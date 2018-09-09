@@ -1,10 +1,10 @@
 package com.wyx.proj.controller;
 
 import com.wyx.proj.biz.GoodsBiz;
-import com.wyx.proj.request.GoodsDetailRequest;
-import com.wyx.proj.request.GoodsListQueryRequest;
-import com.wyx.proj.response.GoodsDetailResponse;
-import com.wyx.proj.response.GoodsListQueryResponse;
+import com.wyx.proj.request.ProductDetailRequest;
+import com.wyx.proj.request.ProductListRequest;
+import com.wyx.proj.response.ProductDetailResponse;
+import com.wyx.proj.response.ProductListResponse;
 import com.wyx.proj.response.PageResponse;
 import com.wyx.proj.util.Response;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +22,12 @@ public class GoodsController {
     private GoodsBiz goodsBiz;
 
     @RequestMapping(value = "detail", method = RequestMethod.POST)
-    public Response<GoodsDetailResponse> detail(@RequestBody GoodsDetailRequest request){
+    public Response<ProductDetailResponse> detail(@RequestBody ProductDetailRequest request){
         return Response.success(goodsBiz.detail(request));
     }
 
     @RequestMapping(value = "list/query", method = RequestMethod.POST)
-    public Response<PageResponse<GoodsListQueryResponse>> listQuery(@RequestBody GoodsListQueryRequest request){
+    public Response<PageResponse<ProductListResponse>> listQuery(@RequestBody ProductListRequest request){
         return Response.success(goodsBiz.listQuery(request));
     }
 }

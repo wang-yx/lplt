@@ -1,6 +1,6 @@
 package com.wyx.proj.request;
 
-public class GoodsDetailRequest {
+public class ProductDetailRequest {
 
     private Long goodsId;
 

@@ -39,7 +39,46 @@
     get
     http://.../image/get?key=...
 
-# 后台接口
+# 首页
+
+### 产品列表
+
+    post
+    http://.../product/list/homePage
+    
+    body
+    {
+        
+    }
+    
+    result
+    {
+       "status":0,
+       "data":[
+            {
+                 "productId":123456789L,
+                 "productName":"",
+                 "productPic":"key",
+                 "createTime":yyyy-MM-dd HH:mm:ss,
+                 "updateTime":yyyy-MM-dd HH:mm:ss
+            }
+       ]
+    }
+ 
+### 图片
+
+    get
+    http://.../imgae/list/homePage
+    
+    result
+    {
+        "status":0,
+        "data":[
+            "key1",
+            "key2"
+        ]
+    }
+
 
 ## 登录
 
@@ -58,7 +97,7 @@
      "data":"success"
     }
 
-
+# 新闻接口
 
 ## 新闻增加/更新接口
  
@@ -78,6 +117,7 @@
      "status":0,
      "data":"success"
     }
+    
 ## 查询新闻列表
    
     post
@@ -94,16 +134,24 @@
     result
     {
     "status":0,
-    "data":[
-         {
-              "newsId":123456789L,
-              "newsTitle":"",
-              "picKey":"",
-              "introduce":"",
-              "createTime":yyyy-MM-dd HH:mm:ss
-              "updateTime":yyyy-MM-dd HH:mm:ss
-         }
-    ]
+    "data":{
+            "page":{
+                "curPage":1,
+                "pageSize":15,
+                "totalSize":100,
+                "totalPage":7
+            },
+            data":[
+               {
+                  "newsId":123456789L,
+                  "newsTitle":"",
+                  "picKey":"",
+                  "introduce":"",
+                  "createTime":yyyy-MM-dd HH:mm:ss
+                  "updateTime":yyyy-MM-dd HH:mm:ss
+               }
+            ]
+        }
     }
 
 ## 查询新闻详情
@@ -130,79 +178,85 @@
         }
     }
 
-## 商品增加
+# 产品接口
 
- post
- http://.../goods/save
- 
- body
- {
-     "goodsId":123456789L,       //没有表示新增
-     "goodsType":1,              //商品类型
-     "goodsPic":[                //商品图片
-         "123",
-         "456"
-     ],
-     "goodsDetail":""            //商品描述
- }
- 
- result
- {
+## 产品增加
+
+    post
+    http://.../product/save
+    
+    body
+    {
+     "productId":123456789L,       //没有表示新增
+     "productPic":"",
+     "productName":"",
+     "productIntroduce":"简介",
+     "productDetail":""            //产品描述
+    }
+    
+    result
+    {
      "status":0,
      "data":"success"
- }
+    }
 
 
 
-## 商品列表
+## 产品列表
 
-  post
-  http://.../goods/list/query
-  
-  body
-  {
-     "goodsType":1,
-     "size":5
-  }
-  
-  result
-  {
+    post
+    http://.../product/list
+    
+    body
+    {
+        "page":{
+            "pageNo":1,
+            "pageSize":"15"
+        }
+    }
+    
+    result
+    {
        "status":0,
-       "data":[
-            {
-                 "goodsId":123456789L,
-                 "goodsName":"",
-                 "goodsPic":[
-                      "123",
-                      "456"
-                 ],
+       "data":{
+          "page":{
+              "curPage":1,
+              "pageSize":15,
+              "totalSize":100,
+              "totalPage":7
+          },
+          data":[
+             {
+                "productId":123456789L,
+                 "productName":"",
+                 "productPic":"key",
                  "createTime":yyyy-MM-dd HH:mm:ss,
                  "updateTime":yyyy-MM-dd HH:mm:ss
-            }
-       ]
-  }
+             }
+          ]
+      }
+    }
   
-## 商品详情
+## 产品详情
  
- post
- http://.../goods/detail
- 
- body
- {
-     "goodsId":123456789L,       //商品ID
- }
- 
- result
- {
+    post
+    http://.../product/detail
+    
+    body
+    {
+     "productId":123456789,       //商品ID
+    }
+    
+    result
+    {
      "stataus":0,
      "data":{
-         "goodsId":123456789L,
-         "goodsPic":[
-             "123",
-             "456"
-         ],
-         "goodsDetail":"",
+         "productId":123456789L,
+         "productName":"名称",
+         "productIntroduce":"简介",
+         "productPic":"",
+         "productDetail":"",
          "createTime":yyyy-MM-dd HH:mm:ss,
          "updateTime":yyyy-MM-dd HH:mm:ss
      }
- }
+    }

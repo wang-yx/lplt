@@ -3,12 +3,15 @@ package com.wyx.proj.response;
 import java.util.Date;
 import java.util.List;
 
-public class GoodsListQueryResponse {
-
+public class ProductDetailResponse {
     private Long goodsId;
-    private String goodsName;
+
     private List<String> goodsPic;
+
+    private String goodsDetail;
+
     private Date createTime;
+
     private Date updateTime;
 
     public Long getGoodsId() {
@@ -19,20 +22,20 @@ public class GoodsListQueryResponse {
         this.goodsId = goodsId;
     }
 
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
     public List<String> getGoodsPic() {
         return goodsPic;
     }
 
     public void setGoodsPic(List<String> goodsPic) {
         this.goodsPic = goodsPic;
+    }
+
+    public String getGoodsDetail() {
+        return goodsDetail;
+    }
+
+    public void setGoodsDetail(String goodsDetail) {
+        this.goodsDetail = goodsDetail;
     }
 
     public Date getCreateTime() {
