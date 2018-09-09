@@ -8,7 +8,7 @@ public interface UserService extends BaseService<User> {
 
     public List<User> selectAllUsers () throws Exception;
 
-    public int searchUser(String userName,String passWord) throws Exception;
+    public int searchUser(String userName,String passWord);
 
     public int addUser(User user) throws  Exception;
 

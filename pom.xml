@@ -88,6 +88,20 @@
             <version>1.2.33</version>
         </dependency>
 
+        <!-- util -->
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.33</version>
+        </dependency>
+        <!-- util -->
+
         <!--
         <dependency>
             <groupId>tk.mybatis</groupId>

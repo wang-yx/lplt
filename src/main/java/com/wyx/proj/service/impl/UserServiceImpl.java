@@ -1,6 +1,5 @@
 package com.wyx.proj.service.impl;
 
-import com.wyx.proj.dao.BaseDao;
 import com.wyx.proj.dao.UserDao;
 import com.wyx.proj.entity.User;
 import com.wyx.proj.service.UserService;
@@ -8,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service("userService")
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
@@ -24,7 +23,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public int searchUser(String userName, String passWord) throws Exception {
+    public int searchUser(String userName, String passWord){
 
         return getUserDao().selectUser(userName,passWord);
     }

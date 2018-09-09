@@ -2,8 +2,11 @@ package com.wyx.proj.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.wyx.proj.biz.UserBiz;
 import com.wyx.proj.entity.User;
+import com.wyx.proj.request.Login;
 import com.wyx.proj.service.UserService;
+import com.wyx.proj.util.Response;
 import com.wyx.proj.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value="/user")
@@ -27,6 +28,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private UserBiz userBiz;
 
     @RequestMapping(value = "getAllUsers",method = RequestMethod.GET)
     public Object getAllUsers(){
@@ -69,6 +72,7 @@ public class UserController {
         return ResponseUtil.ok(mapRrt);
     }
 
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public Object addUser(@FormParam("userJson") String userJson){
 
         logger.info("---addUser--params->userJson="+ userJson);
@@ -82,9 +86,14 @@ public class UserController {
             return ResponseUtil.err("保存失败："+e.getMessage(),"");
         }
         if (returnNum!=1){
-            return ResponseUtil.err("保存失败："+e.getMessage(),"");
+            return ResponseUtil.err("保存失败：","");
         }
         return ResponseUtil.ok("保存成功","");
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public Response<String> login(Login login){
+        return Response.success(userBiz.userLogin(login));
     }
 
 }
