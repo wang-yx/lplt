@@ -128,10 +128,8 @@
      
      body
      {
-          "page":{
-            "pageNo":1,
-            "pageSize":15
-          }
+          "newsType":1,
+          "size":5
      }
      
      result
@@ -141,8 +139,6 @@
                {
                     "newsId":123456789L,
                     "newsTitle":"",
-                    "picKey":"picKey",
-                    "introduce":"简介",
                     "createTime":yyyy-MM-dd HH:mm:ss
                     "updateTime":yyyy-MM-dd HH:mm:ss
                }
@@ -164,32 +160,10 @@
           "status":0,
           "data":{
                "newsId":123456789L,
-               "newsTitle":"标题",
-               "picKey":"picKey",
                "newsDetail":"",
-               "readNum":10,
                "createTime":yyyy-MM-dd HH:mm:ss,
                "updateTime":yyyy-MM-dd HH:mm:ss
           }
-     }
-     
-## 保存新闻
-
-     post
-     http://.../new/save
-     
-     body
-     {
-       "newsId":123456789,  //没有时新增
-       "newsTitle":"标题",
-       "picKey":"picKey",
-       "newsDetail":"",
-     }
-     
-     result
-     {
-          "status":0,
-          "data":"保存成功"
      }
  
 ## 商品列表
