@@ -43,11 +43,13 @@ public class PageResponse<T> {
         private int curPage;
         private int pageSize;
         private int totalSize;
+        private int totalPage;
 
         public PageData(PageRequest.Page page, int totalSize) {
             this.curPage = page.getPageNo();
             this.pageSize = page.getPageSize();
             this.totalSize = totalSize;
+            this.totalPage = (int)Math.ceil((double)totalSize / pageSize);
         }
 
         public int getCurPage() {
@@ -72,6 +74,14 @@ public class PageResponse<T> {
 
         public void setTotalSize(int totalSize) {
             this.totalSize = totalSize;
+        }
+
+        public int getTotalPage() {
+            return totalPage;
+        }
+
+        public void setTotalPage(int totalPage) {
+            this.totalPage = totalPage;
         }
     }
 }

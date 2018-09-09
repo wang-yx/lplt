@@ -2,7 +2,7 @@ package com.wyx.proj.request;
 
 public class PageRequest {
 
-    private Page page = new Page(1, 15);
+    public Page page = new Page(1, 15);
 
     public Page getPage() {
         return page;
