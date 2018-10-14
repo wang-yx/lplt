@@ -1,6 +1,10 @@
 package com.wyx.proj.request;
 
-public class PageRequest {
+import java.io.Serializable;
+
+public class PageRequest implements Serializable {
+
+    private static final long serialVersionUID = 4056467250135252959L;
 
     public Page page = new Page(1, 15);
 

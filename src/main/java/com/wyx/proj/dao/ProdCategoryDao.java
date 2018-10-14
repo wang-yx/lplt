@@ -76,7 +76,7 @@ public interface ProdCategoryDao {
 
     class Provider{
 
-        public String batchDeleteProd(Map map){
+        public String batchDeleteProdcategory(Map map){
             List<Integer> ids = (List<Integer>) map.get("list");
             StringBuilder sb = new StringBuilder();
             sb.append("delete from t_prodcategory where id in (");

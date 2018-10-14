@@ -2,13 +2,13 @@ package com.wyx.proj.request;
 
 public class ProductDetailRequest {
 
-    private Long goodsId;
+    private Long productId;
 
-    public Long getGoodsId() {
-        return goodsId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }

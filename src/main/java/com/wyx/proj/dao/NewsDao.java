@@ -50,7 +50,10 @@ public interface NewsDao {
             @Result(column = "show_homepage", property = "showHomepage"),
             @Result(column = "read_num", property = "readNum")
     })
-    public List<Product> selectAllNews();
+    public List<News> selectAllNews();
+
+    @Select("select count(*) from t_news where is_release=#{isRelease}")
+    public int count(int isRelease);
 
 
     /**
@@ -99,7 +102,7 @@ public interface NewsDao {
             @Result(column = "show_homepage", property = "showHomepage"),
             @Result(column = "read_num", property = "readNum")
     })
-    public List<Product> searchNews(String newName, Integer newCatg, Integer isRelease, Date startTime, Date endTime);
+    public List<News> searchNews(String newName, Integer newCatg, Integer isRelease,  Integer limit, Integer offset, Date startTime, Date endTime);
 
     /**
      * 根据id获取
@@ -181,7 +184,7 @@ public interface NewsDao {
 
     class Provider{
 
-        public String searchNews(String newName, Integer newCatg, Integer isRelease, Date startTime,Date endTime){
+        public String searchNews(String newName, Integer newCatg, Integer isRelease, Integer limit, Integer offset, Date startTime,Date endTime){
 
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_news where 1=1 ");
@@ -202,6 +205,10 @@ public interface NewsDao {
             }
             if(endTime!=null){
                 sb.append(" and create_time = "+ endTime +" " );
+            }
+
+            if(limit != null && offset != null){
+                sb.append(" limit " + offset + " " + limit);
             }
             return sb.toString();
         }

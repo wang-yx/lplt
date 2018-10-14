@@ -73,8 +73,8 @@ public interface UserDao {
      * @param passWord
      * @return
      */
-    @Select("select count(1) from t_users where user_name=#{userName} and pass_word=#{passWord} limt 1")
-    public int selectUser(String userName,String passWord);
+    @Select("select count(1) from t_users where user_name=#{userName} and pass_word=#{passWord} limit 1")
+    public int selectUser(@Param("userName") String userName, @Param("passWord") String passWord);
 
     /**
      * 批量删除

@@ -10,6 +10,7 @@ import com.wyx.proj.util.Response;
 import com.wyx.proj.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,7 +93,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Response<String> login(Login login){
+    public Response<String> login(@RequestBody Login login){
         return Response.success(userBiz.userLogin(login));
     }
 

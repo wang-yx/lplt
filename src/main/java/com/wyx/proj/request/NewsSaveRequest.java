@@ -2,16 +2,16 @@ package com.wyx.proj.request;
 
 public class NewsSaveRequest {
 
-    private int newsId;
+    private Integer newsId;
     private String newsTitle;
     private String picKey;
     private String newsDetail;
 
-    public int getNewsId() {
+    public Integer getNewsId() {
         return newsId;
     }
 
-    public void setNewsId(int newsId) {
+    public void setNewsId(Integer newsId) {
         this.newsId = newsId;
     }
 

@@ -20,8 +20,8 @@ public class UserBiz {
             @Override
             public void checkParams() {
                 WAssert.nutNull(login, "参数不能为空");
-                WAssert.isTrue(Strings.isNullOrEmpty(login.getUserName()), "用户名不能为空");
-                WAssert.isTrue(Strings.isNullOrEmpty(login.getPassword()), "密码不能为空");
+                WAssert.isTrue(!Strings.isNullOrEmpty(login.getUserName()), "用户名不能为空");
+                WAssert.isTrue(!Strings.isNullOrEmpty(login.getPassword()), "密码不能为空");
             }
 
             @Override

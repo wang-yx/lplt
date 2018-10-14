@@ -41,7 +41,7 @@ public class ProductServiceImpl extends BaseServiceImpl<User> implements Product
         System.out.println("--------"+ii);
 
 
-        List<Product> products =  getProdDao().searchProducts("Name",null,null,null,null);
+        List<Product> products =  getProdDao().searchProducts("Name",null,null, null, null, null,null,null);
 
         System.out.println("--------"+products.get(0).toString());
 
@@ -59,6 +59,14 @@ public class ProductServiceImpl extends BaseServiceImpl<User> implements Product
         return null;
     }
 
+    @Override
+    public List<Product> queryByCondition(Integer isRelease, Integer showHomepage, Integer pageNo, Integer pageSize) {
+        Integer offset = null;
+        if(pageNo != null && pageSize != null){
+            offset = (pageNo-1) * pageSize;
+        }
+        return getProdDao().searchProducts(null, null, isRelease, showHomepage, pageSize, offset, null, null);
+    }
 
 
     /**

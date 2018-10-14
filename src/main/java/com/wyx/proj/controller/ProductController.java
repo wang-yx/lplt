@@ -3,6 +3,7 @@ package com.wyx.proj.controller;
 
 import com.wyx.proj.biz.ProductBiz;
 import com.wyx.proj.entity.User;
+import com.wyx.proj.request.HomeProductRequest;
 import com.wyx.proj.request.ProductDetailRequest;
 import com.wyx.proj.request.ProductListRequest;
 import com.wyx.proj.request.ProductSaveRequest;
@@ -60,8 +61,8 @@ public class ProductController {
     }
 
     @PostMapping("list/homePage")
-    public Response<List<ProductListResponse>> listHomePage(@RequestBody Object request){
-        return Response.success(productBiz.listHomePage());
+    public Response<List<ProductListResponse>> listHomePage(@RequestBody HomeProductRequest request){
+        return Response.success(productBiz.listHomePage(request));
     }
 
 }

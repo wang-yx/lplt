@@ -98,7 +98,7 @@ public interface ProductDao {
             @Result(column = "release_time", property = "releaseTime"),
             @Result(column = "show_homepage", property = "showHomepage")
     })
-    public List<Product> searchProducts(String prodName, Integer prodCatg, Integer isRelease, Date startTime,Date endTime);
+    public List<Product> searchProducts(String prodName, Integer prodCatg, Integer isRelease, Integer showHomepage, Integer limit, Integer offset, Date startTime,Date endTime);
 
     /**
      * 根据id获取
@@ -171,7 +171,7 @@ public interface ProductDao {
 
     class Provider{
 
-        public String searchProducts(String prodName, Integer prodCatg, Integer isRelease, Date startTime,Date endTime){
+        public String searchProducts(String prodName, Integer prodCatg, Integer isRelease, Integer showHomepage, Integer limit, Integer offset, Date startTime,Date endTime){
 
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_product where 1=1 ");
@@ -187,11 +187,20 @@ public interface ProductDao {
             if(isRelease!=null){
                 sb.append(" and is_release = "+ isRelease +" " );
             }
+
+            if(showHomepage != null){
+                sb.append(" and show_homepage = " + showHomepage);
+            }
+
             if(startTime!=null){
                 sb.append(" and create_time >= "+ startTime +" " );
             }
             if(endTime!=null){
                 sb.append(" and create_time = "+ endTime +" " );
+            }
+
+            if(limit != null && offset != null){
+                sb.append(" limit " + offset + " " + limit);
             }
             return sb.toString();
         }

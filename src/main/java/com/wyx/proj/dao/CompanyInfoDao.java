@@ -156,7 +156,7 @@ public interface CompanyInfoDao {
      * @param ids
      * @return
      */
-    @UpdateProvider(type = NewsDao.Provider.class,method = "batchDeleteCompanyInfo")
+    @UpdateProvider(type = Provider.class,method = "batchDeleteCompanyInfo")
     public int batchDeleteCompanyInfo(List<Integer> ids);
 
 

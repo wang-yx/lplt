@@ -59,8 +59,7 @@
                  "productId":123456789L,
                  "productName":"",
                  "productPic":"key",
-                 "createTime":yyyy-MM-dd HH:mm:ss,
-                 "updateTime":yyyy-MM-dd HH:mm:ss
+                 "createTime":yyyy-MM-dd HH:mm:ss
             }
        ]
     }
@@ -148,7 +147,6 @@
                   "picKey":"",
                   "introduce":"",
                   "createTime":yyyy-MM-dd HH:mm:ss
-                  "updateTime":yyyy-MM-dd HH:mm:ss
                }
             ]
         }

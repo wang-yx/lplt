@@ -15,4 +15,6 @@ public interface ProductService extends BaseService<User> {
      */
     public List<Product> selectAllPics() throws Exception;
 
+    List<Product> queryByCondition(Integer isRelease, Integer showHomepage, Integer pageNo, Integer pageSize);
+
 }

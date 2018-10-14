@@ -22,9 +22,18 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
     @Override
     public List<News> queryNewsByCondition(NewsQueryParam param) {
 
+        Integer offset = null, limit = null;
+        if(param.getPage() != null){
+            offset = (param.getPage().getPageNo()-1) * param.getPage().getPageSize();
+            limit = param.getPage().getPageSize();
+        }
 
+        return getNewsDao().searchNews(null, null, 1, limit, offset, null, null);
+    }
 
-        return null;
+    @Override
+    public int count(int isRelease) {
+        return getNewsDao().count(isRelease);
     }
 
     @Override
@@ -34,7 +43,12 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
 
     @Override
     public boolean save(News news) {
-        return false;
+        return getNewsDao().insertNew(news) > 0;
+    }
+
+    @Override
+    public boolean update(News news) {
+        return getNewsDao().updateNew(news) > 0;
     }
 
     @Override
