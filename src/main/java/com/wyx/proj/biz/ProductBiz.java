@@ -48,11 +48,11 @@ public class ProductBiz {
             @Override
             public List<ProductListResponse> process() throws Exception {
 
-                List<Product> productList = productService.queryByCondition(1, 1, null, null);
-
-                if(productList != null){
-                    return productList.stream().map(ProductAdapter::adapterHomeRepsonse).collect(Collectors.toList());
-                }
+//                List<Product> productList = productService.queryByCondition(1, 1, null, null);
+//
+//                if(productList != null){
+//                    return productList.stream().map(ProductAdapter::adapterHomeRepsonse).collect(Collectors.toList());
+//                }
                 return Lists.newArrayList();
             }
 

@@ -4,15 +4,17 @@ import java.util.Date;
 
 public class News extends BaseEntity {
 
-    private int id;
+    private Integer id;
 
     private String newName;  //新闻名称
 
-    private String newImgskey; //小图片，目录中显示
+    private String newImgskey; //小图片，目录中显示 预留
 
-    private String newImgmkey; //中图片，list中显示
+    private String newImgmkey; //中图片，list中显示 预留
 
-    private String newImglkey; //大图片
+    private String newImglkey; //大图片 预留
+
+    private String newImg; //图片 关联图片id
 
     private String newIntroduce; //新闻简介
 
@@ -22,19 +24,19 @@ public class News extends BaseEntity {
 
     private Date createTime; //创建时间
 
-    private int isRelease; //是否发布，0不发布，1发布
+    private Integer isRelease; //是否发布，0不发布，1发布
 
     private Date releaseTime; //发布时间
 
-    private int showHomepage; //是否显示在首页，0不显示，1显示
+    private Integer showHomepage; //是否显示在首页，0不显示，1显示
 
-    private int readNum;//浏览量
+    private Integer readNum;//浏览量
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -102,11 +104,11 @@ public class News extends BaseEntity {
         this.createTime = createTime;
     }
 
-    public int getIsRelease() {
+    public Integer getIsRelease() {
         return isRelease;
     }
 
-    public void setIsRelease(int isRelease) {
+    public void setIsRelease(Integer isRelease) {
         this.isRelease = isRelease;
     }
 
@@ -118,20 +120,28 @@ public class News extends BaseEntity {
         this.releaseTime = releaseTime;
     }
 
-    public int getShowHomepage() {
+    public Integer getShowHomepage() {
         return showHomepage;
     }
 
-    public void setShowHomepage(int showHomepage) {
+    public void setShowHomepage(Integer showHomepage) {
         this.showHomepage = showHomepage;
     }
 
-    public int getReadNum() {
+    public Integer getReadNum() {
         return readNum;
     }
 
-    public void setReadNum(int readNum) {
+    public void setReadNum(Integer readNum) {
         this.readNum = readNum;
+    }
+
+    public String getNewImg() {
+        return newImg;
+    }
+
+    public void setNewImg(String newImg) {
+        this.newImg = newImg;
     }
 
     @Override
@@ -141,6 +151,7 @@ public class News extends BaseEntity {
                 +"; newImgskey:"+ newImgskey
                 +"; newImgmkey:"+ newImgmkey
                 +"; newImglkey:"+ newImglkey
+                +"; newImg:"+ newImg
                 +"; newIntroduce:"+ newIntroduce
                 +"; newDetail:"+ newDetail
                 +"; newComment:"+ newComment

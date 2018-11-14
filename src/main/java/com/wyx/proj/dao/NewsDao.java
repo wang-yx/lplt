@@ -8,6 +8,7 @@ import com.wyx.proj.entity.Product;
 import com.wyx.proj.entity.User;
 import org.apache.ibatis.annotations.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public interface NewsDao {
             @Result(column = "new_imgskey", property = "newImgskey"),
             @Result(column = "new_imgmkey", property = "newImgmkey"),
             @Result(column = "new_imglkey", property = "newImglkey"),
+            @Result(column = "new_img", property = "newImg"),
             @Result(column = "new_introduce", property = "newIntroduce"),
             @Result(column = "new_detail", property = "newDetail"),
             @Result(column = "new_comment", property = "newComment"),
@@ -66,6 +68,7 @@ public interface NewsDao {
             @Result(column = "new_imgskey", property = "newImgskey"),
             @Result(column = "new_imgmkey", property = "newImgmkey"),
             @Result(column = "new_imglkey", property = "newImglkey"),
+            @Result(column = "new_img", property = "newImg"),
             @Result(column = "new_introduce", property = "newIntroduce"),
             @Result(column = "new_detail", property = "newDetail"),
             @Result(column = "new_comment", property = "newComment"),
@@ -75,13 +78,24 @@ public interface NewsDao {
             @Result(column = "show_homepage", property = "showHomepage"),
             @Result(column = "read_num", property = "readNum")
     })
-    public List<Product> selectAllReleaseNews(int isRelease);
+    public List<News> selectAllReleaseNews(int isRelease);
 
 
     /**
      * 查询符合条件的新闻
      * @param newName
-     * @param newCatg
+     * @param isRelease
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @SelectProvider(type =Provider.class,method = "searchNewsCount")
+    public int searchNewsCount(String newName, Integer isRelease, Date startTime, Date endTime);
+
+
+    /**
+     * 查询符合条件的新闻
+     * @param newName
      * @param isRelease
      * @param startTime
      * @param endTime
@@ -93,6 +107,7 @@ public interface NewsDao {
             @Result(column = "new_imgskey", property = "newImgskey"),
             @Result(column = "new_imgmkey", property = "newImgmkey"),
             @Result(column = "new_imglkey", property = "newImglkey"),
+            @Result(column = "new_img", property = "newImg"),
             @Result(column = "new_introduce", property = "newIntroduce"),
             @Result(column = "new_detail", property = "newDetail"),
             @Result(column = "new_comment", property = "newComment"),
@@ -102,7 +117,9 @@ public interface NewsDao {
             @Result(column = "show_homepage", property = "showHomepage"),
             @Result(column = "read_num", property = "readNum")
     })
-    public List<News> searchNews(String newName, Integer newCatg, Integer isRelease,  Integer limit, Integer offset, Date startTime, Date endTime);
+    public List<News> searchNews(String newName, Integer isRelease,  Integer limit, Integer offset, Date startTime, Date endTime);
+
+
 
     /**
      * 根据id获取
@@ -114,6 +131,7 @@ public interface NewsDao {
             @Result(column = "new_imgskey", property = "newImgskey"),
             @Result(column = "new_imgmkey", property = "newImgmkey"),
             @Result(column = "new_imglkey", property = "newImglkey"),
+            @Result(column = "new_img", property = "newImg"),
             @Result(column = "new_introduce", property = "newIntroduce"),
             @Result(column = "new_detail", property = "newDetail"),
             @Result(column = "new_comment", property = "newComment"),
@@ -123,15 +141,15 @@ public interface NewsDao {
             @Result(column = "show_homepage", property = "showHomepage"),
             @Result(column = "read_num", property = "readNum")
     })
-    public Product selectNewById(int id);
+    public News selectNewById(int id);
 
     /**
      * 插入数据
      * @param news
      * @return
      */
-    @Insert("insert into t_news(new_name,new_imgskey,new_imgmkey,new_imglkey,new_introduce,new_detail,new_comment,is_release,show_homepage) " +
-            "values(#{newName},#{newImgskey},#{newImgmkey},#{newImglkey},#{newIntroduce},#{newDetail},#{newComment},#{isRelease},#{showHomepage})")
+    @Insert("insert into t_news(new_name,new_imgskey,new_imgmkey,new_imglkey,new_img,new_introduce,new_detail,new_comment,is_release,show_homepage) " +
+            "values(#{newName},#{newImgskey},#{newImgmkey},#{newImglkey},#{newImg},#{newIntroduce},#{newDetail},#{newComment},#{isRelease},#{showHomepage})")
     public int insertNew(News news);
 
     /**
@@ -139,10 +157,14 @@ public interface NewsDao {
      * @param news
      * @return
      */
-    @Update("update t_news set new_name=#{newName},new_imgskey=#{newImgskey},new_imgmkey=#{newImgmkey}" +
-            ",new_imglkey=#{newImglkey},new_introduce=#{newIntroduce},new_detail=#{newDetail},new_comment=#{newComment}" +
-            ",is_release=#{isRelease},show_homepage=#{showHomepage} where id=#{id} ")
+    @UpdateProvider(type =Provider.class,method = "updateNews")
     public int updateNew(News news);
+
+
+//    @Update("update t_news set new_name=#{newName},new_imgskey=#{newImgskey},new_imgmkey=#{newImgmkey}" +
+//            ",new_imglkey=#{newImglkey},new_introduce=#{newIntroduce},new_detail=#{newDetail},new_comment=#{newComment}" +
+//            ",is_release=#{isRelease},show_homepage=#{showHomepage} where id=#{id} ")
+//    public int updateNew(News news);
 
     /**
      * 跟新showHomepage字段
@@ -172,6 +194,15 @@ public interface NewsDao {
     @Update("update t_news set is_release=#{isRelease},release_time=#{releaseTime} where id=#{id} ")
     public int updateNewIsRelease(int id,int isRelease,Date releaseTime);
 
+
+    /**
+     * @param id
+     * @return
+     */
+    @Update("delete from t_news where id=#{id} ")
+    public int deleteNewById(int id);
+
+
     /**
      * 批量删除
      * @param ids
@@ -183,32 +214,52 @@ public interface NewsDao {
 
 
     class Provider{
+        SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        public String searchNews(String newName, Integer newCatg, Integer isRelease, Integer limit, Integer offset, Date startTime,Date endTime){
+        public String searchNewsCount(String newName, Integer isRelease, Date startTime,Date endTime){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select * from t_news where 1=1 ");
+            sb.append("select count(1) from t_news where 1=1 ");
 
             if(!StringUtils.isEmpty(newName)){
                 sb.append(" and new_name like '%"+ newName +"%' " );
             }
-
-            if(newCatg!=null){
-                sb.append(" and new_catg = "+ newCatg + " " );
-            }
-
             if(isRelease!=null){
                 sb.append(" and is_release = "+ isRelease +" " );
             }
             if(startTime!=null){
-                sb.append(" and create_time >= "+ startTime +" " );
+                String startTimeStr = s.format(startTime);
+                sb.append(" and create_time >= '"+ startTimeStr +"' " );
             }
             if(endTime!=null){
-                sb.append(" and create_time = "+ endTime +" " );
+                String endTimeStr = s.format(endTime);
+                sb.append(" and create_time <= '"+ endTimeStr +"' " );
+            }
+            System.out.println("---sql-->"+sb.toString());
+            return sb.toString();
+        }
+
+        public String searchNews(String newName, Integer isRelease, Integer limit, Integer offset, Date startTime,Date endTime){
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("select * from t_news where 1=1 ");
+            if(!StringUtils.isEmpty(newName)){
+                sb.append(" and new_name like '%"+ newName +"%' " );
+            }
+            if(isRelease!=null){
+                sb.append(" and is_release = "+ isRelease +" " );
+            }
+            if(startTime!=null){
+                String startTimeStr = s.format(startTime);
+                sb.append(" and create_time >= '"+ startTimeStr +"' " );
+            }
+            if(endTime!=null){
+                String endTimeStr = s.format(endTime);
+                sb.append(" and create_time <= '"+ endTimeStr +"' " );
             }
 
             if(limit != null && offset != null){
-                sb.append(" limit " + offset + " " + limit);
+                sb.append("  order by create_time desc  limit " + offset + "," + limit);
             }
             return sb.toString();
         }
@@ -226,5 +277,52 @@ public interface NewsDao {
             sb.append(")");
             return sb.toString();
         }
+
+        public String updateNews(News news){
+            StringBuilder sb = new StringBuilder();
+            sb.append("update t_news set (");
+
+
+            if(news.getNewName()!=null){
+                sb.append(" new_name='"+ news.getNewName() +"',");
+            }
+
+            if(news.getNewImglkey()!=null){
+                sb.append(" new_img='"+ news.getNewImg() +"',");
+            }
+
+            if(news.getNewIntroduce()!=null){
+                sb.append(" new_introduce='"+ news.getNewIntroduce() +"',");
+            }
+
+            if(news.getNewDetail()!=null){
+                sb.append(" new_detail='"+ news.getNewDetail() +"',");
+            }
+
+            if(news.getNewComment()!=null){
+                sb.append(" new_comment='"+ news.getNewComment() +"',");
+            }
+
+            if(news.getIsRelease()!=null){
+                String nowStr = s.format(new Date());
+                sb.append(" is_release="+ news.getIsRelease() +",");
+                sb.append(" release_time='"+ nowStr +"',");
+            }
+
+            if(news.getShowHomepage()!=null){
+                sb.append(" show_homepage="+ news.getShowHomepage() +",");
+            }
+
+            if(news.getReadNum()!=null){
+                sb.append(" read_num="+ news.getReadNum() +",");
+            }
+
+            String tempSql = sb.toString().substring(sb.toString().length()-1);
+
+            tempSql += " where id=" + news.getId();
+
+            return tempSql;
+        }
+
     }
 }

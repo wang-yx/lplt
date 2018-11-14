@@ -43,4 +43,4 @@ scheduleTask:
     switch: close  # 开启 open ； 关闭 close
 
 uploadFile:
-    path: /Users/baidu/soft/workspace/workspace-test/project-proj/
+    path: /Users/baidu/soft/workspace/workspace-test/lplt/

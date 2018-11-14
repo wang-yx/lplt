@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 public class DataSourceConfig implements EnvironmentAware {
-
     /*
     实现EnvironmentAware接口重写setEnvironment方法可以获取到系统的环境变量
      */
@@ -24,6 +23,9 @@ public class DataSourceConfig implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment environment) {
+
+        System.out.println("--------"+environment.getProperty("spring.datasource.driverClassName"));
+
         /*
         通过pproperties的前缀获取
          */

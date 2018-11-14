@@ -56,6 +56,22 @@ public interface PictureDao {
     public List<Picture> selectCatgAllPic(int imgCatg);
 
     /**
+     * 查询某类型的所有图片信息
+     * @return
+     */
+    @Select("select * from t_picture where img_catg=#{imgCatg} and is_release=#{isRelease}")
+    @Results({
+            @Result(property = "imgKey",column = "img_key"),
+            @Result(property = "imgPath",column = "img_path"),
+            @Result(property = "imgCatg",column = "img_catg"),
+            @Result(property = "imgComment",column = "img_comment"),
+            @Result(property = "createTime",column = "create_time"),
+            @Result(property = "isRelease",column = "is_release"),
+            @Result(property = "releaseTime",column = "release_time")
+    })
+    public List<Picture> selectCatgSomePic(int imgCatg,int isRelease);
+
+    /**
      * 根据key查询图片路径
      * @param key
      * @return
@@ -79,7 +95,8 @@ public interface PictureDao {
      * @return
      */
     @Insert("insert into t_picture (img_key,img_path,img_catg,img_comment,create_time,is_release,release_time) " +
-            "values(#{imgKey}, #{imgPath}, #{imgCatg},{imgComment}, #{createTime}, #{isRelease}, #{releaseTime})")
+            "values(#{imgKey}, #{imgPath}, #{imgCatg},#{imgComment}, #{createTime}, #{isRelease}, #{releaseTime})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public int insertPic(Picture picture);
 
     /**
@@ -127,6 +144,15 @@ public interface PictureDao {
      */
     @Select("select count(1) from t_picture where img_catg=#{imgCatg}")
     public int countCatgPic(int imgCatg);
+
+
+    /**
+     * 统计不同种类的图片的count
+     * @return
+     */
+    @Select("update t_picture set isRelease=1 where id=#{imgid}")
+    public int releaseImg(int imgid);
+
 
     class Provider{
         /**

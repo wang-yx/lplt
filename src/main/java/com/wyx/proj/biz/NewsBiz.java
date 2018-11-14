@@ -41,10 +41,10 @@ public class NewsBiz {
                 List<NewsListResponse> responseList = Lists.newArrayList();
                 if(count > 0){
                     NewsQueryParam param = new NewsQueryParam(request.getPage());
-                    List<News> newsList = newsService.queryNewsByCondition(param);
-                    if(newsList != null){
-                        responseList = newsList.stream().map(NewsAdapter::adapterResponse).collect(Collectors.toList());
-                    }
+//                    List<News> newsList = newsService.queryNewsByCondition(param);
+//                    if(newsList != null){
+//                        responseList = newsList.stream().map(NewsAdapter::adapterResponse).collect(Collectors.toList());
+//                    }
                 }
 
                 PageResponse.PageData pageData = new PageResponse.PageData(request.getPage(), count);
@@ -55,6 +55,10 @@ public class NewsBiz {
     }
 
     public NewsDetailResponse detail(@RequestBody NewsDetailRequest request){
+
+
+
+
         return null;
     }
 

@@ -8,13 +8,15 @@ public class Product extends BaseEntity {
 
     private String prodName;  //产品名称
 
-    private int prodCatg; //产品分类
+    private Integer prodCatg; //产品分类
 
     private String prodImgskey; //小图片，目录中显示
 
     private String prodImgmkey; //中图片，list中显示
 
     private String prodImglkey; //大图片
+
+    private String prodImg; //图片ID
 
     private String prodIntroduce; //产品简介
 
@@ -24,11 +26,11 @@ public class Product extends BaseEntity {
 
     private Date createTime; //创建时间
 
-    private int isRelease; //是否发布，0不发布，1发布
+    private Integer isRelease; //是否发布，0不发布，1发布
 
     private Date releaseTime; //发布时间
 
-    private int showHomepage; //是否显示在首页，0不显示，1显示
+    private Integer showHomepage; //是否显示在首页，0不显示，1显示
 
 
     public int getId() {
@@ -47,11 +49,11 @@ public class Product extends BaseEntity {
         this.prodName = prodName;
     }
 
-    public int getProdCatg() {
+    public Integer getProdCatg() {
         return prodCatg;
     }
 
-    public void setProdCatg(int prodCatg) {
+    public void setProdCatg(Integer prodCatg) {
         this.prodCatg = prodCatg;
     }
 
@@ -111,11 +113,11 @@ public class Product extends BaseEntity {
         this.createTime = createTime;
     }
 
-    public int getIsRelease() {
+    public Integer getIsRelease() {
         return isRelease;
     }
 
-    public void setIsRelease(int isRelease) {
+    public void setIsRelease(Integer isRelease) {
         this.isRelease = isRelease;
     }
 
@@ -127,12 +129,20 @@ public class Product extends BaseEntity {
         this.releaseTime = releaseTime;
     }
 
-    public int getShowHomepage() {
+    public Integer getShowHomepage() {
         return showHomepage;
     }
 
-    public void setShowHomepage(int showHomepage) {
+    public void setShowHomepage(Integer showHomepage) {
         this.showHomepage = showHomepage;
+    }
+
+    public String getProdImg() {
+        return prodImg;
+    }
+
+    public void setProdImg(String prodImg) {
+        this.prodImg = prodImg;
     }
 
     @Override
@@ -143,6 +153,7 @@ public class Product extends BaseEntity {
                 +"; prodImgskey:"+ prodImgskey
                 +"; prodImgmkey:"+ prodImgmkey
                 +"; prodImglkey:"+ prodImglkey
+                +"; prodImg:"+ prodImg
                 +"; prodIntroduce:"+ prodIntroduce
                 +"; prodDetail:"+ prodDetail
                 +"; prodComment:"+ prodComment
