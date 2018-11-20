@@ -2,32 +2,28 @@ package com.wyx.proj.entity;
 
 import java.util.Date;
 
-public class Product extends BaseEntity {
+public class New extends BaseEntity {
 
-    private int id;
+    private Integer id;
     private Integer englishid;
     private Integer chineseid;
-    private Integer categoryid;
-    private String img;
-    private String servicehotline; //服务热线
-    private String salehotline; //销售热线
-    private Date createtime; //创建时间
+    private String img; //图片 关联图片id
     private Date updatetime; //创建时间
+    private Date createtime; //创建时间
     private Integer isrelease; //是否发布，0不发布，1发布
     private Date releasetime; //发布时间
     private Integer showhomepage; //是否显示在首页，0不显示，1显示
+    private Integer readnum;//浏览量
 
-    private String name;  //这个name只做临时展现用
+    private String name; //只用于展示name（中英文都会用到）
+    private NewDetail newDetail_ch;
+    private NewDetail newDetail_en;
 
-    private ProductDetail detail_ch;
-
-    private ProductDetail detail_en;
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,14 +43,6 @@ public class Product extends BaseEntity {
         this.chineseid = chineseid;
     }
 
-    public Integer getCategoryid() {
-        return categoryid;
-    }
-
-    public void setCategoryid(Integer categoryid) {
-        this.categoryid = categoryid;
-    }
-
     public String getImg() {
         return img;
     }
@@ -63,20 +51,12 @@ public class Product extends BaseEntity {
         this.img = img;
     }
 
-    public String getServicehotline() {
-        return servicehotline;
+    public Date getUpdatetime() {
+        return updatetime;
     }
 
-    public void setServicehotline(String servicehotline) {
-        this.servicehotline = servicehotline;
-    }
-
-    public String getSalehotline() {
-        return salehotline;
-    }
-
-    public void setSalehotline(String salehotline) {
-        this.salehotline = salehotline;
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 
     public Date getCreatetime() {
@@ -85,14 +65,6 @@ public class Product extends BaseEntity {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
     }
 
     public Integer getIsrelease() {
@@ -119,20 +91,12 @@ public class Product extends BaseEntity {
         this.showhomepage = showhomepage;
     }
 
-    public ProductDetail getDetail_ch() {
-        return detail_ch;
+    public Integer getReadnum() {
+        return readnum;
     }
 
-    public void setDetail_ch(ProductDetail detail_ch) {
-        this.detail_ch = detail_ch;
-    }
-
-    public ProductDetail getDetail_en() {
-        return detail_en;
-    }
-
-    public void setDetail_en(ProductDetail detail_en) {
-        this.detail_en = detail_en;
+    public void setReadnum(Integer readnum) {
+        this.readnum = readnum;
     }
 
     public String getName() {
@@ -143,10 +107,19 @@ public class Product extends BaseEntity {
         this.name = name;
     }
 
-    @Override
-    public String toString(){
-
-        return null;
+    public NewDetail getNewDetail_ch() {
+        return newDetail_ch;
     }
 
+    public void setNewDetail_ch(NewDetail newDetail_ch) {
+        this.newDetail_ch = newDetail_ch;
+    }
+
+    public NewDetail getNewDetail_en() {
+        return newDetail_en;
+    }
+
+    public void setNewDetail_en(NewDetail newDetail_en) {
+        this.newDetail_en = newDetail_en;
+    }
 }

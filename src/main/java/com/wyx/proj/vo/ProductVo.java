@@ -1,8 +1,10 @@
-package com.wyx.proj.entity;
+package com.wyx.proj.vo;
+
+import com.wyx.proj.entity.BaseEntity;
 
 import java.util.Date;
 
-public class Product extends BaseEntity {
+public class ProductVo extends BaseEntity {
 
     private int id;
     private Integer englishid;
@@ -17,11 +19,33 @@ public class Product extends BaseEntity {
     private Date releasetime; //发布时间
     private Integer showhomepage; //是否显示在首页，0不显示，1显示
 
-    private String name;  //这个name只做临时展现用
+    private String name;  //产品名称
+    private String maker; //制造商
+    private String dealer; //经销商
+    private String type; //型号
+    private String brand; //品牌
+    private String source; //来源
+    private String introduce; //产品简介
+    private String techadvantage; //技术优势
+    private String techparams; //技术参数
+    private String applicationarea; //应用场景
+    private String detail; //产品详细
+    private String comment; // 公司备注
 
-    private ProductDetail detail_ch;
+    private String en_name;  //产品名称
+    private String en_maker; //制造商
+    private String en_dealer; //经销商
+    private String en_type; //型号
+    private String en_brand; //品牌
+    private String en_source; //来源
+    private String en_introduce; //产品简介
+    private String en_techadvantage; //技术优势
+    private String en_techparams; //技术参数
+    private String en_applicationarea; //应用场景
+    private String en_detail; //产品详细
+    private String en_comment; // 公司备注
 
-    private ProductDetail detail_en;
+
 
     public int getId() {
         return id;
@@ -117,30 +141,6 @@ public class Product extends BaseEntity {
 
     public void setShowhomepage(Integer showhomepage) {
         this.showhomepage = showhomepage;
-    }
-
-    public ProductDetail getDetail_ch() {
-        return detail_ch;
-    }
-
-    public void setDetail_ch(ProductDetail detail_ch) {
-        this.detail_ch = detail_ch;
-    }
-
-    public ProductDetail getDetail_en() {
-        return detail_en;
-    }
-
-    public void setDetail_en(ProductDetail detail_en) {
-        this.detail_en = detail_en;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

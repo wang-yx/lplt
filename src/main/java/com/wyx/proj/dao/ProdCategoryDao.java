@@ -15,23 +15,11 @@ import java.util.Map;
 @Mapper
 public interface ProdCategoryDao {
 
-    /*
-    private String catgName;   //类别名称
-    private String catgComment; //类别备注
-    private Date createTime; //创建时间
-     */
-
-
     /**
      * 所有产品类别
      * @return
      */
-    @Select("select * from t_prodcategory order by create_time desc ")
-    @Results({
-            @Result(column = "catg_name", property = "catgName"),
-            @Result(column = "catg_comment", property = "catgComment"),
-            @Result(column = "create_time", property = "createTime")
-    })
+    @Select("select * from t_prodcategory order by createtime desc ")
     public List<Prodcategory> selectAllProdcategoris();
 
 
@@ -40,11 +28,6 @@ public interface ProdCategoryDao {
      * @return
      */
     @Select("select * from t_prodcategory where id=#{id} ")
-    @Results({
-            @Result(column = "catg_name", property = "catgName"),
-            @Result(column = "catg_comment", property = "catgComment"),
-            @Result(column = "create_time", property = "createTime")
-    })
     public Prodcategory selectProdcategoryById(int id);
 
     /**
@@ -52,7 +35,7 @@ public interface ProdCategoryDao {
      * @param prodcategory
      * @return
      */
-    @Insert("insert into t_prodcategory(catg_name,catg_comment) values(#{catgName},#{catgComment})")
+    @Insert("insert into t_prodcategory(name,nameen,comment) values(#{name},#{nameen},#{comment})")
     public int insertProdcategory(Prodcategory prodcategory);
 
     /**
@@ -60,7 +43,7 @@ public interface ProdCategoryDao {
      * @param prodcategory
      * @return
      */
-    @Update("update t_prodcategory set catg_name=#{catgName},catg_comment=#{catgComment} where id=#{id} ")
+    @Update("update t_prodcategory set name=#{name},nameen=#{nameen},comment=#{comment} where id=#{id} ")
     public int updateProdcategory(Prodcategory prodcategory);
 
 

@@ -1,9 +1,8 @@
 package com.wyx.proj.biz;
 
 import com.google.common.collect.Lists;
-import com.wyx.proj.adapter.NewsAdapter;
 import com.wyx.proj.common.BizTemplate;
-import com.wyx.proj.entity.News;
+import com.wyx.proj.entity.New;
 import com.wyx.proj.param.NewsQueryParam;
 import com.wyx.proj.request.NewsDetailRequest;
 import com.wyx.proj.request.NewsListRequest;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Component
 public class NewsBiz {
@@ -77,16 +74,16 @@ public class NewsBiz {
                     return "添加成功";
                 }else{
                     //update
-                    News news = newsService.queryNewsDetail(request.getNewsId());
+                    New news = newsService.queryNewsDetail(request.getNewsId());
                     WAssert.nutNull(news, String.format("新闻不存在:%s", request.getNewsId()));
                     newsService.save(adatperNews(news, request));
                     return "更新成功";
                 }
             }
 
-            protected News adatperNews(News news, NewsSaveRequest detail){
+            protected New adatperNews(New news, NewsSaveRequest detail){
                 if(news == null){
-                    news = new News();
+                    news = new New();
                 }
                 news.setNewName(detail.getNewsTitle());
                 news.setNewImglkey(detail.getPicKey());

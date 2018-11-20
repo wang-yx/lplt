@@ -2,16 +2,8 @@ package com.wyx.proj.controller;
 
 import com.wyx.proj.bean.NewsBean;
 import com.wyx.proj.bean.PageResponseBean;
-import com.wyx.proj.biz.NewsBiz;
-import com.wyx.proj.entity.News;
-import com.wyx.proj.request.NewsDetailRequest;
-import com.wyx.proj.request.NewsListRequest;
-import com.wyx.proj.request.NewsSaveRequest;
-import com.wyx.proj.response.NewsDetailResponse;
-import com.wyx.proj.response.NewsListResponse;
-import com.wyx.proj.response.PageResponse;
+import com.wyx.proj.entity.New;
 import com.wyx.proj.service.NewsService;
-import com.wyx.proj.util.Response;
 import com.wyx.proj.util.ResponseUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +19,7 @@ public class NewsController {
 
     @PostMapping(value = "list")
     public Object list(@RequestBody NewsBean request){
-        PageResponseBean<News> result = null;
+        PageResponseBean<New> result = null;
         try {
             result = newsService.queryNewsByCondition(request);
         } catch (Exception e) {
@@ -42,7 +34,7 @@ public class NewsController {
 
     @PostMapping(value = "detail")
     public Object detail(@FormParam("id") int id){
-        News news = null;
+        New news = null;
         try {
             news = newsService.queryNewsDetail(id);
         } catch (Exception e) {
@@ -53,7 +45,7 @@ public class NewsController {
     }
 
     @PostMapping(value = "save")
-    public Object save(@RequestBody News news){
+    public Object save(@RequestBody New news){
         try {
             newsService.save(news);
         } catch (Exception e) {

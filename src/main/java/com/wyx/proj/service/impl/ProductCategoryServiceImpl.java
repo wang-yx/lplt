@@ -22,21 +22,21 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
 
     @Override
     public List<Prodcategory> selectAll() throws Exception {
-        return getProdDao().selectAllProdcategoris();
+        return getProdCategoryDao().selectAllProdcategoris();
     }
 
     @Override
     public Prodcategory getProdDetail(int id) throws Exception {
-        return getProdDao().selectProdcategoryById(id);
+        return getProdCategoryDao().selectProdcategoryById(id);
     }
 
     @Override
     public boolean save(Prodcategory prodcategory) throws Exception {
         int resultNum = 0;
         if(prodcategory.getId()!=0){
-            resultNum = getProdDao().updateProdcategory(prodcategory);
+            resultNum = getProdCategoryDao().updateProdcategory(prodcategory);
         }else{
-            resultNum = getProdDao().insertProdcategory(prodcategory);
+            resultNum = getProdCategoryDao().insertProdcategory(prodcategory);
         }
         return resultNum>0;
     }
@@ -45,14 +45,14 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
     public boolean deleteProdcategoryByid(int id) throws Exception {
         List<Integer> ids = new ArrayList<>();
         ids.add(id);
-        return getProdDao().batchDeleteProdcategory(ids)>0;
+        return getProdCategoryDao().batchDeleteProdcategory(ids)>0;
     }
 
     /**
      *  ProdCategoryDao
      * @return
      */
-    public ProdCategoryDao getProdDao() {
+    public ProdCategoryDao getProdCategoryDao() {
         return getBaseDao().getMapper(ProdCategoryDao.class);
     }
 }

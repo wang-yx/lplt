@@ -3,30 +3,15 @@ package com.wyx.proj.controller;
 
 import com.wyx.proj.bean.PageResponseBean;
 import com.wyx.proj.bean.ProductBean;
-import com.wyx.proj.biz.ProductBiz;
-import com.wyx.proj.entity.News;
 import com.wyx.proj.entity.Product;
-import com.wyx.proj.entity.User;
-import com.wyx.proj.request.HomeProductRequest;
-import com.wyx.proj.request.ProductDetailRequest;
-import com.wyx.proj.request.ProductListRequest;
-import com.wyx.proj.request.ProductSaveRequest;
-import com.wyx.proj.response.PageResponse;
-import com.wyx.proj.response.ProductDetailResponse;
-import com.wyx.proj.response.ProductListResponse;
 import com.wyx.proj.service.ProductService;
-import com.wyx.proj.service.UserService;
-import com.wyx.proj.util.Response;
 import com.wyx.proj.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value="/product")
@@ -78,7 +63,7 @@ public class ProductController {
     public Object listHomePage(){
         PageResponseBean<Product> result = null;
         ProductBean productBean = new ProductBean();
-        productBean.setShowHomePage(1);
+        productBean.setShowhomepage(1);
         try {
             result = productService.queryByCondition(productBean);
         } catch (Exception e) {

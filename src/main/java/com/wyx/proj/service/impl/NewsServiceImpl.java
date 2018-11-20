@@ -2,39 +2,43 @@ package com.wyx.proj.service.impl;
 
 import com.wyx.proj.bean.NewsBean;
 import com.wyx.proj.bean.PageResponseBean;
-import com.wyx.proj.dao.NewsDao;
-import com.wyx.proj.entity.News;
+import com.wyx.proj.dao.NewDao;
+import com.wyx.proj.dao.NewDetailDao;
+import com.wyx.proj.entity.New;
+import com.wyx.proj.entity.NewDetail;
 import com.wyx.proj.service.NewsService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsService {
+@Service("newsService")
+@Transactional
+public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService {
 
-    /**
-     *  NewDao
-     * @return
-     */
-    public NewsDao getNewsDao() {
-        return getBaseDao().getMapper(NewsDao.class);
+
+    public NewDao getNewsDao() {
+        return getBaseDao().getMapper(NewDao.class);
+    }
+    public NewDetailDao getNewDetailDao() {
+        return getBaseDao().getMapper(NewDetailDao.class);
     }
 
     @Override
-    public PageResponseBean<News> queryNewsByCondition(NewsBean newsBean) throws Exception {
-        PageResponseBean<News> pageNewsBean = new PageResponseBean<>();
-        int countNum = getNewsDao().searchNewsCount(newsBean.getNewsName(),newsBean.getIsRelease(),
-                newsBean.getStartTime(),newsBean.getEndTime());
+    public PageResponseBean<New> queryNewsByCondition(NewsBean newsBean) throws Exception {
+        PageResponseBean<New> pageNewsBean = new PageResponseBean<>();
+        int countNum = getNewsDao().searchNewsCount(newsBean.getName(),newsBean.getIsrelease(),
+                newsBean.getStarttime(),newsBean.getEndtime(),newsBean.getLanguage());
 
-        List<News> tempNewsList = new ArrayList<>();
+        List<New> tempNewsList = new ArrayList<>();
 
         if(countNum>0){
             Integer offset = null, limit = null;
             offset = (newsBean.getPageNo()-1) * newsBean.getPageSize();
             limit = newsBean.getPageSize();
-            tempNewsList = getNewsDao().searchNews(newsBean.getNewsName(),newsBean.getIsRelease(),limit,
-                    offset,newsBean.getStartTime(),newsBean.getEndTime());
+            tempNewsList = getNewsDao().searchNews(newsBean.getName(),newsBean.getIsrelease(),limit,
+                    offset,newsBean.getStarttime(),newsBean.getEndtime(),newsBean.getLanguage());
             pageNewsBean = new PageResponseBean(newsBean.getPageNo(),newsBean.getPageSize(),countNum,tempNewsList);
         }else{
             pageNewsBean = new PageResponseBean(1,15,0,tempNewsList);
@@ -48,23 +52,51 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
     }
 
     @Override
-    public News queryNewsDetail(int newsId) throws Exception {
-        return getNewsDao().selectNewById(newsId);
+    public New queryNewsDetail(int newsId) throws Exception {
+        New tempNew = getNewsDao().selectNewById(newsId);
+        tempNew.setNewDetail_ch(getNewDetailDao().selectNewDetailById(tempNew.getChineseid()));
+        tempNew.setNewDetail_en(getNewDetailDao().selectNewDetailById(tempNew.getEnglishid()));
+        return tempNew;
     }
 
     @Override
-    public boolean save(News news) throws Exception {
+    public boolean save(New news) throws Exception {
         int resultNum = 0;
         if (news.getId()!=null && news.getId()!=0){
-            resultNum = getNewsDao().updateNew(news);
-        }else{
+
+            NewDetail newDetail_ch = news.getNewDetail_ch();
+            getNewDetailDao().insertNewDetail(newDetail_ch);
+            news.setChineseid(newDetail_ch.getId());
+
+            NewDetail newDetail_en = news.getNewDetail_en();
+            getNewDetailDao().insertNewDetail(newDetail_en);
+            news.setEnglishid(newDetail_en.getId());
+
             resultNum = getNewsDao().insertNew(news);
+        }else{
+            New tempNews = getNewsDao().selectNewById(news.getId());
+
+            NewDetail newDetail_ch = news.getNewDetail_ch();
+            getNewDetailDao().insertNewDetail(newDetail_ch);
+            news.setChineseid(newDetail_ch.getId());
+
+            NewDetail newDetail_en = news.getNewDetail_en();
+            getNewDetailDao().insertNewDetail(newDetail_en);
+            news.setEnglishid(newDetail_en.getId());
+
+            resultNum = getNewsDao().insertNew(news);
+
         }
         return resultNum>0;
     }
 
     @Override
     public boolean deleteNewsById(int id) throws Exception {
+        New tempNew = getNewsDao().selectNewById(id);
+        List<Integer> ids = new ArrayList<>();
+        ids.add(tempNew.getChineseid());
+        ids.add(tempNew.getEnglishid());
+        getNewDetailDao().batchDeleteNewDetail(ids);
 
         return getNewsDao().deleteNewById(id)>0;
 
@@ -72,42 +104,7 @@ public class NewsServiceImpl extends BaseServiceImpl<News> implements NewsServic
 
 
 
-//    @Override
-//    public List<News> queryNewsByCondition(NewsQueryParam param) {
-//
-//        Integer offset = null, limit = null;
-//        if(param.getPage() != null){
-//            offset = (param.getPage().getPageNo()-1) * param.getPage().getPageSize();
-//            limit = param.getPage().getPageSize();
-//        }
-//
-//        return getNewsDao().searchNews(null, null, 1, limit, offset, null, null);
-//    }
-//
-//    @Override
-//    public int count(int isRelease) {
-//        return getNewsDao().count(isRelease);
-//    }
-//
-//    @Override
-//    public News queryNewsDetail(int newsId) {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean save(News news) {
-//        return getNewsDao().insertNew(news) > 0;
-//    }
-//
-//    @Override
-//    public boolean update(News news) {
-//        return getNewsDao().updateNew(news) > 0;
-//    }
-//
-//    @Override
-//    public boolean addReadNums(int newsId) {
-//        return false;
-//    }
+
 
 
 

@@ -1,15 +1,12 @@
 package com.wyx.proj.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
-public class NewsBean extends BaseBean {
+public class AfterServiceBean extends BaseBean {
 
     private String name;
-
-    private Integer isrelease;
 
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date starttime;
@@ -17,22 +14,12 @@ public class NewsBean extends BaseBean {
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date endtime;
 
-    private Integer language;
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getIsrelease() {
-        return isrelease;
-    }
-
-    public void setIsrelease(Integer isrelease) {
-        this.isrelease = isrelease;
     }
 
     public Date getStarttime() {
@@ -51,11 +38,4 @@ public class NewsBean extends BaseBean {
         this.endtime = endtime;
     }
 
-    public Integer getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Integer language) {
-        this.language = language;
-    }
 }

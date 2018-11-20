@@ -4,63 +4,93 @@ import java.util.Date;
 
 public class ProductBean extends BaseBean {
 
-    private String prodName;
+    private String name;
 
-    private Integer prodCatg;
+    private String type;
 
-    private Integer isRelease;
+    private String brand;
 
-    private Integer showHomePage;
+    private Integer language;
 
-    private Date startTime;
+    private Integer categoryid;
 
-    private Date endTime;
+    private Integer isrelease;
 
-    public Integer getIsRelease() {
-        return isRelease;
+    private Integer showhomepage;
+
+    private Date starttime;
+
+    private Date endtime;
+
+    public String getName() {
+        return name;
     }
 
-    public void setIsRelease(Integer isRelease) {
-        this.isRelease = isRelease;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getType() {
+        return type;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getProdName() {
-        return prodName;
+    public Integer getLanguage() {
+        return language;
     }
 
-    public void setProdName(String prodName) {
-        this.prodName = prodName;
+    public void setLanguage(Integer language) {
+        this.language = language;
     }
 
-    public Integer getShowHomePage() {
-        return showHomePage;
+    public Integer getCategoryid() {
+        return categoryid;
     }
 
-    public void setShowHomePage(Integer showHomePage) {
-        this.showHomePage = showHomePage;
+    public void setCategoryid(Integer categoryid) {
+        this.categoryid = categoryid;
     }
 
-    public Integer getProdCatg() {
-        return prodCatg;
+    public Integer getIsrelease() {
+        return isrelease;
     }
 
-    public void setProdCatg(Integer prodCatg) {
-        this.prodCatg = prodCatg;
+    public void setIsrelease(Integer isrelease) {
+        this.isrelease = isrelease;
+    }
+
+    public Integer getShowhomepage() {
+        return showhomepage;
+    }
+
+    public void setShowhomepage(Integer showhomepage) {
+        this.showhomepage = showhomepage;
+    }
+
+    public Date getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Date startime) {
+        this.starttime = startime;
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
     }
 }

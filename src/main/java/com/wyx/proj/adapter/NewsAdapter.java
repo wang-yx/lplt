@@ -1,11 +1,11 @@
 package com.wyx.proj.adapter;
 
-import com.wyx.proj.entity.News;
+import com.wyx.proj.entity.New;
 import com.wyx.proj.response.NewsListResponse;
 
 public class NewsAdapter {
 
-    public static NewsListResponse adapterResponse(News news){
+    public static NewsListResponse adapterResponse(New news){
         NewsListResponse response = new NewsListResponse();
 
         response.setNewsId(news.getId());
