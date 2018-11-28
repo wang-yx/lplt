@@ -2,16 +2,18 @@ package com.wyx.proj.entity;
 
 import java.util.Date;
 
-//@Table(name="t_user")
 public class Prodcategory extends BaseEntity {
 
     private int id;
 
-    private String catgName;   //类别名称
+    private String name;   //类别名称
 
-    private String catgComment; //类别备注
+    private String nameen; //英文类别名
 
-    private Date createTime; //创建时间
+    private String comment; //类别备注
+
+    private Date createtime; //创建时间
+
 
     public int getId() {
         return id;
@@ -21,36 +23,35 @@ public class Prodcategory extends BaseEntity {
         this.id = id;
     }
 
-    public String getCatgName() {
-        return catgName;
+    public String getName() {
+        return name;
     }
 
-    public void setCatgName(String catgName) {
-        this.catgName = catgName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCatgComment() {
-        return catgComment;
+    public String getNameen() {
+        return nameen;
     }
 
-    public void setCatgComment(String catgComment) {
-        this.catgComment = catgComment;
+    public void setNameen(String nameen) {
+        this.nameen = nameen;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    @Override
-    public String toString(){
-        return "User=[id:"+ id
-                +"; catgName:"+ catgName
-                +"; catgComment="+ catgComment
-                +"; createTime="+ createTime +"]";
+    public Date getCreatetime() {
+        return createtime;
     }
 
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
 }

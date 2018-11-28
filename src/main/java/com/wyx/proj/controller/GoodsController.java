@@ -18,23 +18,23 @@ import javax.annotation.Resource;
 @RequestMapping(value="/goods")
 public class GoodsController {
 
-    @Resource
-    private GoodsBiz goodsBiz;
-
-    @RequestMapping(value = "detail", method = RequestMethod.POST)
-    public Response<ProductDetailResponse> detail(@RequestBody ProductDetailRequest request){
-        return Response.success(goodsBiz.detail(request));
-    }
-
-    @RequestMapping(value = "list/query", method = RequestMethod.POST)
-    public Response<PageResponse<ProductListResponse>> listQuery(@RequestBody ProductListRequest request){
-        return Response.success(goodsBiz.listQuery(request));
-    }
-
-//    //TODO 商品修改 ／ 添加
+//    @Resource
+//    private GoodsBiz goodsBiz;
+//
+//    @RequestMapping(value = "detail", method = RequestMethod.POST)
+//    public Response<ProductDetailResponse> detail(@RequestBody ProductDetailRequest request){
+//        return Response.success(goodsBiz.detail(request));
+//    }
+//
 //    @RequestMapping(value = "list/query", method = RequestMethod.POST)
 //    public Response<PageResponse<ProductListResponse>> listQuery(@RequestBody ProductListRequest request){
 //        return Response.success(goodsBiz.listQuery(request));
 //    }
+//
+////    //TODO 商品修改 ／ 添加
+////    @RequestMapping(value = "list/query", method = RequestMethod.POST)
+////    public Response<PageResponse<ProductListResponse>> listQuery(@RequestBody ProductListRequest request){
+////        return Response.success(goodsBiz.listQuery(request));
+////    }
 
 }

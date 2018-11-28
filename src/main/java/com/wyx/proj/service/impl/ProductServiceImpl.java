@@ -37,7 +37,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
         if(countNum>0){
             Integer offset = null, limit = null;
             offset = (productBean.getPageNo()-1) * productBean.getPageSize();
-            limit = productBean.getPageNo();
+            limit = productBean.getPageSize();
 
             tempList = getProdDao().searchProducts(productBean.getName(),productBean.getType(),productBean.getBrand(),
                     productBean.getCategoryid(),productBean.getLanguage(),productBean.getIsrelease(),productBean.getShowhomepage(),

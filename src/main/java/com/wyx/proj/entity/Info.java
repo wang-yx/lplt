@@ -1,5 +1,7 @@
 package com.wyx.proj.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Info extends BaseEntity {
@@ -18,7 +20,7 @@ public class Info extends BaseEntity {
     private String fax; //传真
 
     private String person;//法人或者是负责人
-
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date registtime; //注册时间
 
     private Date createtime; //创建时间

@@ -1,10 +1,6 @@
 package com.wyx.proj.entity;
 
-import com.wyx.proj.annotation.MapperClass;
-import com.wyx.proj.dao.UserDao;
 
-
-import javax.persistence.*;
 import java.util.Date;
 
 //@Table(name="t_user")

@@ -97,7 +97,7 @@ public interface NewDao {
         public String searchNewsCount(String newName, Integer isRelease, Date startTime,Date endTime,Integer language){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select count(1) from t_new a left join t_new_detail b on ");
+            sb.append("select count(1) from t_new a join t_new_detail b on ");
 
             String languageField = "chineseid";
             if(language!=0){
@@ -106,18 +106,18 @@ public interface NewDao {
             sb.append(" a." + languageField + "=b.id " );
 
             if(!StringUtils.isEmpty(newName)){
-                sb.append(" and name like '%"+ newName +"%' " );
+                sb.append(" and b.name like '%"+ newName +"%' " );
             }
             if(isRelease!=null){
                 sb.append(" and isrelease = "+ isRelease +" " );
             }
             if(startTime!=null){
                 String startTimeStr = s.format(startTime);
-                sb.append(" and createtime >= '"+ startTimeStr +"' " );
+                sb.append(" and a.createtime >= '"+ startTimeStr +"' " );
             }
             if(endTime!=null){
                 String endTimeStr = s.format(endTime);
-                sb.append(" and createtime <= '"+ endTimeStr +"' " );
+                sb.append(" and a.createtime <= '"+ endTimeStr +"' " );
             }
             System.out.println("---sql-->"+sb.toString());
             return sb.toString();
@@ -127,7 +127,7 @@ public interface NewDao {
                                  Date startTime,Date endTime,Integer language){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select *,b.name as name from t_new a left join t_new_detail b on ");
+            sb.append("select *,b.name as name from t_new a join t_new_detail b on ");
 
             String languageField = "chineseid";
             if(language!=0){
@@ -136,22 +136,22 @@ public interface NewDao {
             sb.append(" a." + languageField + "=b.id " );
 
             if(!StringUtils.isEmpty(newName)){
-                sb.append(" and name like '%"+ newName +"%' " );
+                sb.append(" and b.name like '%"+ newName +"%' " );
             }
             if(isRelease!=null){
                 sb.append(" and isrelease = "+ isRelease +" " );
             }
             if(startTime!=null){
                 String startTimeStr = s.format(startTime);
-                sb.append(" and createtime >= '"+ startTimeStr +"' " );
+                sb.append(" and a.createtime >= '"+ startTimeStr +"' " );
             }
             if(endTime!=null){
                 String endTimeStr = s.format(endTime);
-                sb.append(" and createtime <= '"+ endTimeStr +"' " );
+                sb.append(" and a.createtime <= '"+ endTimeStr +"' " );
             }
 
             if(limit != null && offset != null){
-                sb.append("  order by createtime desc  limit " + offset + "," + limit);
+                sb.append("  order by a.createtime desc  limit " + offset + "," + limit);
             }
             return sb.toString();
         }
@@ -172,7 +172,7 @@ public interface NewDao {
 
         public String updateNews(New news){
             StringBuilder sb = new StringBuilder();
-            sb.append("update t_new set (");
+            sb.append("update t_new set ");
 
             if(news.getImg()!=null){
                 sb.append(" img='"+ news.getImg() +"',");

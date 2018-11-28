@@ -55,27 +55,38 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
     @Override
     public boolean saveCompanyInfo(Info info) throws Exception {
         int resultNum = 0;
-        if(info.getId()!=0){ //upsert
-            Info tempInfo = getInfoDao().selectInfoById(info.getId());
-            Company com_ch = info.getCompany_ch();
-            com_ch.setId(tempInfo.getChineseid());
-            getCompanyDao().updateCompany(com_ch);
+        if(info.getIsinfo()==1){
+            info.setChineseid(0);
+            info.setEnglishid(0);
+            if (info.getId() != 0) { //update
+                resultNum = getInfoDao().updateInfo(info);
+            }else{ //insert
+                resultNum = getInfoDao().insertInfo(info);
+            }
+        }else {
 
-            Company com_en = info.getCompany_en();
-            com_en.setId(tempInfo.getEnglishid());
-            getCompanyDao().updateCompany(com_en);
+            if (info.getId() != 0) { //upsert
+                Info tempInfo = getInfoDao().selectInfoById(info.getId());
+                Company com_ch = info.getCompany_ch();
+                com_ch.setId(tempInfo.getChineseid());
+                getCompanyDao().updateCompany(com_ch);
 
-            resultNum = getInfoDao().updateInfo(info);
-        }else{ //insert
-            Company com_ch = info.getCompany_ch();
-            getCompanyDao().insertCompanyInfo(com_ch);
-            info.setChineseid(com_ch.getId());
+                Company com_en = info.getCompany_en();
+                com_en.setId(tempInfo.getEnglishid());
+                getCompanyDao().updateCompany(com_en);
 
-            Company com_en = info.getCompany_en();
-            getCompanyDao().insertCompanyInfo(com_en);
-            info.setEnglishid(com_en.getId());
+                resultNum = getInfoDao().updateInfo(info);
+            } else { //insert
+                Company com_ch = info.getCompany_ch();
+                getCompanyDao().insertCompanyInfo(com_ch);
+                info.setChineseid(com_ch.getId());
 
-            resultNum=getInfoDao().insertInfo(info);
+                Company com_en = info.getCompany_en();
+                getCompanyDao().insertCompanyInfo(com_en);
+                info.setEnglishid(com_en.getId());
+
+                resultNum = getInfoDao().insertInfo(info);
+            }
         }
         return resultNum>0;
     }

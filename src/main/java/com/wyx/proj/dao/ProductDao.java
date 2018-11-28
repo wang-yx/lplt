@@ -135,10 +135,10 @@ public interface ProductDao {
                                      Integer isRelease, Integer showHomepage, Integer limit, Integer offset, Date startTime,Date endTime){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select *,b.name as name from t_product a left join t_product_detail b on ");
+            sb.append("select *,b.name as name from t_product a join t_product_detail b on ");
 
             String languageField = "chineseid";
-            if(language!=0){
+            if(language!=null && language!=0){
                 languageField = "englishid";
             }
             sb.append(" a." + languageField + "=b.id " );
@@ -161,7 +161,7 @@ public interface ProductDao {
                 sb.append(" and a.createtime >= '"+ dateStr +"' " );
             }
             if(endTime!=null){
-                String dateStr = s.format(startTime);
+                String dateStr = s.format(endTime);
                 sb.append(" and a.createtime <= '"+ dateStr +"' " );
             }
             if(!StringUtils.isEmpty(prodName)){
@@ -175,18 +175,19 @@ public interface ProductDao {
             }
 
             if(limit != null && offset != null){
-                sb.append(" order by createtime desc limit " + offset + "," + limit );
+                sb.append(" order by a.createtime desc limit " + offset + "," + limit );
             }
+            System.out.println("---->"+sb.toString());
             return sb.toString();
         }
 
         public String searchProductsCount(String prodName, String type,String brand,Integer prodCatg,Integer language, Integer isRelease, Integer showHomepage, Date startTime,Date endTime){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select count(1)  from t_product a left join t_product_detail b on ");
+            sb.append("select count(1)  from t_product a join t_product_detail b on ");
 
             String languageField = "chineseid";
-            if(language!=0){
+            if(language!=null && language!=0){
                 languageField = "englishid";
             }
             sb.append(" a." + languageField + "=b.id " );
@@ -209,7 +210,7 @@ public interface ProductDao {
                 sb.append(" and a.createtime >= '"+ dateStr +"' " );
             }
             if(endTime!=null){
-                String dateStr = s.format(startTime);
+                String dateStr = s.format(endTime);
                 sb.append(" and a.createtime <= '"+ dateStr +"' " );
             }
             if(!StringUtils.isEmpty(prodName)){
@@ -221,7 +222,7 @@ public interface ProductDao {
             if(!StringUtils.isEmpty(prodName)){
                 sb.append(" and brand = '"+ brand +"' " );
             }
-
+            System.out.println("---->"+sb.toString());
             return sb.toString();
         }
 

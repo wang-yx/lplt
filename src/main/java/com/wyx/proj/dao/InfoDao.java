@@ -15,7 +15,7 @@ import java.util.Map;
 public interface InfoDao {
 
 
-    @Select("select * from t_info where isinfo=#{isinfo} order by is_release asc,create_time desc ")
+    @Select("select * from t_info where isinfo=#{isinfo} order by isrelease asc,createtime desc ")
     public List<Info> selectInfos(int isinfo);
 
 
@@ -60,7 +60,7 @@ public interface InfoDao {
 
         public String updateInfo(Info info){
             StringBuilder sb = new StringBuilder();
-            sb.append("update t_info set (");
+            sb.append("update t_info set ");
 
             if(info.getChineseid()!=null){
                 sb.append(" chineseid='"+ info.getChineseid() +"',");
@@ -99,7 +99,7 @@ public interface InfoDao {
                 sb.append(" releasetime='"+ nowStr +"',");
             }
             if(info.getIsinfo()!=null){
-                sb.append(" info="+ info.getIsinfo() +",");
+                sb.append(" isinfo="+ info.getIsinfo() +",");
             }
             String nowStr = s.format(new Date());
             sb.append(" updatetime='"+ nowStr +"' ");

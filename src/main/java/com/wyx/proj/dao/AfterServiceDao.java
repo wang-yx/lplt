@@ -76,12 +76,13 @@ public interface AfterServiceDao {
             if(limit != null && offset != null){
                 sb.append("  order by createtime desc  limit " + offset + "," + limit);
             }
+            System.out.println("-------->"+sb.toString());
             return sb.toString();
         }
 
         public String selectAllCount(String name,Date startTime, Date endTime){
             StringBuilder sb = new StringBuilder();
-            sb.append("select * from t_after_service where 1=1  ");
+            sb.append("select count(1) from t_after_service where 1=1  ");
 
             if(!StringUtils.isEmpty(name)){
                 sb.append(" and name like '%"+ name +"%' " );
@@ -102,7 +103,7 @@ public interface AfterServiceDao {
         public String batchDeleteAfterService(Map map) {
             List<Integer> ids = (List<Integer>) map.get("list");
             StringBuilder sb = new StringBuilder();
-            sb.append("delete from t_company where id in (");
+            sb.append("delete from t_after_service where id in (");
             for (int i = 0; i < ids.size(); i++) {
                 sb.append(ids.get(i));
                 if (i < ids.size() - 1)
@@ -115,7 +116,7 @@ public interface AfterServiceDao {
         public String updateAfterService(AfterService afterService){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("update t_after_service set (");
+            sb.append("update t_after_service set ");
 
             if(afterService.getReply()!=null){
                 sb.append(" reply='"+ afterService.getReply() +"',");

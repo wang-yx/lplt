@@ -51,7 +51,7 @@ public interface CompanyDao {
 
         public String updateCompany(Company company){
             StringBuilder sb = new StringBuilder();
-            sb.append("update t_company set (");
+            sb.append("update t_company set ");
 
             if(company.getName()!=null){
                 sb.append(" name='"+ company.getName() +"',");

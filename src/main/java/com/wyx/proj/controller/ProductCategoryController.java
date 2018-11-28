@@ -36,7 +36,7 @@ public class ProductCategoryController {
     }
 
     @PostMapping("list")
-    public Object list(@RequestBody ProductBean request){
+    public Object list(){
         List<Prodcategory> result = null;
 
         try {

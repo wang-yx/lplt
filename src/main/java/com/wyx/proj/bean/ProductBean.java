@@ -1,5 +1,7 @@
 package com.wyx.proj.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ProductBean extends BaseBean {
@@ -18,8 +20,10 @@ public class ProductBean extends BaseBean {
 
     private Integer showhomepage;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date starttime;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date endtime;
 
     public String getName() {

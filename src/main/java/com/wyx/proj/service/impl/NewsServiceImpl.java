@@ -2,11 +2,14 @@ package com.wyx.proj.service.impl;
 
 import com.wyx.proj.bean.NewsBean;
 import com.wyx.proj.bean.PageResponseBean;
+import com.wyx.proj.controller.UserController;
 import com.wyx.proj.dao.NewDao;
 import com.wyx.proj.dao.NewDetailDao;
 import com.wyx.proj.entity.New;
 import com.wyx.proj.entity.NewDetail;
 import com.wyx.proj.service.NewsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +19,7 @@ import java.util.List;
 @Service("newsService")
 @Transactional
 public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService {
-
+    private Logger logger = LoggerFactory.getLogger(NewsServiceImpl.class);
 
     public NewDao getNewsDao() {
         return getBaseDao().getMapper(NewDao.class);
@@ -61,8 +64,11 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
 
     @Override
     public boolean save(New news) throws Exception {
+        logger.info("----news.getId--->"+news.getId());
+
+
         int resultNum = 0;
-        if (news.getId()!=null && news.getId()!=0){
+        if (news.getId()==null || news.getId()==0){
 
             NewDetail newDetail_ch = news.getNewDetail_ch();
             getNewDetailDao().insertNewDetail(newDetail_ch);
@@ -75,16 +81,18 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
             resultNum = getNewsDao().insertNew(news);
         }else{
             New tempNews = getNewsDao().selectNewById(news.getId());
+            news.setChineseid(tempNews.getChineseid());
+            news.setEnglishid(tempNews.getEnglishid());
 
             NewDetail newDetail_ch = news.getNewDetail_ch();
-            getNewDetailDao().insertNewDetail(newDetail_ch);
-            news.setChineseid(newDetail_ch.getId());
+            newDetail_ch.setId(tempNews.getChineseid());
+            getNewDetailDao().updateNewDetail(newDetail_ch);
 
             NewDetail newDetail_en = news.getNewDetail_en();
-            getNewDetailDao().insertNewDetail(newDetail_en);
-            news.setEnglishid(newDetail_en.getId());
+            newDetail_en.setId(tempNews.getEnglishid());
+            getNewDetailDao().updateNewDetail(newDetail_en);
 
-            resultNum = getNewsDao().insertNew(news);
+            resultNum = getNewsDao().updateNew(news);
 
         }
         return resultNum>0;

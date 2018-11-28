@@ -3,8 +3,6 @@ package com.wyx.proj.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.wyx.proj.bean.PictureBean;
 import com.wyx.proj.entity.Picture;
 import com.wyx.proj.service.PictureService;
 import com.wyx.proj.util.ResponseUtil;
@@ -13,18 +11,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.security.provider.MD5;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(value="/image")
+//@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class PictureController {
 
     private Logger logger = LoggerFactory.getLogger(PictureController.class);
@@ -86,10 +84,49 @@ public class PictureController {
     }
 
 
+    @RequestMapping(value = "updatePic",method = RequestMethod.POST)
+    public Object uploadPhotoPic(@RequestParam(value = "file") MultipartFile file){
+
+        if (file.isEmpty()) {
+            return ResponseUtil.err("文件不能为空","");
+        }
+
+        Picture picture = new Picture();
+        // 获取文件名
+        String oldFileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + oldFileName);
+        // 获取文件的后缀名
+        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String filePath = uploadDir + newFileName;
+
+        File dest = new File(filePath);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+
+        try {
+            file.transferTo(dest);
+            picture.setImgPath(filePath);
+            picture.setImgKey(newFileName);
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setId(pictureService.saveOnePics(picture));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("上传成功后的文件路径为：" + filePath);
+
+        return ResponseUtil.ok(picture);
+    }
+
+
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public Object uploadPhoto(@RequestParam(value = "file") MultipartFile file,
-                              @FormParam("pictureInfo") String pictureInfo){
+                                @FormParam("pictureInfo") String pictureInfo){
 
         if (file.isEmpty()) {
             return ResponseUtil.err("文件不能为空","");

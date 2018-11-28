@@ -1,8 +1,6 @@
 package com.wyx.proj.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 
 public class Role extends BaseEntity {
 

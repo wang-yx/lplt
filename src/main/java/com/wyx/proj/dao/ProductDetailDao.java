@@ -79,19 +79,22 @@ public interface ProductDetailDao {
                 sb.append(" source='"+ product.getSource() + "'," );
             }
             if(product.getIntroduce()!=null){
-                sb.append(" introduce="+ product.getIntroduce() + "," );
+                sb.append(" introduce='"+ product.getIntroduce() + "'," );
             }
             if(product.getTechadvantage()!=null){
-                sb.append(" techadvantage="+ product.getTechadvantage() + "," );
+                sb.append(" techadvantage='"+ product.getTechadvantage() + "'," );
             }
             if(product.getTechparams()!=null){
-                sb.append(" techparams="+ product.getTechparams() + "," );
+                sb.append(" techparams='"+ product.getTechparams() + "'," );
+            }
+            if(product.getApplicationarea() !=null){
+                sb.append(" applicationarea='"+ product.getApplicationarea() + "'," );
             }
             if(product.getDetail()!=null){
-                sb.append(" detail="+ product.getDetail() + "," );
+                sb.append(" detail='"+ product.getDetail() + "'," );
             }
             if(product.getComment()!=null){
-                sb.append(" comment="+ product.getComment() + "," );
+                sb.append(" comment='"+ product.getComment() + "'," );
             }
             if(product.getLanguage()!=null){
                 sb.append(" language = "+ product.getLanguage() +"," );

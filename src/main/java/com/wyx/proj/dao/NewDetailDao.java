@@ -19,14 +19,14 @@ public interface NewDetailDao {
     public NewDetail selectNewDetailById(int id);
 
     @Insert("insert into t_new_detail (name,introduce,detail,comment,language) " +
-            "values(#{name},#{introduce},#{detail},#{comment},#{language}")
+            "values(#{name},#{introduce},#{detail},#{comment},#{language})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public int insertNewDetail(NewDetail newDetail);
 
     @UpdateProvider(type =Provider.class,method = "updateNewDetail")
     public int updateNewDetail (NewDetail newDetail);
 
-    @DeleteProvider(type = NewDao.Provider.class,method = "batchDeleteNewDetail")
+    @DeleteProvider(type = Provider.class,method = "batchDeleteNewDetail")
     public int batchDeleteNewDetail (List<Integer> ids);
 
     @Delete("delete from t_new_detail where id=#{id}")
@@ -51,7 +51,7 @@ public interface NewDetailDao {
 
         public String updateNewDetail(NewDetail newDetail){
             StringBuilder sb = new StringBuilder();
-            sb.append("update t_new_detail set (");
+            sb.append("update t_new_detail set ");
 
             if(newDetail.getName()!=null){
                 sb.append(" name='"+ newDetail.getName() +"',");

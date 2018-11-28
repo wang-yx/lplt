@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/dailyRollingLog/dailyRollingLog.log" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t %-5p [%c]%L %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="resolveSql" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/resolveSql.log" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="false" />
+        <param name="MaxFileSize" value="100MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t %-5p [%c]%L %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="doraemonApp" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/doraemon.log" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="100MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t %-5p [%c]%L %m%n" />
+        </layout>
+    </appender>
+    <appender name="doraemonErr" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/doraemonErr.log" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="100MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %t %-5p [%c]%L %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="slaCall" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/sla/adhoc_slaCall.log" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="1000MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="time[%d] %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="slaCallError" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/sla/adhoc_slaCall.wf" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="1000MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="time[%d] %m%n" />
+        </layout>
+    </appender>
+    <!-- 访问日志 -->
+    <appender name="visitLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="${catalina.base}/logs/visit-log.log" />
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="100MB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="NOTICE: %d{yy-MM-dd HH:mm:ss} [%l] thread[%t] %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="logDoraemon" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="doraemonApp" />
+    </category>
+    <category name="errlogDoraemon" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="doraemonErr" />
+    </category>
+    <category name="logSlaCall" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="slaCall" />
+    </category>
+    <category name="logSlaCallError" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="slaCallError" />
+    </category>
+    <!-- 访问日志 -->
+    <category name="visitLogInfo" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="visitLog" />
+    </category>
+    <!-- 访问日志 -->
+    <category name="resolveSqlCategory" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="resolveSql" />
+    </category>
+    <!-- 异步接口日志 -->
+    <category name="dailyRollingFileCategory" additivity="false">
+        <priority value="info" />
+        <appender-ref ref="dailyRollingFileAppender" />
+    </category>
+
+    <root>
+        <priority value="info" />
+        <appender-ref ref="dailyRollingFileAppender" />
+    </root>
+</log4j:configuration>
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">-->
+
+<!--<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>-->
+
+    <!--&lt;!&ndash;<appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">&ndash;&gt;-->
+        <!--&lt;!&ndash;<param name="File" value="${catalina.base}/logs/dailyRollingLog.log" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<param name="Append" value="true" />&ndash;&gt;-->
+		<!--&lt;!&ndash;<param name="MaxFileSize" value="100MB" />&ndash;&gt;-->
+		<!--&lt;!&ndash;<param name="MaxBackupIndex" value="2"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<layout class="org.apache.log4j.PatternLayout">&ndash;&gt;-->
+            <!--&lt;!&ndash;<param name="ConversionPattern" value="%d %t %-5p [%c]%L %m%n" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</layout>&ndash;&gt;-->
+    <!--&lt;!&ndash;</appender>&ndash;&gt;-->
+
+	<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 访问日志 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+	<!--&lt;!&ndash;&lt;!&ndash;<appender name="visitLog" class="org.apache.log4j.RollingFileAppender">&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;<param name="File" value="${catalina.base}/logs/visit-log.log" />&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 设置是否在重新启动服务时，在原有日志的基础添加新日志 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;<param name="Append" value="true" />&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;<param name="MaxFileSize" value="100MB" />&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;<param name="MaxBackupIndex" value="2" />&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;<layout class="org.apache.log4j.PatternLayout">  &ndash;&gt;&ndash;&gt;-->
+			<!--&lt;!&ndash;&lt;!&ndash;<param name="ConversionPattern" value="NOTICE: %d{yy-MM-dd HH:mm:ss} [%l] thread[%t] %m%n"/>&ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;&lt;!&ndash;</layout>&ndash;&gt;&ndash;&gt;-->
+	<!--&lt;!&ndash;&lt;!&ndash;</appender>&ndash;&gt;&ndash;&gt;-->
+	<!--&lt;!&ndash;&lt;!&ndash;&ndash;&gt;&ndash;&gt;-->
+
+	<!--&lt;!&ndash;<root>&ndash;&gt;-->
+		<!--&lt;!&ndash;<priority value="info" />&ndash;&gt;-->
+		<!--&lt;!&ndash;<appender-ref ref="dailyRollingFileAppender" />&ndash;&gt;-->
+	<!--&lt;!&ndash;</root>&ndash;&gt;-->
+
+    <!--<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">-->
+        <!--<layout class="org.apache.log4j.PatternLayout">-->
+            <!--<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss a} [Thread: %t][ Class:%c  Method: %l ]%n%p:%m%n"/>-->
+        <!--</layout>-->
+    <!--</appender>-->
+
+    <!--<appender name="log4jInfo"  class="org.apache.log4j.rolling.RollingFileAppender">-->
+        <!--<param name="Append" value="true"/>-->
+        <!--<rollingPolicy  class="org.apache.log4j.rolling.TimeBasedRollingPolicy">-->
+            <!--<param name="FileNamePattern" value="./log/daily_log_%d{yyyy-MM-dd}.log" />-->
+        <!--</rollingPolicy>-->
+        <!--<layout class="org.apache.log4j.PatternLayout">-->
+            <!--<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss a} [Thread: %t][ Class:%c  Method: %l ]%n%p:%m%n"/>-->
+        <!--</layout>-->
+        <!--<filter class="org.apache.log4j.varia.LevelRangeFilter">-->
+            <!--<param name="LevelMin" value="INFO"/>-->
+            <!--<param name="LevelMax" value="INFO"/>-->
+        <!--</filter>-->
+    <!--</appender>-->
+
+    <!--<root>-->
+        <!--<priority value="info"/>-->
+        <!--<appender-ref ref="CONSOLE" />-->
+        <!--<appender-ref ref="log4jInfo" />-->
+    <!--</root>-->
+
+
+<!--</log4j:configuration>-->
