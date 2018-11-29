@@ -44,6 +44,19 @@ public class NewsController {
         return ResponseUtil.ok(news);
     }
 
+    @GetMapping(value = "detail")
+    public Object detailGet(@RequestParam("id") int id){
+        New news = null;
+        try {
+            news = newsService.queryNewsDetail(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok(news);
+    }
+
+
     @PostMapping(value = "save")
     public Object save(@RequestBody New news){
         try {
@@ -56,7 +69,7 @@ public class NewsController {
     }
 
     @PostMapping(value = "delete")
-    public Object save(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id){
         try {
             newsService.deleteNewsById(id);
         } catch (Exception e) {
@@ -66,6 +79,16 @@ public class NewsController {
         return ResponseUtil.ok("删除成功！");
     }
 
+    @GetMapping(value = "delete")
+    public Object deleteGet(@RequestParam("id") int id){
+        try {
+            newsService.deleteNewsById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok("删除成功！");
+    }
 
 //    @Resource
 //    private NewsBiz newsBiz;

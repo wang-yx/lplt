@@ -6,13 +6,11 @@ import com.wyx.proj.entity.AfterService;
 import com.wyx.proj.entity.Info;
 import com.wyx.proj.service.CompanyInfoService;
 import com.wyx.proj.util.ResponseUtil;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
@@ -46,6 +44,18 @@ public class ComtactInfoController {
         return ResponseUtil.ok(info);
     }
 
+    @GetMapping(value = "detail")
+    public Object detailGet(@QueryParam("id") int id){
+        Info info = null;
+        try {
+            info = companyInfoService.getCompanyInfo(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok(info);
+    }
+
     @PostMapping(value = "save")
     public Object save(@RequestBody Info info){
         try {
@@ -59,7 +69,7 @@ public class ComtactInfoController {
     }
 
     @PostMapping(value = "delete")
-    public Object save(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id){
         try {
             companyInfoService.deleteInfoById(id);
         } catch (Exception e) {
@@ -69,5 +79,15 @@ public class ComtactInfoController {
         return ResponseUtil.ok("删除成功！");
     }
 
+    @GetMapping(value = "delete")
+    public Object deleteGet(@QueryParam("id") int id){
+        try {
+            companyInfoService.deleteInfoById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok("删除成功！");
+    }
 
 }

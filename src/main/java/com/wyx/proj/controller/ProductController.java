@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.QueryParam;
 
 @RestController
 @RequestMapping(value="/product")
@@ -58,6 +59,18 @@ public class ProductController {
         return ResponseUtil.ok(product);
     }
 
+    @GetMapping("detail")
+    public Object detailGet(@QueryParam("id") int id){
+        Product product = null;
+        try {
+            product = productService.getProdDetail(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),product);
+        }
+        return ResponseUtil.ok(product);
+    }
+
     //最对只返回15条，一页的数据
     @PostMapping("list/homePage")
     public Object listHomePage(){
@@ -84,6 +97,16 @@ public class ProductController {
         return ResponseUtil.ok("删除成功！");
     }
 
+    @GetMapping("delete")
+    public Object deleteProdBYIdGet(@QueryParam("id") int id){
+        try {
+            productService.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok("删除成功！");
+    }
 
 
 //    @Resource

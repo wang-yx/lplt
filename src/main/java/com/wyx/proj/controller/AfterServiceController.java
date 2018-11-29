@@ -8,13 +8,11 @@ import com.wyx.proj.entity.New;
 import com.wyx.proj.service.AfterServiceService;
 import com.wyx.proj.service.NewsService;
 import com.wyx.proj.util.ResponseUtil;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.QueryParam;
 
 @RestController
 @RequestMapping(value="/afterService")
@@ -46,6 +44,18 @@ public class AfterServiceController {
         return ResponseUtil.ok(afterService);
     }
 
+    @GetMapping(value = "detail")
+    public Object detailGet(@QueryParam("id") int id){
+        AfterService afterService = null;
+        try {
+            afterService = afterServiceService.queryAfterServiceDetail(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok(afterService);
+    }
+
     @PostMapping(value = "save")
     public Object save(@RequestBody AfterService afterService){
         try {
@@ -58,7 +68,18 @@ public class AfterServiceController {
     }
 
     @PostMapping(value = "delete")
-    public Object save(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id){
+        try {
+            afterServiceService.deleteAfterServiceById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok("删除成功！");
+    }
+
+    @GetMapping(value = "delete")
+    public Object deleteGet(@QueryParam("id") int id){
         try {
             afterServiceService.deleteAfterServiceById(id);
         } catch (Exception e) {

@@ -6,13 +6,11 @@ import com.wyx.proj.service.ProductCategoryService;
 import com.wyx.proj.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
@@ -60,8 +58,20 @@ public class ProductCategoryController {
         return ResponseUtil.ok(prodcategory);
     }
 
-    @PostMapping("delete")
-    public Object deleteProductCategory(@FormParam("id") int id){
+    @GetMapping("detail")
+    public Object detailGet(@QueryParam("id") int id){
+        Prodcategory prodcategory = null;
+        try {
+            prodcategory = productCategoryService.getProdDetail(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),prodcategory);
+        }
+        return ResponseUtil.ok(prodcategory);
+    }
+
+    @GetMapping("delete")
+    public Object deleteProductCategoryGet(@QueryParam("id") int id){
         try {
             productCategoryService.getProdDetail(id);
         } catch (Exception e) {
