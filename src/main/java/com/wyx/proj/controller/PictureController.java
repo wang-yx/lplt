@@ -5,6 +5,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.wyx.proj.entity.Picture;
 import com.wyx.proj.service.PictureService;
+import com.wyx.proj.util.BASE64DecodedMultipartFile;
 import com.wyx.proj.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +13,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +28,7 @@ import java.util.List;
 //@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class PictureController {
 
-    private Logger logger = LoggerFactory.getLogger(PictureController.class);
+    private static Logger logger = LoggerFactory.getLogger(PictureController.class);
 
     @Value("${uploadFile.path}")
     private String uploadDir;
@@ -110,6 +113,7 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
+            filePath = filePath.substring(filePath.indexOf("webapps")+8);
             picture.setImgPath(filePath);
             picture.setImgKey(newFileName);
             picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
@@ -159,6 +163,7 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
+            filePath = filePath.substring(filePath.indexOf("webapps")+8);
             picture.setImgPath(filePath);
             picture.setImgKey(newFileName);
             picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
@@ -169,6 +174,75 @@ public class PictureController {
         logger.info("上传成功后的文件路径为：" + filePath);
 
         return ResponseUtil.ok(picture);
+    }
+
+
+
+    @RequestMapping(value = "updateBase64",method = RequestMethod.POST)
+    public Object uploadPhotoBase64(@FormParam("base64Str") String base64Str){
+
+        if(StringUtils.isEmpty(base64Str)){
+            return ResponseUtil.err("base64Str不能为空","");
+        }
+
+        MultipartFile file = base64ToMultipart(base64Str);
+
+        if (file.isEmpty()) {
+            return ResponseUtil.err("文件不能为空","");
+        }
+
+        Picture picture = new Picture();
+        // 获取文件名
+        String oldFileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + oldFileName);
+        // 获取文件的后缀名
+        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String filePath = uploadDir + newFileName;
+
+        File dest = new File(filePath);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+
+        try {
+            file.transferTo(dest);
+            filePath = filePath.substring(filePath.indexOf("webapps")+7);
+            picture.setImgPath(filePath);
+            picture.setImgKey(newFileName);
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setId(pictureService.saveOnePics(picture));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("上传成功后的文件路径为：" + filePath);
+
+        return ResponseUtil.ok(picture);
+    }
+
+
+    public static MultipartFile base64ToMultipart(String base64) {
+        try {
+            String[] baseStrs = base64.split(",");
+
+            BASE64Decoder decoder = new BASE64Decoder();
+            byte[] b = new byte[0];
+            b = decoder.decodeBuffer(baseStrs[1]);
+
+            for(int i = 0; i < b.length; ++i) {
+                if (b[i] < 0) {
+                    b[i] += 256;
+                }
+            }
+
+            return new BASE64DecodedMultipartFile(b, baseStrs[0]);
+        } catch (IOException e) {
+            logger.error("文件转化失败：" + e.getMessage());
+            return null;
+        }
     }
 
 }
