@@ -8,10 +8,10 @@ public class AfterServiceBean extends BaseBean {
 
     private String name;
 
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 00:00:00")
     private Date starttime;
 
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 23:59:59")
     private Date endtime;
 
     public String getName() {

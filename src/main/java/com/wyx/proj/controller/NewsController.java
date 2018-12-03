@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value="/news")
@@ -21,6 +24,12 @@ public class NewsController {
     public Object list(@RequestBody NewsBean request){
         PageResponseBean<New> result = null;
         try {
+            SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat s2= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateStr = s.format(request.getEndtime());
+            Date endtime = null;
+            endtime = s2.parse(dateStr+" 23:59:59");
+            request.setEndtime(endtime);
             result = newsService.queryNewsByCondition(request);
         } catch (Exception e) {
 
