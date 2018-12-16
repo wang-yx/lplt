@@ -87,94 +87,97 @@ public class PictureController {
 //    }
 //
 //
-//    @RequestMapping(value = "updatePic",method = RequestMethod.POST)
-//    public Object uploadPhotoPic(@RequestParam(value = "file") MultipartFile file){
-//
-//        if (file.isEmpty()) {
-//            return ResponseUtil.err("文件不能为空","");
-//        }
-//
-//        Picture picture = new Picture();
-//        // 获取文件名
-//        String oldFileName = file.getOriginalFilename();
-//        logger.info("上传的文件名为：" + oldFileName);
-//        // 获取文件的后缀名
-//        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
-//        logger.info("上传的后缀名为：" + suffixName);
-//        // 文件上传后的路径
-//        String newFileName = "img_"+new Date().getTime()+suffixName;
-//        String filePath = uploadDir + newFileName;
-//
-//        File dest = new File(filePath);
-//        // 检测是否存在目录
-//        if (!dest.getParentFile().exists()) {
-//            dest.getParentFile().mkdirs();
-//        }
-//
-//        try {
-//            file.transferTo(dest);
-//            filePath = filePath.substring(filePath.indexOf("webapps")+8);
-//            picture.setImgPath(filePath);
-//            picture.setImgKey(newFileName);
-//            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
-//            picture.setId(pictureService.saveOnePics(picture));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        logger.info("上传成功后的文件路径为：" + filePath);
-//
-//        return ResponseUtil.ok(picture);
-//    }
-//
-//
-//
-//    @RequestMapping(value = "update",method = RequestMethod.POST)
-//    public Object uploadPhoto(@RequestParam(value = "file") MultipartFile file,
-//                                @FormParam("pictureInfo") String pictureInfo){
-//
-//        if (file.isEmpty()) {
-//            return ResponseUtil.err("文件不能为空","");
-//        }
-//
-//        Picture picture = new Picture();
-//        try {
-//            if(!StringUtils.isEmpty(pictureInfo)) {
-//                picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
-//            }
-//        } catch (Throwable t) {
-//            return ResponseUtil.err("pictureInfo无法被解析，保存失败"+t.getMessage(),"");
-//        }
-//
-//        // 获取文件名
-//        String oldFileName = file.getOriginalFilename();
-//        logger.info("上传的文件名为：" + oldFileName);
-//        // 获取文件的后缀名
-//        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
-//        logger.info("上传的后缀名为：" + suffixName);
-//        // 文件上传后的路径
-//        String newFileName = "img_"+new Date().getTime()+suffixName;
-//        String filePath = uploadDir + newFileName;
-//
-//        File dest = new File(filePath);
-//        // 检测是否存在目录
-//        if (!dest.getParentFile().exists()) {
-//            dest.getParentFile().mkdirs();
-//        }
-//
-//        try {
-//            file.transferTo(dest);
-//            filePath = filePath.substring(filePath.indexOf("webapps")+8);
-//            picture.setImgPath(filePath);
-//            picture.setImgKey(newFileName);
-//            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
-//            picture.setId(pictureService.saveOnePics(picture));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        logger.info("上传成功后的文件路径为：" + filePath);
-//
-//        return ResponseUtil.ok(picture);
-//    }
+    //******************************************************************************************************************
+
+
+    @RequestMapping(value = "updatePic",method = RequestMethod.POST)
+    public Object uploadPhotoPic(@RequestParam(value = "file") MultipartFile file){
+
+        if (file.isEmpty()) {
+            return ResponseUtil.err("文件不能为空","");
+        }
+
+        Picture picture = new Picture();
+        // 获取文件名
+        String oldFileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + oldFileName);
+        // 获取文件的后缀名
+        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String filePath = uploadDir + newFileName;
+
+        File dest = new File(filePath);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+
+        try {
+            file.transferTo(dest);
+            filePath = filePath.substring(filePath.indexOf("webapps")+8);
+            picture.setImgPath(filePath);
+            picture.setImgKey(newFileName);
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setId(pictureService.saveOnePics(picture));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("上传成功后的文件路径为：" + filePath);
+
+        return ResponseUtil.ok(picture);
+    }
+
+
+
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    public Object uploadPhoto(@RequestParam(value = "file") MultipartFile file,
+                                @FormParam("pictureInfo") String pictureInfo){
+
+        if (file.isEmpty()) {
+            return ResponseUtil.err("文件不能为空","");
+        }
+
+        Picture picture = new Picture();
+        try {
+            if(!StringUtils.isEmpty(pictureInfo)) {
+                picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
+            }
+        } catch (Throwable t) {
+            return ResponseUtil.err("pictureInfo无法被解析，保存失败"+t.getMessage(),"");
+        }
+
+        // 获取文件名
+        String oldFileName = file.getOriginalFilename();
+        logger.info("上传的文件名为：" + oldFileName);
+        // 获取文件的后缀名
+        String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        // 文件上传后的路径
+        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String filePath = uploadDir + newFileName;
+
+        File dest = new File(filePath);
+        // 检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+
+        try {
+            file.transferTo(dest);
+            filePath = filePath.substring(filePath.indexOf("webapps")+8);
+            picture.setImgPath(filePath);
+            picture.setImgKey(newFileName);
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setId(pictureService.saveOnePics(picture));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info("上传成功后的文件路径为：" + filePath);
+
+        return ResponseUtil.ok(picture);
+    }
 
     //******************************************************************************************************************
 

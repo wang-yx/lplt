@@ -87,8 +87,11 @@ CREATE TABLE `t_info` (
   `isrelease` tinyint(4) DEFAULT '0' COMMENT '是否发布，0不发布，1发布',
   `releasetime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发布时间',
   `updatetime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `salehotline` varchar(15) DEFAULT NULL COMMENT '销售电话',
+  `servicehotline` varchar(15) DEFAULT NULL COMMENT '服务电话',
+  `videopath` varchar(200) DEFAULT NULL COMMENT '视频path',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='公司简介表 或 联系我们的信息';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='公司简介表 或 联系我们的信息' |
 
 -- ----------------------------
 --  Records of `t_info`

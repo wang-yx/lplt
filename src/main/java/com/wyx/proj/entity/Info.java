@@ -13,6 +13,10 @@ public class Info extends BaseEntity {
     private String logokey; //logo图片key
     private String phone; //电话☎️
 
+    private String servicehotline; //服务热线
+    private String salehotline; //销售热线
+    private String videopath; //视频path
+
     private String email; //邮箱
 
     private String zipcode; //邮编
@@ -170,5 +174,29 @@ public class Info extends BaseEntity {
 
     public void setCompany_en(Company company_en) {
         this.company_en = company_en;
+    }
+
+    public String getServicehotline() {
+        return servicehotline;
+    }
+
+    public void setServicehotline(String servicehotline) {
+        this.servicehotline = servicehotline;
+    }
+
+    public String getSalehotline() {
+        return salehotline;
+    }
+
+    public void setSalehotline(String salehotline) {
+        this.salehotline = salehotline;
+    }
+
+    public String getVideopath() {
+        return videopath;
+    }
+
+    public void setVideopath(String videopath) {
+        this.videopath = videopath;
     }
 }

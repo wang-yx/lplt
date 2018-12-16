@@ -553,6 +553,9 @@ post
 {
     "logokey": "图片url",
     "phone": "123456789",
+    "servicehotline": "123456789",  //TODO服务热线
+    "salehotline": "123456789",     //TODO销售热线
+    "videopath":"视频path",         //视频path
     "email": "aaa@email.com",
     "zipcode": "邮政编码",
     "fax": "传真",
@@ -659,6 +662,8 @@ post
 {
     "logokey": "图片url",
     "phone": "123456789",
+    "servicehotline": "123456789",  //TODO服务热线
+    "salehotline": "123456789",     //TODO销售热线
     "email": "aaa@email.com",
     "zipcode": "123456",
     "fax": "12345",

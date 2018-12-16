@@ -23,9 +23,9 @@ public interface InfoDao {
     public Info selectInfoById(int id);
 
 
-    @Insert("insert into t_info(chineseid,englishid,logokey,phone,email,zipcode,fax," +
+    @Insert("insert into t_info(chineseid,englishid,logokey,phone,servicehotline,salehotline,videopath,email,zipcode,fax," +
             "person,registtime,isinfo,isrelease,releasetime) " +
-            "values(#{chineseid},#{englishid},#{logokey},#{phone},#{email},#{zipcode},#{fax},#{person}," +
+            "values(#{chineseid},#{englishid},#{logokey},#{phone},#{servicehotline},#{salehotline},#{videopath},#{email},#{zipcode},#{fax},#{person}," +
             "#{registtime},#{isinfo},#{isrelease},#{releasetime})")
     public int insertInfo(Info info);
 
@@ -73,6 +73,15 @@ public interface InfoDao {
             }
             if(info.getPhone()!=null){
                 sb.append(" phone='"+ info.getPhone() +"',");
+            }
+            if(info.getServicehotline()!=null){
+                sb.append(" servicehotline='"+ info.getServicehotline() +"',");
+            }
+            if(info.getSalehotline()!=null){
+                sb.append(" salehotline='"+ info.getSalehotline() +"',");
+            }
+            if(info.getVideopath()!=null){
+                sb.append(" videopath='"+ info.getVideopath() +"',");
             }
             if(info.getEmail()!=null){
                 sb.append(" email='"+ info.getEmail() +"',");
