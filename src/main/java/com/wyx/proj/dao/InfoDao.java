@@ -15,7 +15,7 @@ import java.util.Map;
 public interface InfoDao {
 
 
-    @Select("select * from t_info where isinfo=#{isinfo} order by isrelease asc,createtime desc ")
+    @Select("select * from t_info where isinfo=#{isinfo} order by createtime desc,isrelease desc ")
     public List<Info> selectInfos(int isinfo);
 
 

@@ -43,7 +43,7 @@ public interface PictureDao {
      * 查询某类型的所有图片信息
      * @return
      */
-    @Select("select * from t_picture where img_catg=#{imgCatg}")
+    @Select("select * from t_picture where img_catg=#{imgCatg} order by id")
     @Results({
             @Result(property = "imgKey",column = "img_key"),
             @Result(property = "imgPath",column = "img_path"),
@@ -98,6 +98,17 @@ public interface PictureDao {
             "values(#{imgKey}, #{imgPath}, #{imgCatg},#{imgComment}, #{createTime}, #{isRelease}, #{releaseTime})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public int insertPic(Picture picture);
+
+
+    /**
+     * 图片
+     * @param picture
+     * @return
+     */
+    @Update("update t_picture set img_path=#{imgPath} where id=#{id}")
+    public int updatePic(Picture picture);
+
+
 
     /**
      * 批量插入图片

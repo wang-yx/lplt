@@ -3,12 +3,10 @@ package com.wyx.proj.service.impl;
 import com.wyx.proj.bean.PageResponseBean;
 import com.wyx.proj.bean.ProductBean;
 import com.wyx.proj.dao.PictureDao;
+import com.wyx.proj.dao.ProdCategoryDao;
 import com.wyx.proj.dao.ProductDao;
 import com.wyx.proj.dao.ProductDetailDao;
-import com.wyx.proj.entity.Picture;
-import com.wyx.proj.entity.Product;
-import com.wyx.proj.entity.ProductDetail;
-import com.wyx.proj.entity.User;
+import com.wyx.proj.entity.*;
 import com.wyx.proj.service.PictureService;
 import com.wyx.proj.service.ProductService;
 import org.slf4j.Logger;
@@ -19,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service("productService")
@@ -42,6 +41,22 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
             tempList = getProdDao().searchProducts(productBean.getName(),productBean.getType(),productBean.getBrand(),
                     productBean.getCategoryid(),productBean.getLanguage(),productBean.getIsrelease(),productBean.getShowhomepage(),
                     limit,offset,productBean.getStarttime(),productBean.getEndtime());
+
+            if(tempList!=null && tempList.size()>0){
+                List<Prodcategory> allProdcategory = getProdCategoryDao().selectAllProdcategoris();
+                HashMap<Integer,String> tempMap = new HashMap<>();
+                for(Prodcategory pc: allProdcategory){
+                    if(productBean.getLanguage()==0){
+                        tempMap.put(pc.getId(),pc.getName());
+                    }else{
+                        tempMap.put(pc.getId(),pc.getNameen());
+                    }
+                }
+                //赋值categoryname
+                for(Product prod :tempList){
+                    prod.setCategoryname(tempMap.get(prod.getCategoryid()));
+                }
+            }
             resultData = new PageResponseBean(productBean.getPageNo(),productBean.getPageSize(),countNum,tempList);
         }else {
             resultData = new PageResponseBean(1, 15, 0, tempList);
@@ -114,5 +129,9 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
 
     public ProductDetailDao getProdDetailDao() {
         return getBaseDao().getMapper(ProductDetailDao.class);
+    }
+
+    public ProdCategoryDao getProdCategoryDao() {
+        return getBaseDao().getMapper(ProdCategoryDao.class);
     }
 }

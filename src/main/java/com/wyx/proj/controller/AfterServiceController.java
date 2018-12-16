@@ -28,12 +28,14 @@ public class AfterServiceController {
     public Object list(@RequestBody AfterServiceBean request){
         PageResponseBean<AfterService> result = null;
         try {
-            SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat s2= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dateStr = s.format(request.getEndtime());
-            Date endtime = null;
-            endtime = s2.parse(dateStr+" 23:59:59");
-            request.setEndtime(endtime);
+            if(request.getEndtime()!=null) {
+                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateStr = s.format(request.getEndtime());
+                Date endtime = null;
+                endtime = s2.parse(dateStr + " 23:59:59");
+                request.setEndtime(endtime);
+            }
             result = afterServiceService.queryAfterServiceByCondition(request);
         } catch (Exception e) {
             return ResponseUtil.err(e.getMessage(),"");

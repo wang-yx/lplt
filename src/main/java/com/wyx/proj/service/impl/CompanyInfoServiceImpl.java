@@ -30,12 +30,16 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
 
 
     @Override
-    public Info getCompanyInfo(int infoId) throws Exception {
-        Info resultInfo = getInfoDao().selectInfoById(infoId);
-        Company com_ch = getCompanyDao().selectCompanyById(resultInfo.getChineseid());
-        Company com_en = getCompanyDao().selectCompanyById(resultInfo.getEnglishid());
-        resultInfo.setCompany_ch(com_ch);
-        resultInfo.setCompany_en(com_en);
+    public Info getCompanyInfo() throws Exception {
+        Info resultInfo = new Info();
+        List<Info> resultInfos = getInfoDao().selectInfos(0);
+        if(resultInfos!=null && resultInfos.size()>0) {
+            resultInfo = resultInfos.get(0);
+            Company com_ch = getCompanyDao().selectCompanyById(resultInfo.getChineseid());
+            Company com_en = getCompanyDao().selectCompanyById(resultInfo.getEnglishid());
+            resultInfo.setCompany_ch(com_ch);
+            resultInfo.setCompany_en(com_en);
+        }
         return resultInfo;
     }
 

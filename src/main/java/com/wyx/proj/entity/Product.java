@@ -18,6 +18,7 @@ public class Product extends BaseEntity {
     private Integer showhomepage; //是否显示在首页，0不显示，1显示
 
     private String name;  //这个name只做临时展现用
+    private String categoryname; //这个name只做临时展现用
 
     private ProductDetail detail_ch;
 
@@ -141,6 +142,14 @@ public class Product extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCategoryname() {
+        return categoryname;
+    }
+
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
     }
 
     @Override

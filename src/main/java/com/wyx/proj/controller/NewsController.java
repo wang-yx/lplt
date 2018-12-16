@@ -24,12 +24,14 @@ public class NewsController {
     public Object list(@RequestBody NewsBean request){
         PageResponseBean<New> result = null;
         try {
-            SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat s2= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dateStr = s.format(request.getEndtime());
-            Date endtime = null;
-            endtime = s2.parse(dateStr+" 23:59:59");
-            request.setEndtime(endtime);
+            if(request.getEndtime()!=null) {
+                SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateStr = s.format(request.getEndtime());
+                Date endtime = null;
+                endtime = s2.parse(dateStr + " 23:59:59");
+                request.setEndtime(endtime);
+            }
             result = newsService.queryNewsByCondition(request);
         } catch (Exception e) {
 

@@ -16,7 +16,7 @@ public interface CompanyInfoService {
      * @return
      * @throws Exception
      */
-    Info getCompanyInfo(int infoId) throws Exception;
+    Info getCompanyInfo() throws Exception;
 
     /**
      * 获取联系方式信息

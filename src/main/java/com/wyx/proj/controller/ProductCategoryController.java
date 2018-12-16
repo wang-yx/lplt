@@ -73,7 +73,7 @@ public class ProductCategoryController {
     @GetMapping("delete")
     public Object deleteProductCategoryGet(@QueryParam("id") int id){
         try {
-            productCategoryService.getProdDetail(id);
+            productCategoryService.deleteProdcategoryByid(id);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtil.err(e.getMessage(),"");

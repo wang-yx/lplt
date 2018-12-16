@@ -72,6 +72,8 @@ public interface PictureService extends BaseService<User> {
     public void releasePic(int picId) throws Exception;
 
 
+    public List<Picture> selectMainPagePic() throws Exception;
 
+    public boolean deleteFile(String fileName) throws Exception;
 
 }

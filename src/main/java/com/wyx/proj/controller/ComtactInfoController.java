@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.QueryParam;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,7 +38,7 @@ public class ComtactInfoController {
     public Object detail(@FormParam("id") int id){
         Info info = null;
         try {
-            info = companyInfoService.getCompanyInfo(id);
+            info = companyInfoService.getContactInfo(id);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtil.err(e.getMessage(),"");
@@ -48,7 +50,7 @@ public class ComtactInfoController {
     public Object detailGet(@QueryParam("id") int id){
         Info info = null;
         try {
-            info = companyInfoService.getCompanyInfo(id);
+            info = companyInfoService.getContactInfo(id);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtil.err(e.getMessage(),"");
