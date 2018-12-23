@@ -28,8 +28,36 @@ public class ProductController {
 
     @PostMapping("save")
     public Object save(@RequestBody Product request){
+
+        //参数校验
+        if(request.getOrdernum()==null){
+            return ResponseUtil.err("ordernum不可以为空","");
+        }
+        if(request.getName()==null){
+            return ResponseUtil.err("Name不可以为空","");
+        }
+
         try {
             productService.save(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),"");
+        }
+        return ResponseUtil.ok("保存成功！","保存成功！");
+    }
+
+    @PostMapping("updateOrdernum")
+    public Object updateOrdernum(@RequestBody Product request){
+
+        //参数校验
+        if(request.getOrdernum()==null){
+            return ResponseUtil.err("ordernum不可以为空","");
+        }
+        if(request.getId()==0){
+            return ResponseUtil.err("id不可以为空","");
+        }
+        try {
+            productService.updateOrder(request);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtil.err(e.getMessage(),"");
@@ -82,7 +110,7 @@ public class ProductController {
         return ResponseUtil.ok(product);
     }
 
-    //最对只返回15条，一页的数据
+    //最多只返回15条，一页的数据
     @PostMapping("list/homePage")
     public Object listHomePage(){
         PageResponseBean<Product> result = null;

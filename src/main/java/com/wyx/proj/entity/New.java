@@ -16,6 +16,8 @@ public class New extends BaseEntity {
     private Integer readnum;//浏览量
 
     private String name; //只用于展示name（中英文都会用到）
+    private String introduce; //只用于展示introduce（中英文都会用到）
+
     private NewDetail newDetail_ch;
     private NewDetail newDetail_en;
 
@@ -121,5 +123,13 @@ public class New extends BaseEntity {
 
     public void setNewDetail_en(NewDetail newDetail_en) {
         this.newDetail_en = newDetail_en;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 }

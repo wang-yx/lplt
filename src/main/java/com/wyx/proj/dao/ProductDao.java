@@ -23,13 +23,43 @@ public interface ProductDao {
     public List<Product> selectAllProds();
 
 
-
     /**
-     * 所有发布或者未发布的的产品
+     * 所有产品count
      * @return
      */
-    @Select("select * from t_product where is_release=#{isRelease} order by create_time desc ")
-    public List<Product> selectAllReleaseProds(int isRelease);
+    @Select("select count(1) from t_product")
+    public int selectAllCount();
+
+
+    /**
+     * 查询是否有满足条件的产品
+     * @return
+     */
+    @SelectProvider(type =Provider.class,method = "countByIdOrOrdernum")
+    public int countByIdOrOrdernum(Product product);
+
+
+    /**
+     * 查询其他的非该id和ordernum的产品
+     * @return
+     */
+    @SelectProvider(type =Provider.class,method = "selectOthersByIdOrOrdernum")
+    public List<Product> selectOthersByIdOrOrdernum(Product product);
+
+
+    /**
+     * update其他产品的ordernum
+     * @return
+     */
+    @UpdateProvider(type =Provider.class,method = "updateOthersByIdOrOrdernum")
+    public int updateOthersByIdOrOrdernum(List<Product> products);
+
+    /**
+     * update当前id的ordernum
+     * @return
+     */
+    @Select("update t_product set ordernum=#{ordernum} where id=#{id} ")
+    public void updateByIdOrOrdernum(Product product);
 
 
     /**
@@ -82,9 +112,9 @@ public interface ProductDao {
      * @return
      */
     @Insert("insert into t_product(englishid,chineseid,categoryid,img,salehotline," +
-            "servicehotline,isrelease,releasetime,showhomepage) " +
+            "servicehotline,isrelease,releasetime,showhomepage,ordernum) " +
             "values(#{englishid},#{chineseid},#{categoryid},#{img},#{salehotline}," +
-            "#{servicehotline},#{isrelease},#{releasetime},#{showhomepage})")
+            "#{servicehotline},#{isrelease},#{releasetime},#{showhomepage},#{ordernum})")
     public int insertProd(Product product);
 
 
@@ -100,12 +130,22 @@ public interface ProductDao {
 
 
     /**
+     * 跟新ordernum字段
+     * @param id
+     * @param showHomepage
+     * @return
+     */
+    @Update("update t_product set showhomepage=#{showHomepage} where id=#{id} ")
+    public int updateProdOrdernum(int id,int showHomepage);
+
+
+    /**
      * 跟新showHomepage字段
      * @param id
      * @param showHomepage
      * @return
      */
-    @Update("update t_product set show_homepage=#{showHomepage} where id=#{id} ")
+    @Update("update t_product set showhomepage=#{showHomepage} where id=#{id} ")
     public int updateProdShowHomepage(int id,int showHomepage);
 
     /**
@@ -170,7 +210,7 @@ public interface ProductDao {
             if(!StringUtils.isEmpty(type)){
                 sb.append(" and type = '"+ type +"' " );
             }
-            if(!StringUtils.isEmpty(prodName)){
+            if(!StringUtils.isEmpty(brand)){
                 sb.append(" and brand = '"+ brand +"' " );
             }
 
@@ -219,9 +259,11 @@ public interface ProductDao {
             if(!StringUtils.isEmpty(type)){
                 sb.append(" and type = '"+ type +"' " );
             }
-            if(!StringUtils.isEmpty(prodName)){
+            if(!StringUtils.isEmpty(brand)){
                 sb.append(" and brand = '"+ brand +"' " );
             }
+
+            sb.append(" order by ordernum");
             System.out.println("---->"+sb.toString());
             return sb.toString();
         }
@@ -251,11 +293,54 @@ public interface ProductDao {
             if(product.getShowhomepage() != null){
                 sb.append(" showhomepage = " + product.getShowhomepage() +",");
             }
+            if(product.getOrdernum() != null) {
+                sb.append(" ordernum = " + product.getOrdernum() + ",");
+            }
 
             String dateStr = s.format(new Date());
             sb.append(" updatetime = '" + dateStr +"' ");
             return sb.toString() + " where id=" + product.getId();
         }
+
+        public String countByIdOrOrdernum(Product product){
+            StringBuilder sb = new StringBuilder();
+            sb.append("select count(1) from  t_product where 1=1  ");
+            if(product.getId()!=0){
+                sb.append(" and id = " + product.getId() );
+            }
+            if(product.getOrdernum()!=null){
+                sb.append(" and ordernum = " + product.getOrdernum() );
+            }
+            sb.append(" limit 1");
+            System.out.println("--countByIdOrOrdernum-sql-->"+sb.toString());
+            return sb.toString();
+        }
+
+        public String selectOthersByIdOrOrdernum(Product product){
+            StringBuilder sb = new StringBuilder();
+            sb.append("select id,ordernum from  t_product where 1=1  ");
+            sb.append(" and id != " + product.getId() );
+            sb.append(" and ordernum >= " + product.getOrdernum() );
+            System.out.println("--selectOthersByIdOrOrdernum-sql-->"+sb.toString());
+            return sb.toString();
+        }
+
+        public String updateOthersByIdOrOrdernum(Map map){
+            List<Product> products = (List<Product>) map.get("list");
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("update t_product set ordernum = ordernum+1 where 1=1  ");
+            sb.append(" and id in(");
+            for(Product pp: products) {
+                sb.append(pp.getId() + ",");
+            }
+            String str = sb.toString().substring(0,sb.toString().length()-1);
+
+            System.out.println("--updateOthersByIdOrOrdernum-sql-->"+str + ")");
+
+            return str + ")";
+        }
+
 
 
         public String searchByIdList(Map map){

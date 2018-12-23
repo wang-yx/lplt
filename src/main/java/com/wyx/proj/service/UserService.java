@@ -1,6 +1,7 @@
 package com.wyx.proj.service;
 
 import com.wyx.proj.entity.User;
+import com.wyx.proj.request.Login;
 
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface UserService extends BaseService<User> {
      * @throws Exception
      */
     public int updateUser(User user) throws Exception;
+
+    public String updatePass(Login login) throws Exception;
 
 }

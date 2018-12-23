@@ -127,7 +127,7 @@ public interface NewDao {
                                  Date startTime,Date endTime,Integer language){
 
             StringBuilder sb = new StringBuilder();
-            sb.append("select *,b.name as name from t_new a join t_new_detail b on ");
+            sb.append("select *,b.name as name,b.introduce as introduce from t_new a join t_new_detail b on ");
 
             String languageField = "chineseid";
             if(language!=0){

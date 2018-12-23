@@ -260,7 +260,7 @@ post
 }
 
 // TODO 返回删除成功，但是刷新后删除的数据还在
-/productCategory/delete
+/lplt/productCategory/delete
 post
 参数：id
 返回值：
@@ -270,6 +270,7 @@ post
     "data": "删除成功！",
     "extendInfo": null
 }
+
 
 ------------------------------------------------------------------------------------------------
 
@@ -446,7 +447,20 @@ post
     "extendInfo": null
 }
 
-
+/lplt/product/updateOrdernum
+post
+参数  json
+{
+    "id":1,
+    "ordernum": 1
+}
+返回值：
+{
+    "status": 1,
+    "msg": "success",
+    "data": "保存成功！",
+    "extendInfo": null
+}
 
 ------------------------售后------------------------------------------------------------------------
 
@@ -756,8 +770,26 @@ post
 
 
 
+--------------------登录-----------------------------
+lplt/user/login
+方式：post
+content-type: json
+参数：
+{
+ 
+ "userName":"admin",
+ "password":"admin"
+}
 
-
-
-
+修改密码：
+lplt/user/changePwd
+方式：post
+content-type: json
+参数：
+{
+ "userName":"admin",
+ "password":"admin",
+ "newPassword":"admin111",
+  "newPassword_again":"admin111"
+}
 

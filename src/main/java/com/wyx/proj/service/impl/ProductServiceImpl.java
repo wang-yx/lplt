@@ -77,6 +77,20 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
 
     @Override
     public boolean save(Product product) throws Exception {
+
+        if(product.getOrdernum()!=null && getProdDao().countByIdOrOrdernum(product)>0){
+            //进来的话，就表示有相同排序数字，重新需要调整排序
+            List <Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
+            for(Product pp: products){
+                pp.setOrdernum(pp.getOrdernum()+1);
+            }
+            getProdDao().updateOthersByIdOrOrdernum(products);
+        }else{
+            //目前的总数
+            int countNum = getProdDao().selectAllCount();
+            product.setOrdernum(countNum+1);
+        }
+
         int resultNum = 0;
         if(product.getId()==0){
             ProductDetail productDetail_ch = product.getDetail_ch();
@@ -103,6 +117,23 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
         }
         return resultNum>0;
     }
+
+
+    public void updateOrder(Product product) throws Exception{
+        if(product.getOrdernum()!=null && getProdDao().countByIdOrOrdernum(product)>0){
+            //进来的话，就表示有相同排序数字，重新需要调整排序
+            List <Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
+            for(Product pp: products){
+                pp.setOrdernum(pp.getOrdernum()+1);
+            }
+            System.out.println("---size-->"+products.size());
+            getProdDao().updateOthersByIdOrOrdernum(products);
+        }
+        getProdDao().updateByIdOrOrdernum(product);
+    }
+
+
+
 
     @Override
     public boolean deleteById(int id) throws Exception {

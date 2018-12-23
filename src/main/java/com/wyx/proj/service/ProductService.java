@@ -17,6 +17,8 @@ public interface ProductService extends BaseService<Product> {
 
     public boolean save(Product product) throws Exception;
 
+    public void updateOrder(Product product) throws Exception;
+
     public boolean deleteById(int id) throws Exception;
 
 }

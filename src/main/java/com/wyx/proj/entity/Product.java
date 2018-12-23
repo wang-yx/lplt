@@ -16,6 +16,7 @@ public class Product extends BaseEntity {
     private Integer isrelease; //是否发布，0不发布，1发布
     private Date releasetime; //发布时间
     private Integer showhomepage; //是否显示在首页，0不显示，1显示
+    private Integer ordernum; //产品排序用
 
     private String name;  //这个name只做临时展现用
     private String categoryname; //这个name只做临时展现用
@@ -150,6 +151,14 @@ public class Product extends BaseEntity {
 
     public void setCategoryname(String categoryname) {
         this.categoryname = categoryname;
+    }
+
+    public Integer getOrdernum() {
+        return ordernum;
+    }
+
+    public void setOrdernum(Integer ordernum) {
+        this.ordernum = ordernum;
     }
 
     @Override

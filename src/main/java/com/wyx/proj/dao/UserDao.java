@@ -4,6 +4,7 @@ package com.wyx.proj.dao;
 import com.wyx.proj.entity.Prodcategory;
 import com.wyx.proj.entity.User;
 
+import com.wyx.proj.request.Login;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -67,6 +68,16 @@ public interface UserDao {
     @Update("update t_users set user_name=#{userName},pass_word=#{passWord},nick_name=#{nickName},is_admin=#{isAdmin} where id=#{id} ")
     public int updateUser(User user);
 
+
+    /**
+     * 跟新数据
+     * @param login,id
+     * @return
+     */
+    @Update("update t_users set pass_word=#{pass} where id=#{id} ")
+    public int updatePass(@Param("pass") String pass, @Param("id") int id);
+
+
     /**
      * 根据用户名密码查询
      * @param userName
@@ -75,6 +86,16 @@ public interface UserDao {
      */
     @Select("select count(1) from t_users where user_name=#{userName} and pass_word=#{passWord} limit 1")
     public int selectUser(@Param("userName") String userName, @Param("passWord") String passWord);
+
+
+    /**
+     * 根据用户名密码查询
+     * @param userName
+     * @param passWord
+     * @return
+     */
+    @Select("select * from t_users where user_name=#{userName} and pass_word=#{passWord} limit 1")
+    public List<User> selectOneUser(@Param("userName") String userName, @Param("passWord") String passWord);
 
     /**
      * 批量删除

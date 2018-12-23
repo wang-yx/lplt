@@ -93,8 +93,43 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Response<String> login(@RequestBody Login login){
-        return Response.success(userBiz.userLogin(login));
+    public Object login(@RequestBody Login login){
+        logger.info("---selectUserAndPwd--params->userName="+ login.getUserName() +", passWord="+login.getPassword());
+
+        int isExsit = 0;
+        try {
+            isExsit = userService.searchUser(login.getUserName(),login.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),null);
+        }
+        if(isExsit==0){
+            return ResponseUtil.err("密码或者用户名不正确",null);
+        }
+
+        HashMap<String,Integer> mapRrt = new HashMap<>();
+        mapRrt.put("isExsit",1);
+
+        return ResponseUtil.ok(mapRrt);
     }
 
+
+    @RequestMapping(value = "changePwd", method = RequestMethod.POST)
+    public Object changePwd(@RequestBody Login login){
+        try {
+            String returnStr = userService.updatePass(login);
+            if(returnStr!=null){
+                return ResponseUtil.err("修改失败："+returnStr,"");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err("修改失败："+e.getMessage(),"");
+        }
+        return ResponseUtil.ok("修改成功","");
+    }
+
+//    @RequestMapping(value = "login", method = RequestMethod.POST)
+//    public Response<String> login(@RequestBody Login login){
+//        return Response.success(userBiz.userLogin(login));
+//    }
 }
