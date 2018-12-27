@@ -36,7 +36,8 @@ public class AfterServiceServiceImpl extends BaseServiceImpl<AfterService> imple
             offset = (afterServiceBean.getPageNo()-1) * afterServiceBean.getPageSize();
             limit = afterServiceBean.getPageSize();
             tempList = getAfterServiceDao().selectSomeAfterServices(afterServiceBean.getName(),
-                                                        afterServiceBean.getStarttime(),afterServiceBean.getEndtime(),limit,offset );
+                                                        afterServiceBean.getStarttime(),afterServiceBean.getEndtime(),
+                                                        afterServiceBean.getIndustry(),afterServiceBean.getIsaftersale(),limit,offset );
             pageNewsBean = new PageResponseBean(afterServiceBean.getPageNo(),afterServiceBean.getPageSize(),countNum,tempList);
         }else{
             pageNewsBean = new PageResponseBean(1,15,0,tempList);

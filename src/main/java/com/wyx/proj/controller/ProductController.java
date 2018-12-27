@@ -29,14 +29,6 @@ public class ProductController {
     @PostMapping("save")
     public Object save(@RequestBody Product request){
 
-        //参数校验
-        if(request.getOrdernum()==null){
-            return ResponseUtil.err("ordernum不可以为空","");
-        }
-        if(request.getName()==null){
-            return ResponseUtil.err("Name不可以为空","");
-        }
-
         try {
             productService.save(request);
         } catch (Exception e) {

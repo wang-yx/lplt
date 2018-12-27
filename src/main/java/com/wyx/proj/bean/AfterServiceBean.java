@@ -14,6 +14,10 @@ public class AfterServiceBean extends BaseBean {
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date endtime;
 
+    private String industry;
+
+    private Integer isaftersale;
+
     public String getName() {
         return name;
     }
@@ -38,4 +42,19 @@ public class AfterServiceBean extends BaseBean {
         this.endtime = endtime;
     }
 
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public Integer getIsaftersale() {
+        return isaftersale;
+    }
+
+    public void setIsaftersale(Integer isaftersale) {
+        this.isaftersale = isaftersale;
+    }
 }

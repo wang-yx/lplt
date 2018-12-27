@@ -8,11 +8,13 @@ import com.wyx.proj.dao.NewDetailDao;
 import com.wyx.proj.entity.New;
 import com.wyx.proj.entity.NewDetail;
 import com.wyx.proj.service.NewsService;
+import com.wyx.proj.service.PictureService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ import java.util.List;
 @Transactional
 public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService {
     private Logger logger = LoggerFactory.getLogger(NewsServiceImpl.class);
+
+    @Resource
+    private PictureService pictureService;
 
     public NewDao getNewsDao() {
         return getBaseDao().getMapper(NewDao.class);
@@ -105,9 +110,11 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
         ids.add(tempNew.getChineseid());
         ids.add(tempNew.getEnglishid());
         getNewDetailDao().batchDeleteNewDetail(ids);
+        getNewsDao().deleteNewById(id);
 
-        return getNewsDao().deleteNewById(id)>0;
+        pictureService.deleteFile(tempNew.getImg());
 
+        return true;
     }
 
 

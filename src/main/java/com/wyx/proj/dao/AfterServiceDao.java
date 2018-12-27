@@ -21,7 +21,7 @@ public interface AfterServiceDao {
     public List<AfterService> selectAllAfterServices();
 
     @SelectProvider(type = Provider.class,method = "selectSomeAfterServices")
-    public List<AfterService> selectSomeAfterServices(String name,Date startTime, Date endTime,Integer limit, Integer offset);
+    public List<AfterService> selectSomeAfterServices(String name,Date startTime, Date endTime,String industry,Integer isaftersale,Integer limit, Integer offset);
 
     @SelectProvider(type = Provider.class,method = "selectAllCount")
     public int selectAllCount(String name,Date startTime, Date endTime);
@@ -30,8 +30,8 @@ public interface AfterServiceDao {
     public AfterService selectAfterServiceById(int id);
 
 
-    @Insert("insert into t_after_service (name,phone,email,company,question,reply) " +
-            "values(#{name},#{phone},#{email},#{company},#{question},#{reply})")
+    @Insert("insert into t_after_service (name,phone,email,company,question,reply,industry,isaftersale) " +
+            "values(#{name},#{phone},#{email},#{company},#{question},#{reply},#{industry},#{isaftersale})")
     public int insertAfterService(AfterService afterService);
 
 
@@ -57,10 +57,16 @@ public interface AfterServiceDao {
         SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-        public String selectSomeAfterServices(String name,Date startTime, Date endTime,Integer limit, Integer offset){
+        public String selectSomeAfterServices(String name,Date startTime, Date endTime,String industry,Integer isaftersale,Integer limit, Integer offset){
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_after_service where 1=1  ");
 
+            if(isaftersale!=null){
+                sb.append(" and isaftersale ="+ isaftersale +" " );
+            }
+            if(!StringUtils.isEmpty(industry)){
+                sb.append(" and industry like '%"+ industry +"%' " );
+            }
             if(!StringUtils.isEmpty(name)){
                 sb.append(" and name like '%"+ name +"%' " );
             }

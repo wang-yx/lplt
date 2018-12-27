@@ -2,6 +2,7 @@ package com.wyx.proj.dao;
 
 
 import com.alibaba.druid.util.StringUtils;
+import com.wyx.proj.bean.ProdCategoryBean;
 import com.wyx.proj.entity.Prodcategory;
 import com.wyx.proj.entity.Product;
 import com.wyx.proj.entity.User;
@@ -19,8 +20,19 @@ public interface ProdCategoryDao {
      * 所有产品类别
      * @return
      */
-    @Select("select * from t_prodcategory order by createtime desc ")
+    @Select("select * from t_prodcategory order by createtime ")
     public List<Prodcategory> selectAllProdcategoris();
+
+    /**
+     * 所有产品类别
+     * @return
+     */
+    @Select("select * from t_prodcategory order by createtime desc ")
+    public List<Prodcategory> selectAllProdcategoris2();
+
+    @SelectProvider(type = Provider.class,method = "selectSome")
+    public List<Prodcategory> selectSome(ProdCategoryBean prodCategoryBean);
+
 
 
     /**
@@ -35,7 +47,7 @@ public interface ProdCategoryDao {
      * @param prodcategory
      * @return
      */
-    @Insert("insert into t_prodcategory(name,nameen,comment) values(#{name},#{nameen},#{comment})")
+    @Insert("insert into t_prodcategory(name,nameen,comment,parent,type) values(#{name},#{nameen},#{comment},#{parent},#{type})")
     public int insertProdcategory(Prodcategory prodcategory);
 
     /**
@@ -43,7 +55,7 @@ public interface ProdCategoryDao {
      * @param prodcategory
      * @return
      */
-    @Update("update t_prodcategory set name=#{name},nameen=#{nameen},comment=#{comment} where id=#{id} ")
+    @Update("update t_prodcategory set name=#{name},nameen=#{nameen},comment=#{comment},parent=#{parent},type=#{type} where id=#{id} ")
     public int updateProdcategory(Prodcategory prodcategory);
 
 
@@ -58,6 +70,33 @@ public interface ProdCategoryDao {
 
 
     class Provider{
+
+        public String selectSome(ProdCategoryBean prodCategoryBean){
+            StringBuilder sb = new StringBuilder();
+            sb.append("select * from t_prodcategory where 1=1 ");
+
+            if(prodCategoryBean.getId()!=null){
+                sb.append(" and id = "+ prodCategoryBean.getId() + " " );
+            }
+            if(!StringUtils.isEmpty(prodCategoryBean.getName())){
+                sb.append(" and name like '%"+ prodCategoryBean.getName() +"%' " );
+            }
+
+            if(!StringUtils.isEmpty(prodCategoryBean.getNameen())){
+                sb.append(" and nameen like '%" + prodCategoryBean.getNameen()+"%' ");
+            }
+            if(prodCategoryBean.getParent()!=null){
+                sb.append(" and parent = "+ prodCategoryBean.getParent() + " " );
+            }
+            if(prodCategoryBean.getType()!=null){
+                sb.append(" and type = "+ prodCategoryBean.getType() + " " );
+            }
+
+            sb.append(" order by createtime desc");
+
+            System.out.println("---->"+sb.toString());
+            return sb.toString();
+        }
 
 
         public String batchDeleteProdcategory(Map map){

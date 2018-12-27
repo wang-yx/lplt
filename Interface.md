@@ -209,10 +209,12 @@ post
 post
 参数：
 {
-  "id":1,
+  "id":2,
   "name": "类别11111",
   "nameen": "ccategroy one",
   "comment": "commentcomment"
+  "parent":0, //上级分类id
+  "type":1    //一级分类是1，二分类是2，三级分类是3 ...
 }
 返回值：
 {
@@ -222,8 +224,8 @@ post
     "extendInfo": null
 }
 
-// TODO 商品类别用分页吗？
-/lplt/productCategory/list
+// TODO 分装的
+/lplt/productCategory/specialList
 post
 参数：没有
 返回值
@@ -236,11 +238,73 @@ post
             "name": "类别11111",
             "nameen": "ccategroy one",
             "comment": "commentcomment",
-            "createtime": null
+            "createtime": null,
+            "parent":0,
+            "type":1,
+            "children":[
+                {
+                "id": 1,
+                "name": "类别11111",
+                "nameen": "ccategroy one",
+                "comment": "commentcomment",
+                "createtime": null,
+                "parent":1,
+                "type":2
+                }
+            ]
         }
     ],
     "extendInfo": null
 }
+
+// TODO 平铺的
+/lplt/productCategory/list  
+post
+参数：没有
+返回值
+{
+    "status": 1,
+    "msg": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "类别11111",
+            "nameen": "ccategroy one",
+            "comment": "commentcomment",
+            "createtime": null,
+            "parent":0,
+            "type":1,
+            "children":null
+        }
+    ],
+    "extendInfo": null
+}
+
+
+/lplt/productCategory/filterList  
+post
+参数  用啥搜就传啥
+{
+    "id": 1,
+    "name": "success",
+    "name": "success",
+    "parent": 1,
+    "type": 1,
+}
+返回值
+{
+    "status": 1,
+    "msg": "success",
+    "data": {
+        "id": 1,
+        "name": "类别11111",
+        "nameen": "ccategroy one",
+        "comment": "commentcomment",
+        "createtime": null
+    },
+    "extendInfo": null
+}
+
 
 /lplt/productCategory/detail
 post
@@ -475,7 +539,9 @@ post
     "company": "报修公司",
     "question": "问题",
     "reply": "售后回复11111",
-    "isdeal": 0
+    "isdeal": 0,
+    "industry":"行业",
+    "isaftersale":0      //售后0  在线咨询是1
 }
 返回值
 {
@@ -516,6 +582,8 @@ post
     "name": "问题1",
     "starttime": "2018-10-01 00:00:00",
     "endtime": "2018-12-01 00:00:00",
+    "isaftersale":0,
+    "industry":"行业",
     "pageNo":1
 }
 返回值

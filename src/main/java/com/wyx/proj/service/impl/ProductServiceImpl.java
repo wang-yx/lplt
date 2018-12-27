@@ -11,10 +11,12 @@ import com.wyx.proj.service.PictureService;
 import com.wyx.proj.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +27,9 @@ import java.util.List;
 public class ProductServiceImpl extends BaseServiceImpl<Product> implements ProductService {
 
     private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
+    @Resource
+    private PictureService pictureService;
 
     @Override
     public PageResponseBean<Product> queryByCondition(ProductBean productBean) throws Exception {
@@ -146,7 +151,11 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
 
         ids.clear();
         ids.add(id);
-        return getProdDao().batchDeleteProd(ids)>0;
+        getProdDao().batchDeleteProd(ids);
+
+        pictureService.deleteFile(tempProduce.getImg());
+
+        return true;
     }
 
 

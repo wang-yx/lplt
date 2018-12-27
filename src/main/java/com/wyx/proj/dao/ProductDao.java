@@ -215,7 +215,7 @@ public interface ProductDao {
             }
 
             if(limit != null && offset != null){
-                sb.append(" order by a.createtime desc limit " + offset + "," + limit );
+                sb.append(" order by ordernum limit " + offset + "," + limit );
             }
             System.out.println("---->"+sb.toString());
             return sb.toString();
@@ -262,8 +262,6 @@ public interface ProductDao {
             if(!StringUtils.isEmpty(brand)){
                 sb.append(" and brand = '"+ brand +"' " );
             }
-
-            sb.append(" order by ordernum");
             System.out.println("---->"+sb.toString());
             return sb.toString();
         }

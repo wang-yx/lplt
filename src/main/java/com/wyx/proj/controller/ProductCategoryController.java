@@ -1,5 +1,6 @@
 package com.wyx.proj.controller;
 
+import com.wyx.proj.bean.ProdCategoryBean;
 import com.wyx.proj.bean.ProductBean;
 import com.wyx.proj.entity.Prodcategory;
 import com.wyx.proj.service.ProductCategoryService;
@@ -33,8 +34,8 @@ public class ProductCategoryController {
         return ResponseUtil.ok("保存成功！","保存成功！");
     }
 
-    @PostMapping("list")
-    public Object list(){
+    @PostMapping("specialList")
+    public Object specialList(){
         List<Prodcategory> result = null;
 
         try {
@@ -45,6 +46,33 @@ public class ProductCategoryController {
         }
         return ResponseUtil.ok(result);
     }
+
+    @PostMapping("list")
+    public Object list(){
+        List<Prodcategory> result = null;
+
+        try {
+            result = productCategoryService.selectAll2();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),result);
+        }
+        return ResponseUtil.ok(result);
+    }
+
+    @PostMapping("filterList")
+    public Object filterList(@RequestBody ProdCategoryBean prodCategoryBean){
+        List<Prodcategory> result = null;
+
+        try {
+            result = productCategoryService.selectSome(prodCategoryBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.err(e.getMessage(),result);
+        }
+        return ResponseUtil.ok(result);
+    }
+
 
     @PostMapping("detail")
     public Object detail(@FormParam("id") int id){
