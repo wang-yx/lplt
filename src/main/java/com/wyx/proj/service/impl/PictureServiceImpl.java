@@ -63,6 +63,11 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
     }
 
     @Override
+    public void updatePicsPath(Picture picture) throws Exception {
+        getPicDao().updatePicPath(picture);
+    }
+
+    @Override
     public void releasePic(int picId) throws Exception {
         getPicDao().releaseImg(picId);
     }
@@ -84,16 +89,18 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
         if(pic.getId()==0){
             getPicDao().insertPic(pic);
         }else{
-            getPicDao().updatePic(pic);
+            getPicDao().updatePicPath(pic);
         }
         return pic.getId();
     }
 
     @Override
     public boolean deleteFile(String fileName) {
-        File file = new File(fileName);
+        String name = "/root/lplt/apache-tomcat/webapps" + fileName;
+        File file = new File(name);
         // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-        if (file.exists() && file.isFile()) {
+        logger.info("---file.exists()--->"+file.exists());
+        if (file.exists()) {
             if (file.delete()) {
                 return true;
             } else {
@@ -104,6 +111,10 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
         }
     }
 
+    @Override
+    public Picture selectOnePicById(int id) throws Exception {
+        return getPicDao().selectOnePicById(id);
+    }
 
 
     /**

@@ -196,17 +196,21 @@ public class PictureController {
 
     @RequestMapping(value = "deletePic",method = RequestMethod.POST)
     public Object deletePic(@FormParam("pictureInfo") String pictureInfo) {
-
+        logger.info("---deletePic--param->"+pictureInfo.toString());
         //校验图片附带信息
         Picture picture = new Picture();
         try {
             if (!StringUtils.isEmpty(pictureInfo)) {
                 picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
+                if(picture.getId()==0){
+                    return ResponseUtil.err("id不能为空", "");
+                }
+                picture = pictureService.selectOnePicById(picture.getId());
             }
         } catch (Throwable t) {
             return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
         }
-
+        logger.info("---picture.getImgPath()-->"+picture.getImgPath());
         //删除文件
         try {
             pictureService.deleteFile(picture.getImgPath());
@@ -217,7 +221,32 @@ public class PictureController {
         return ResponseUtil.ok("删除成功","");
     }
 
-
+    @RequestMapping(value = "deletePic",method = RequestMethod.GET)
+    public Object deletePicGet(@RequestParam("id") int id) {
+        logger.info("---deletePic--param->"+id);
+        //校验图片附带信息
+        Picture picture = new Picture();
+        try {
+            if (id != 0) {
+                picture = pictureService.selectOnePicById(id);
+//                List<String> l
+//                pictureService.deleteOnePics(new ArrayList<String>(picture.getImgKey()));
+            }
+        } catch (Throwable t) {
+            return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
+        }
+        logger.info("---picture.getImgPath()-->"+picture.getImgPath());
+        //删除文件
+        try {
+            pictureService.deleteFile(picture.getImgPath());
+            picture.setImgPath("");
+            pictureService.updatePicsPath(picture);
+        } catch (Exception e) {
+            logger.error("删除图片失败：" + e.getMessage());
+            return ResponseUtil.err("删除图片失败：" + e.getMessage(),"");
+        }
+        return ResponseUtil.ok("删除成功","");
+    }
 
 
     /**

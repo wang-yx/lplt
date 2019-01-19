@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PictureService extends BaseService<User> {
 
+    public void updatePicsPath(Picture pictures) throws Exception;
     /**
      * 获取所有图片信息
      * @return
@@ -75,5 +76,7 @@ public interface PictureService extends BaseService<User> {
     public List<Picture> selectMainPagePic() throws Exception;
 
     public boolean deleteFile(String fileName) throws Exception;
+
+    public Picture selectOnePicById(int id) throws Exception;
 
 }

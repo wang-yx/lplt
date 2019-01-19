@@ -39,6 +39,24 @@ public interface PictureDao {
     })
     public List<Picture> selectAllPic();
 
+
+    /**
+     * 查询所有图片
+     * @return
+     */
+    @Select("select * from t_picture where id=#{id} ")
+    @Results({
+            @Result(property = "imgKey",column = "img_key"),
+            @Result(property = "imgPath",column = "img_path"),
+            @Result(property = "imgCatg",column = "img_catg"),
+            @Result(property = "imgComment",column = "img_comment"),
+            @Result(property = "createTime",column = "create_time"),
+            @Result(property = "isRelease",column = "is_release"),
+            @Result(property = "releaseTime",column = "release_time")
+    })
+    public Picture selectOnePicById(int id);
+
+
     /**
      * 查询某类型的所有图片信息
      * @return
@@ -106,7 +124,7 @@ public interface PictureDao {
      * @return
      */
     @Update("update t_picture set img_path=#{imgPath} where id=#{id}")
-    public int updatePic(Picture picture);
+    public int updatePicPath(Picture picture);
 
 
 
