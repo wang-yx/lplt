@@ -13,13 +13,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application extends SpringBootServletInitializer {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(Application.class, args);
 
     }
 
-    protected SpringApplicationBuilder configer(SpringApplicationBuilder applicationBuilder){
+    protected SpringApplicationBuilder configer(SpringApplicationBuilder applicationBuilder) {
         return applicationBuilder.sources(Application.class);
     }
 

@@ -13,7 +13,7 @@ public interface ProductService extends BaseService<Product> {
 
     PageResponseBean<Product> queryByCondition(ProductBean productBean) throws Exception;
 
-    public Product getProdDetail(int id) throws  Exception;
+    public Product getProdDetail(int id) throws Exception;
 
     public boolean save(Product product) throws Exception;
 

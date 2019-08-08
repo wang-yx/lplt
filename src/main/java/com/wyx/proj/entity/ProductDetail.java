@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ProductDetail extends BaseEntity {
 
-    private int id;
+    private Integer id;
     private String name;  //产品名称
     private String maker; //制造商
     private String dealer; //经销商
@@ -22,11 +22,11 @@ public class ProductDetail extends BaseEntity {
     private Integer language; //是否发布，0不发布，1发布
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -151,7 +151,7 @@ public class ProductDetail extends BaseEntity {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return null;
     }
 

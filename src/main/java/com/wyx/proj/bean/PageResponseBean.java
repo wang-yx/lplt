@@ -12,16 +12,17 @@ public class PageResponseBean<T> {
     private int totalPage;
     private List<T> data;
 
-    public PageResponseBean(int curPage,int pageSize,int totalSize,List<T> data) {
+    public PageResponseBean(int curPage, int pageSize, int totalSize, List<T> data) {
         this.curPage = curPage;
         this.pageSize = pageSize;
         this.totalSize = totalSize;
         this.data = data;
     }
 
-    public PageResponseBean(){}
+    public PageResponseBean() {
+    }
 
-    public static PageResponseBean create(){
+    public static PageResponseBean create() {
         return new PageResponseBean();
     }
 

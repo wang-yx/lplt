@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Product extends BaseEntity {
 
-    private int id;
+    private Integer id;
     private Integer englishid;
     private Integer chineseid;
     private Integer categoryid;
@@ -25,11 +25,11 @@ public class Product extends BaseEntity {
 
     private ProductDetail detail_en;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -162,7 +162,7 @@ public class Product extends BaseEntity {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         return null;
     }

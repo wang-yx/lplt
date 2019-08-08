@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value="/product")
+@RequestMapping(value = "/product")
 public class ProductController {
 
     private Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -27,42 +27,42 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("save")
-    public Object save(@RequestBody Product request){
+    public Object save(@RequestBody Product request) {
 
         try {
             productService.save(request);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
-        return ResponseUtil.ok("保存成功！","保存成功！");
+        return ResponseUtil.ok("保存成功！", "保存成功！");
     }
 
     @PostMapping("updateOrdernum")
-    public Object updateOrdernum(@RequestBody Product request){
+    public Object updateOrdernum(@RequestBody Product request) {
 
         //参数校验
-        if(request.getOrdernum()==null){
-            return ResponseUtil.err("ordernum不可以为空","");
+        if (request.getOrdernum() == null) {
+            return ResponseUtil.err("ordernum不可以为空", "");
         }
-        if(request.getId()==0){
-            return ResponseUtil.err("id不可以为空","");
+        if (request.getId() == 0) {
+            return ResponseUtil.err("id不可以为空", "");
         }
         try {
             productService.updateOrder(request);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
-        return ResponseUtil.ok("保存成功！","保存成功！");
+        return ResponseUtil.ok("保存成功！", "保存成功！");
     }
 
     @PostMapping("list")
-    public Object list(@RequestBody ProductBean request){
+    public Object list(@RequestBody ProductBean request) {
         PageResponseBean<Product> result = null;
 
         try {
-            if(request.getEndtime()!=null) {
+            if (request.getEndtime() != null) {
                 SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String dateStr = s.format(request.getEndtime());
@@ -73,38 +73,38 @@ public class ProductController {
             result = productService.queryByCondition(request);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),result);
+            return ResponseUtil.err(e.getMessage(), result);
         }
         return ResponseUtil.ok(result);
     }
 
     @PostMapping("detail")
-    public Object detail(@FormParam("id") int id){
+    public Object detail(@FormParam("id") int id) {
         Product product = null;
         try {
             product = productService.getProdDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),product);
+            return ResponseUtil.err(e.getMessage(), product);
         }
         return ResponseUtil.ok(product);
     }
 
     @GetMapping("detail")
-    public Object detailGet(@QueryParam("id") int id){
+    public Object detailGet(@QueryParam("id") int id) {
         Product product = null;
         try {
             product = productService.getProdDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),product);
+            return ResponseUtil.err(e.getMessage(), product);
         }
         return ResponseUtil.ok(product);
     }
 
     //最多只返回15条，一页的数据
     @PostMapping("list/homePage")
-    public Object listHomePage(){
+    public Object listHomePage() {
         PageResponseBean<Product> result = null;
         ProductBean productBean = new ProductBean();
         productBean.setShowhomepage(1);
@@ -112,29 +112,29 @@ public class ProductController {
             result = productService.queryByCondition(productBean);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),result);
+            return ResponseUtil.err(e.getMessage(), result);
         }
         return ResponseUtil.ok(result);
     }
 
     @PostMapping("delete")
-    public Object deleteProdBYId(@FormParam("id") int id){
+    public Object deleteProdBYId(@FormParam("id") int id) {
         try {
             productService.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }
 
     @GetMapping("delete")
-    public Object deleteProdBYIdGet(@QueryParam("id") int id){
+    public Object deleteProdBYIdGet(@QueryParam("id") int id) {
         try {
             productService.deleteById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }

@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value="/company")
+@RequestMapping(value = "/company")
 public class CompanyController {
 
     @Resource
@@ -24,59 +24,59 @@ public class CompanyController {
 
 
     @PostMapping(value = "detail")
-    public Object detail(){
+    public Object detail() {
         Info info = null;
         try {
             info = companyInfoService.getCompanyInfo();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(info);
     }
 
     @GetMapping(value = "detail")
-    public Object detailGet(){
+    public Object detailGet() {
         Info info = null;
         try {
             info = companyInfoService.getCompanyInfo();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(info);
     }
 
     @PostMapping(value = "save")
-    public Object save(@RequestBody Info info){
+    public Object save(@RequestBody Info info) {
         try {
             info.setIsinfo(0);
             companyInfoService.saveCompanyInfo(info);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("保存成功");
     }
 
     @PostMapping(value = "delete")
-    public Object delete(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id) {
         try {
             companyInfoService.deleteInfoById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }
 
     @GetMapping(value = "delete")
-    public Object deleteGet(@QueryParam("id") int id){
+    public Object deleteGet(@QueryParam("id") int id) {
         try {
             companyInfoService.deleteInfoById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }

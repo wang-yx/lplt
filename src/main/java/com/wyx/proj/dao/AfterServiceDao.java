@@ -16,15 +16,14 @@ import java.util.Map;
 public interface AfterServiceDao {
 
 
-
     @Select("select * from t_after_service order by create_time desc ")
     public List<AfterService> selectAllAfterServices();
 
-    @SelectProvider(type = Provider.class,method = "selectSomeAfterServices")
-    public List<AfterService> selectSomeAfterServices(String name,Date startTime, Date endTime,String industry,Integer isaftersale,Integer limit, Integer offset);
+    @SelectProvider(type = Provider.class, method = "selectSomeAfterServices")
+    public List<AfterService> selectSomeAfterServices(String name, Date startTime, Date endTime, String industry, Integer isaftersale, Integer limit, Integer offset);
 
-    @SelectProvider(type = Provider.class,method = "selectAllCount")
-    public int selectAllCount(String name,Date startTime, Date endTime);
+    @SelectProvider(type = Provider.class, method = "selectAllCount")
+    public int selectAllCount(String name, Date startTime, Date endTime);
 
     @Select("select * from t_after_service where id=#{id} ")
     public AfterService selectAfterServiceById(int id);
@@ -35,7 +34,7 @@ public interface AfterServiceDao {
     public int insertAfterService(AfterService afterService);
 
 
-    @UpdateProvider(type = Provider.class,method = "updateAfterService")
+    @UpdateProvider(type = Provider.class, method = "updateAfterService")
     public int updateAfterService(AfterService afterService);
 
 
@@ -45,61 +44,61 @@ public interface AfterServiceDao {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
-    @UpdateProvider(type = Provider.class,method = "batchDeleteAfterService")
+    @UpdateProvider(type = Provider.class, method = "batchDeleteAfterService")
     public int batchDeleteAfterService(List<Integer> ids);
 
 
-
     class Provider {
-        SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-        public String selectSomeAfterServices(String name,Date startTime, Date endTime,String industry,Integer isaftersale,Integer limit, Integer offset){
+        public String selectSomeAfterServices(String name, Date startTime, Date endTime, String industry, Integer isaftersale, Integer limit, Integer offset) {
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_after_service where 1=1  ");
 
-            if(isaftersale!=null){
-                sb.append(" and isaftersale ="+ isaftersale +" " );
+            if (isaftersale != null) {
+                sb.append(" and isaftersale =" + isaftersale + " ");
             }
-            if(!StringUtils.isEmpty(industry)){
-                sb.append(" and industry like '%"+ industry +"%' " );
+            if (!StringUtils.isEmpty(industry)) {
+                sb.append(" and industry like '%" + industry + "%' ");
             }
-            if(!StringUtils.isEmpty(name)){
-                sb.append(" and name like '%"+ name +"%' " );
+            if (!StringUtils.isEmpty(name)) {
+                sb.append(" and name like '%" + name + "%' ");
             }
-            if(startTime!=null){
+            if (startTime != null) {
                 String startTimeStr = s.format(startTime);
-                sb.append(" and createtime >= '"+ startTimeStr +"' " );
+                sb.append(" and createtime >= '" + startTimeStr + "' ");
             }
-            if(endTime!=null){
+            if (endTime != null) {
                 String endTimeStr = s.format(endTime);
-                sb.append(" and createtime <= '"+ endTimeStr +"' " );
+                sb.append(" and createtime <= '" + endTimeStr + "' ");
             }
 
-            if(limit != null && offset != null){
+            if (limit != null && offset != null) {
                 sb.append("  order by createtime desc  limit " + offset + "," + limit);
             }
-            System.out.println("-------->"+sb.toString());
+            System.out.println("-------->" + sb.toString());
             return sb.toString();
         }
 
-        public String selectAllCount(String name,Date startTime, Date endTime){
+        public String selectAllCount(String name, Date startTime, Date endTime) {
             StringBuilder sb = new StringBuilder();
             sb.append("select count(1) from t_after_service where 1=1  ");
 
-            if(!StringUtils.isEmpty(name)){
-                sb.append(" and name like '%"+ name +"%' " );
+            if (!StringUtils.isEmpty(name)) {
+                sb.append(" and name like '%" + name + "%' ");
             }
-            if(startTime!=null){
+            if (startTime != null) {
                 String startTimeStr = s.format(startTime);
-                sb.append(" and createtime >= '"+ startTimeStr +"' " );
+                sb.append(" and createtime >= '" + startTimeStr + "' ");
             }
-            if(endTime!=null){
+            if (endTime != null) {
                 String endTimeStr = s.format(endTime);
-                sb.append(" and createtime <= '"+ endTimeStr +"' " );
+                sb.append(" and createtime <= '" + endTimeStr + "' ");
             }
 
             return sb.toString();
@@ -119,16 +118,16 @@ public interface AfterServiceDao {
             return sb.toString();
         }
 
-        public String updateAfterService(AfterService afterService){
+        public String updateAfterService(AfterService afterService) {
 
             StringBuilder sb = new StringBuilder();
             sb.append("update t_after_service set ");
 
-            if(afterService.getReply()!=null){
-                sb.append(" reply='"+ afterService.getReply() +"',");
+            if (afterService.getReply() != null) {
+                sb.append(" reply='" + afterService.getReply() + "',");
             }
             String nowStr = s.format(new Date());
-            sb.append(" updatetime='"+ nowStr +"' ");
+            sb.append(" updatetime='" + nowStr + "' ");
 
             return sb.toString() + " where id=" + afterService.getId();
         }

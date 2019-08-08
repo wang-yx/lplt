@@ -15,11 +15,11 @@ public class BaseDao {
 
     private SqlSession sqlSession;
 
-    public SqlSession getSqlSession(){
+    public SqlSession getSqlSession() {
 
-        if(sqlSession == null){
+        if (sqlSession == null) {
 
-            synchronized (BaseDao.class){
+            synchronized (BaseDao.class) {
                 //sqlSessionFactory.getConfiguration().addMappers("com.wyx.proj.dao");
                 this.sqlSession = new SqlSessionTemplate(sqlSessionFactory);
             }
@@ -28,7 +28,7 @@ public class BaseDao {
         return this.sqlSession;
     }
 
-    public <T> T getMapper(Class<T> cls){
+    public <T> T getMapper(Class<T> cls) {
         return getSqlSession().getMapper(cls);
     }
 

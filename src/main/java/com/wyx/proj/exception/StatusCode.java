@@ -4,7 +4,7 @@ public class StatusCode {
     private int status;
     private String reason;
 
-    public StatusCode(int status, String reason){
+    public StatusCode(int status, String reason) {
         this.status = status;
         this.reason = reason;
     }

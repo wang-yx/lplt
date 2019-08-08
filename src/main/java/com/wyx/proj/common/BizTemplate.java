@@ -10,14 +10,14 @@ public abstract class BizTemplate<T> {
 
     public abstract T process() throws Exception;
 
-    public T execute(){
-        try{
+    public T execute() {
+        try {
             this.checkParams();
-        }catch (IllegalArgumentException e1){
+        } catch (IllegalArgumentException e1) {
             throw new StatusCodeException("参数校验失败");
-        }catch (StatusCodeException e2){
+        } catch (StatusCodeException e2) {
             throw e2;
-        }catch (Exception e3){
+        } catch (Exception e3) {
             throw new StatusCodeException("网络异常");
         }
 

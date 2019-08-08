@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Picture extends BaseEntity {
 
-    private int id;
+    private Integer id;
 
     private String imgKey; //图片的key
 
@@ -20,11 +20,11 @@ public class Picture extends BaseEntity {
 
     private Date releaseTime; //发布时间
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,15 +85,15 @@ public class Picture extends BaseEntity {
     }
 
     @Override
-    public String toString(){
-        return "User=[id:"+ id
-                +"; imgKey:"+ imgKey
-                +"; imgPath:"+ imgPath
-                +"; imgCatg:"+ imgCatg
-                +"; imgComment:"+ imgComment
-                +"; isRelease="+ isRelease
-                +"; releaseTime="+ releaseTime
-                +"; createTime="+ createTime +"]";
+    public String toString() {
+        return "User=[id:" + id
+                + "; imgKey:" + imgKey
+                + "; imgPath:" + imgPath
+                + "; imgCatg:" + imgCatg
+                + "; imgComment:" + imgComment
+                + "; isRelease=" + isRelease
+                + "; releaseTime=" + releaseTime
+                + "; createTime=" + createTime + "]";
     }
 
 }

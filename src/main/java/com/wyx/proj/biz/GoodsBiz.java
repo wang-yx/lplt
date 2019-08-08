@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Component
 public class GoodsBiz {
 
-    public ProductDetailResponse detail(@RequestBody ProductDetailRequest request){
+    public ProductDetailResponse detail(@RequestBody ProductDetailRequest request) {
 
         return null;
     }
 
-    public PageResponse<ProductListResponse> listQuery(@RequestBody ProductListRequest request){
+    public PageResponse<ProductListResponse> listQuery(@RequestBody ProductListRequest request) {
         return null;
     }
 }

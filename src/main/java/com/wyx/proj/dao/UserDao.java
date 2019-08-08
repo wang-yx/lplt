@@ -25,6 +25,7 @@ public interface UserDao {
 
     /**
      * 所有产品类别
+     *
      * @return
      */
     @Select("select * from t_users order by create_time desc ")
@@ -40,6 +41,7 @@ public interface UserDao {
 
     /**
      * 根据id获取
+     *
      * @return
      */
     @Select("select * from t_users where id=#{id} ")
@@ -54,6 +56,7 @@ public interface UserDao {
 
     /**
      * 插入数据
+     *
      * @param user
      * @return
      */
@@ -62,6 +65,7 @@ public interface UserDao {
 
     /**
      * 跟新数据
+     *
      * @param user
      * @return
      */
@@ -71,6 +75,7 @@ public interface UserDao {
 
     /**
      * 跟新数据
+     *
      * @param login,id
      * @return
      */
@@ -80,6 +85,7 @@ public interface UserDao {
 
     /**
      * 根据用户名密码查询
+     *
      * @param userName
      * @param passWord
      * @return
@@ -90,6 +96,7 @@ public interface UserDao {
 
     /**
      * 根据用户名密码查询
+     *
      * @param userName
      * @param passWord
      * @return
@@ -99,17 +106,17 @@ public interface UserDao {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
-    @UpdateProvider(type = Provider.class,method = "batchDeleteUsers")
+    @UpdateProvider(type = Provider.class, method = "batchDeleteUsers")
     public int batchDeleteUsers(List<Integer> ids);
 
 
+    class Provider {
 
-    class Provider{
-
-        public String batchDeleteUsers(Map map){
+        public String batchDeleteUsers(Map map) {
             List<Integer> ids = (List<Integer>) map.get("list");
             StringBuilder sb = new StringBuilder();
             sb.append("delete from t_users where id in (");

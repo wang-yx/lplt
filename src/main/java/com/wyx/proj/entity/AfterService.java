@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AfterService extends BaseEntity {
 
-    private int id;
+    private Integer id;
     private String name;  //报修人名称
     private String phone; //电话☎️
     private String email; //邮箱
@@ -18,11 +18,11 @@ public class AfterService extends BaseEntity {
     private int isaftersale; //售后0  在线咨询是1
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

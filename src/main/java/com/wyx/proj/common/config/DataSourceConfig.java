@@ -24,16 +24,16 @@ public class DataSourceConfig implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
 
-        System.out.println("--------"+environment.getProperty("spring.datasource.driverClassName"));
+        System.out.println("--------" + environment.getProperty("spring.datasource.driverClassName"));
 
         /*
         通过pproperties的前缀获取
          */
-        this.properties = new RelaxedPropertyResolver(environment,"spring.datasource.");
+        this.properties = new RelaxedPropertyResolver(environment, "spring.datasource.");
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
 
         DruidDataSource dataSource = new DruidDataSource();
 

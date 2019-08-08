@@ -34,7 +34,7 @@ public class PageResponse<T> {
             return this;
         }
 
-        public PageResponse<T> create(){
+        public PageResponse<T> create() {
             return new PageResponse(new PageData(page, totalSize), data);
         }
     }
@@ -49,7 +49,7 @@ public class PageResponse<T> {
             this.curPage = page.getPageNo();
             this.pageSize = page.getPageSize();
             this.totalSize = totalSize;
-            this.totalPage = (int)Math.ceil((double)totalSize / pageSize);
+            this.totalPage = (int) Math.ceil((double) totalSize / pageSize);
         }
 
         public int getCurPage() {

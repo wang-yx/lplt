@@ -34,8 +34,8 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
     }
 
     @Override
-    public List<Picture> selectCatgReleasePics(int imgCatg,int isRelease) throws Exception {
-        List<Picture> picturese = getPicDao().selectCatgSomePic(imgCatg,isRelease);
+    public List<Picture> selectCatgReleasePics(int imgCatg, int isRelease) throws Exception {
+        List<Picture> picturese = getPicDao().selectCatgSomePic(imgCatg, isRelease);
         return picturese;
     }
 
@@ -44,7 +44,6 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
         List<Picture> picturese = getPicDao().selectPicByKey(key);
         return picturese.get(1);
     }
-
 
 
     @Override
@@ -86,9 +85,9 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
     @Override
     public int saveOnePics(Picture pic) throws Exception {
 
-        if(pic.getId()==0){
+        if (pic.getId() == 0) {
             getPicDao().insertPic(pic);
-        }else{
+        } else {
             getPicDao().updatePicPath(pic);
         }
         return pic.getId();
@@ -99,7 +98,7 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
         String name = "/root/lplt/apache-tomcat/webapps" + fileName;
         File file = new File(name);
         // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-        logger.info("---file.exists()--->"+file.exists());
+        logger.info("---file.exists()--->" + file.exists());
         if (file.exists()) {
             if (file.delete()) {
                 return true;
@@ -118,7 +117,8 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
 
 
     /**
-     *  获取userDao
+     * 获取userDao
+     *
      * @return
      */
     public PictureDao getPicDao() {

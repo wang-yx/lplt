@@ -8,5 +8,4 @@ import java.util.List;
 public interface BaseService<T extends BaseEntity> {
 
 
-
 }

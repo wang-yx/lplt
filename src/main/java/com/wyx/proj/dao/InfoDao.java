@@ -30,21 +30,22 @@ public interface InfoDao {
     public int insertInfo(Info info);
 
 
-    @UpdateProvider(type = Provider.class,method = "updateInfo")
+    @UpdateProvider(type = Provider.class, method = "updateInfo")
     public int updateInfo(Info info);
 
 
     @Update("update t_info set isrelease=#{isrelease},releasetime=#{releasetime} where id=#{id} ")
-    public int updateInfoIsRelease(int id,int isrelease,Date releasetime);
+    public int updateInfoIsRelease(int id, int isrelease, Date releasetime);
 
-    @UpdateProvider(type = Provider.class,method = "batchDeleteInfo")
+    @UpdateProvider(type = Provider.class, method = "batchDeleteInfo")
     public int batchDeleteInfo(List<Integer> ids);
 
     @Delete("delete from t_info where id=#{id}")
     public int DeleteInfoByid(int id);
 
     class Provider {
-        SimpleDateFormat s= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         public String batchDeleteInfo(Map map) {
             List<Integer> ids = (List<Integer>) map.get("list");
             StringBuilder sb = new StringBuilder();
@@ -58,65 +59,64 @@ public interface InfoDao {
             return sb.toString();
         }
 
-        public String updateInfo(Info info){
+        public String updateInfo(Info info) {
             StringBuilder sb = new StringBuilder();
             sb.append("update t_info set ");
 
-            if(info.getChineseid()!=null){
-                sb.append(" chineseid='"+ info.getChineseid() +"',");
+            if (info.getChineseid() != null) {
+                sb.append(" chineseid='" + info.getChineseid() + "',");
             }
-            if(info.getEnglishid()!=null){
-                sb.append(" englishid='"+ info.getEnglishid() +"',");
+            if (info.getEnglishid() != null) {
+                sb.append(" englishid='" + info.getEnglishid() + "',");
             }
-            if(info.getLogokey()!=null){
-                sb.append(" logokey='"+ info.getLogokey() +"',");
+            if (info.getLogokey() != null) {
+                sb.append(" logokey='" + info.getLogokey() + "',");
             }
-            if(info.getPhone()!=null){
-                sb.append(" phone='"+ info.getPhone() +"',");
+            if (info.getPhone() != null) {
+                sb.append(" phone='" + info.getPhone() + "',");
             }
-            if(info.getServicehotline()!=null){
-                sb.append(" servicehotline='"+ info.getServicehotline() +"',");
+            if (info.getServicehotline() != null) {
+                sb.append(" servicehotline='" + info.getServicehotline() + "',");
             }
-            if(info.getSalehotline()!=null){
-                sb.append(" salehotline='"+ info.getSalehotline() +"',");
+            if (info.getSalehotline() != null) {
+                sb.append(" salehotline='" + info.getSalehotline() + "',");
             }
-            if(info.getVideopath()!=null){
-                sb.append(" videopath='"+ info.getVideopath() +"',");
+            if (info.getVideopath() != null) {
+                sb.append(" videopath='" + info.getVideopath() + "',");
             }
-            if(info.getEmail()!=null){
-                sb.append(" email='"+ info.getEmail() +"',");
+            if (info.getEmail() != null) {
+                sb.append(" email='" + info.getEmail() + "',");
             }
-            if(info.getZipcode()!=null){
-                sb.append(" zipcode='"+ info.getZipcode() +"',");
+            if (info.getZipcode() != null) {
+                sb.append(" zipcode='" + info.getZipcode() + "',");
             }
-            if(info.getFax()!=null){
-                sb.append(" fax='"+ info.getFax() +"',");
+            if (info.getFax() != null) {
+                sb.append(" fax='" + info.getFax() + "',");
             }
-            if(info.getPerson()!=null){
-                sb.append(" person='"+ info.getPerson() +"',");
+            if (info.getPerson() != null) {
+                sb.append(" person='" + info.getPerson() + "',");
             }
-            if(info.getRegisttime()!=null){
+            if (info.getRegisttime() != null) {
                 String nowStr = s.format(info.getRegisttime());
-                sb.append(" registtime='"+ nowStr +"',");
+                sb.append(" registtime='" + nowStr + "',");
             }
-            if(info.getPerson()!=null){
-                sb.append(" person='"+ info.getPerson() +"',");
+            if (info.getPerson() != null) {
+                sb.append(" person='" + info.getPerson() + "',");
             }
-            if(info.getIsrelease()!=null){
+            if (info.getIsrelease() != null) {
                 String nowStr = s.format(new Date());
-                sb.append(" isrelease="+ info.getIsrelease() +",");
-                sb.append(" releasetime='"+ nowStr +"',");
+                sb.append(" isrelease=" + info.getIsrelease() + ",");
+                sb.append(" releasetime='" + nowStr + "',");
             }
-            if(info.getIsinfo()!=null){
-                sb.append(" isinfo="+ info.getIsinfo() +",");
+            if (info.getIsinfo() != null) {
+                sb.append(" isinfo=" + info.getIsinfo() + ",");
             }
             String nowStr = s.format(new Date());
-            sb.append(" updatetime='"+ nowStr +"' ");
+            sb.append(" updatetime='" + nowStr + "' ");
 
             return sb.toString() + " where id=" + info.getId();
         }
     }
-
 
 
 }

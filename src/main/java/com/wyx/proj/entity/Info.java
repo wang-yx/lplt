@@ -7,7 +7,7 @@ import java.util.Date;
 public class Info extends BaseEntity {
 
 
-    private int id;
+    private Integer id;
     private Integer chineseid;
     private Integer englishid;
     private String logokey; //logo图片key
@@ -24,7 +24,7 @@ public class Info extends BaseEntity {
     private String fax; //传真
 
     private String person;//法人或者是负责人
-    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date registtime; //注册时间
 
     private Date createtime; //创建时间
@@ -40,11 +40,11 @@ public class Info extends BaseEntity {
     private Company company_ch;
     private Company company_en;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

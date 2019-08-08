@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Company extends BaseEntity {
 
-    private int id;
+    private Integer id;
 
     private String name;  //公司名称
 
@@ -24,11 +24,11 @@ public class Company extends BaseEntity {
 
     private Integer language; //语言，0汉语，1英语
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

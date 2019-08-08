@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BaseBean {
 
-    private int pageNo =1;
+    private int pageNo = 1;
     private final int pageSize = 15;
 
     public int getPageNo() {

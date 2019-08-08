@@ -14,7 +14,7 @@ public interface ProductCategoryService extends BaseService<Prodcategory> {
 
     List<Prodcategory> selectAll2() throws Exception;
 
-    public Prodcategory getProdDetail(int id) throws  Exception;
+    public Prodcategory getProdDetail(int id) throws Exception;
 
     public boolean save(Prodcategory prodcategory) throws Exception;
 

@@ -24,6 +24,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
     public CompanyDao getCompanyDao() {
         return getBaseDao().getMapper(CompanyDao.class);
     }
+
     public InfoDao getInfoDao() {
         return getBaseDao().getMapper(InfoDao.class);
     }
@@ -33,7 +34,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
     public Info getCompanyInfo() throws Exception {
         Info resultInfo = new Info();
         List<Info> resultInfos = getInfoDao().selectInfos(0);
-        if(resultInfos!=null && resultInfos.size()>0) {
+        if (resultInfos != null && resultInfos.size() > 0) {
             resultInfo = resultInfos.get(0);
             Company com_ch = getCompanyDao().selectCompanyById(resultInfo.getChineseid());
             Company com_en = getCompanyDao().selectCompanyById(resultInfo.getEnglishid());
@@ -59,15 +60,15 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
     @Override
     public boolean saveCompanyInfo(Info info) throws Exception {
         int resultNum = 0;
-        if(info.getIsinfo()==1){
+        if (info.getIsinfo() == 1) {
             info.setChineseid(0);
             info.setEnglishid(0);
             if (info.getId() != 0) { //update
                 resultNum = getInfoDao().updateInfo(info);
-            }else{ //insert
+            } else { //insert
                 resultNum = getInfoDao().insertInfo(info);
             }
-        }else {
+        } else {
 
             if (info.getId() != 0) { //upsert
                 Info tempInfo = getInfoDao().selectInfoById(info.getId());
@@ -92,32 +93,32 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
                 resultNum = getInfoDao().insertInfo(info);
             }
         }
-        return resultNum>0;
+        return resultNum > 0;
     }
 
     @Override
     public boolean saveContactInfo(Info info) throws Exception {
         int resultNum = 0;
-        if(info.getId()!=0){ //upsert
+        if (info.getId() != 0) { //upsert
             resultNum = getInfoDao().updateInfo(info);
-        }else{ //insert
+        } else { //insert
             resultNum = getInfoDao().insertInfo(info);
         }
-        return resultNum>0;
+        return resultNum > 0;
     }
 
     @Override
     public boolean deleteInfoById(int id) throws Exception {
         Info tempInfo = getInfoDao().selectInfoById(id);
         List<Integer> ids = new ArrayList<>();
-        if(tempInfo.getChineseid() !=null ){
+        if (tempInfo.getChineseid() != null) {
             ids.add(tempInfo.getChineseid());
         }
-        if(tempInfo.getEnglishid() !=null ){
+        if (tempInfo.getEnglishid() != null) {
             ids.add(tempInfo.getEnglishid());
         }
         getCompanyDao().batchDeleteCompany(ids);
 
-        return getInfoDao().DeleteInfoByid(id)>0;
+        return getInfoDao().DeleteInfoByid(id) > 0;
     }
 }

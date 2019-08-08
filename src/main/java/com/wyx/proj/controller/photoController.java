@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/photo")
+@RequestMapping(value = "/photo")
 public class photoController {
 
 //    private Logger logger = LoggerFactory.getLogger(photoController.class);

@@ -9,8 +9,5 @@
         <module name="lplt" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="lplt" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

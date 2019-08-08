@@ -25,20 +25,20 @@ public class ProductBiz {
     @Resource
     private ProductService productService;
 
-    public String save(ProductSaveRequest request){
+    public String save(ProductSaveRequest request) {
         return null;
 
     }
 
-    public PageResponse<ProductListResponse> list(ProductListRequest request){
+    public PageResponse<ProductListResponse> list(ProductListRequest request) {
         return null;
     }
 
-    public ProductDetailResponse detail(ProductDetailRequest request){
+    public ProductDetailResponse detail(ProductDetailRequest request) {
         return null;
     }
 
-    public List<ProductListResponse> listHomePage(HomeProductRequest request){
+    public List<ProductListResponse> listHomePage(HomeProductRequest request) {
         return new BizTemplate<List<ProductListResponse>>() {
             @Override
             public void checkParams() {

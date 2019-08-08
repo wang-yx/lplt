@@ -11,32 +11,32 @@ public class ResponseUtil {
     private static final int OK = 1;
     private static final int ERR = 0;
 
-    public static ReturnResponse ok(String msg,Object data,Map<String, Object> extendInfo){
-        return returnRes(OK,msg, data,extendInfo);
+    public static ReturnResponse ok(String msg, Object data, Map<String, Object> extendInfo) {
+        return returnRes(OK, msg, data, extendInfo);
     }
 
-    public static ReturnResponse ok(String msg,Object data){
-        return returnRes(OK,msg, data,null);
+    public static ReturnResponse ok(String msg, Object data) {
+        return returnRes(OK, msg, data, null);
     }
 
-    public static ReturnResponse ok(Object data){
-        return returnRes(OK,"success", data,null);
+    public static ReturnResponse ok(Object data) {
+        return returnRes(OK, "success", data, null);
     }
 
-    public static ReturnResponse err(String msg,Object data,Map<String, Object> extendInfo){
-        return returnRes(ERR,msg, data,extendInfo);
+    public static ReturnResponse err(String msg, Object data, Map<String, Object> extendInfo) {
+        return returnRes(ERR, msg, data, extendInfo);
     }
 
-    public static ReturnResponse err(String msg,Object data){
-        return returnRes(ERR,msg, data,null);
+    public static ReturnResponse err(String msg, Object data) {
+        return returnRes(ERR, msg, data, null);
     }
 
-    public static ReturnResponse err(Object data){
-        return returnRes(ERR,"error", data,null);
+    public static ReturnResponse err(Object data) {
+        return returnRes(ERR, "error", data, null);
     }
 
-    public static ReturnResponse returnRes(int code,String msg,Object data,Map<String, Object> extendInfo){
-        ReturnResponse returnResponse = new ReturnResponse(code,msg,data,extendInfo);
+    public static ReturnResponse returnRes(int code, String msg, Object data, Map<String, Object> extendInfo) {
+        ReturnResponse returnResponse = new ReturnResponse(code, msg, data, extendInfo);
         return returnResponse;
     }
 
@@ -44,13 +44,13 @@ public class ResponseUtil {
     /**
      * 内部类 返回结果值
      */
-    public static class ReturnResponse{
+    public static class ReturnResponse {
         private int status;
         private String msg;
         private Object data;
         private Map<String, Object> extendInfo = new HashMap<String, Object>();
 
-        public ReturnResponse(int status,String msg,Object data,Map<String, Object> extendInfo){
+        public ReturnResponse(int status, String msg, Object data, Map<String, Object> extendInfo) {
             this.status = status;
             this.msg = msg;
             this.data = data;

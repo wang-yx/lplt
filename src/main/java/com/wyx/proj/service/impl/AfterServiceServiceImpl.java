@@ -27,20 +27,20 @@ public class AfterServiceServiceImpl extends BaseServiceImpl<AfterService> imple
 
         PageResponseBean<AfterService> pageNewsBean = new PageResponseBean<>();
         int countNum = getAfterServiceDao().selectAllCount(afterServiceBean.getName(),
-                                                        afterServiceBean.getStarttime(),afterServiceBean.getEndtime());
+                afterServiceBean.getStarttime(), afterServiceBean.getEndtime());
 
         List<AfterService> tempList = new ArrayList<>();
 
-        if(countNum>0){
+        if (countNum > 0) {
             Integer offset = null, limit = null;
-            offset = (afterServiceBean.getPageNo()-1) * afterServiceBean.getPageSize();
+            offset = (afterServiceBean.getPageNo() - 1) * afterServiceBean.getPageSize();
             limit = afterServiceBean.getPageSize();
             tempList = getAfterServiceDao().selectSomeAfterServices(afterServiceBean.getName(),
-                                                        afterServiceBean.getStarttime(),afterServiceBean.getEndtime(),
-                                                        afterServiceBean.getIndustry(),afterServiceBean.getIsaftersale(),limit,offset );
-            pageNewsBean = new PageResponseBean(afterServiceBean.getPageNo(),afterServiceBean.getPageSize(),countNum,tempList);
-        }else{
-            pageNewsBean = new PageResponseBean(1,15,0,tempList);
+                    afterServiceBean.getStarttime(), afterServiceBean.getEndtime(),
+                    afterServiceBean.getIndustry(), afterServiceBean.getIsaftersale(), limit, offset);
+            pageNewsBean = new PageResponseBean(afterServiceBean.getPageNo(), afterServiceBean.getPageSize(), countNum, tempList);
+        } else {
+            pageNewsBean = new PageResponseBean(1, 15, 0, tempList);
         }
         return pageNewsBean;
 
@@ -54,26 +54,25 @@ public class AfterServiceServiceImpl extends BaseServiceImpl<AfterService> imple
     @Override
     public boolean save(AfterService afterService) throws Exception {
         int returnNum = 0;
-        if(afterService.getId()!=0){
+        if (afterService.getId() != 0) {
             returnNum = getAfterServiceDao().updateAfterService(afterService);
-        }else{
+        } else {
             returnNum = getAfterServiceDao().insertAfterService(afterService);
         }
-        return returnNum>0;
+        return returnNum > 0;
     }
 
     @Override
     public boolean deleteAfterServiceById(int id) throws Exception {
         List<Integer> ids = new ArrayList<>();
         ids.add(id);
-        return getAfterServiceDao().batchDeleteAfterService(ids)>1;
+        return getAfterServiceDao().batchDeleteAfterService(ids) > 1;
     }
 
 
     public AfterServiceDao getAfterServiceDao() {
         return getBaseDao().getMapper(AfterServiceDao.class);
     }
-
 
 
 }

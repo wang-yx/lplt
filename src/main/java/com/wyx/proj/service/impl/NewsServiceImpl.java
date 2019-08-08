@@ -29,6 +29,7 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
     public NewDao getNewsDao() {
         return getBaseDao().getMapper(NewDao.class);
     }
+
     public NewDetailDao getNewDetailDao() {
         return getBaseDao().getMapper(NewDetailDao.class);
     }
@@ -36,20 +37,20 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
     @Override
     public PageResponseBean<New> queryNewsByCondition(NewsBean newsBean) throws Exception {
         PageResponseBean<New> pageNewsBean = new PageResponseBean<>();
-        int countNum = getNewsDao().searchNewsCount(newsBean.getName(),newsBean.getIsrelease(),
-                newsBean.getStarttime(),newsBean.getEndtime(),newsBean.getLanguage());
+        int countNum = getNewsDao().searchNewsCount(newsBean.getName(), newsBean.getIsrelease(),
+                newsBean.getStarttime(), newsBean.getEndtime(), newsBean.getLanguage());
 
         List<New> tempNewsList = new ArrayList<>();
 
-        if(countNum>0){
+        if (countNum > 0) {
             Integer offset = null, limit = null;
-            offset = (newsBean.getPageNo()-1) * newsBean.getPageSize();
+            offset = (newsBean.getPageNo() - 1) * newsBean.getPageSize();
             limit = newsBean.getPageSize();
-            tempNewsList = getNewsDao().searchNews(newsBean.getName(),newsBean.getIsrelease(),limit,
-                    offset,newsBean.getStarttime(),newsBean.getEndtime(),newsBean.getLanguage());
-            pageNewsBean = new PageResponseBean(newsBean.getPageNo(),newsBean.getPageSize(),countNum,tempNewsList);
-        }else{
-            pageNewsBean = new PageResponseBean(1,15,0,tempNewsList);
+            tempNewsList = getNewsDao().searchNews(newsBean.getName(), newsBean.getIsrelease(), limit,
+                    offset, newsBean.getStarttime(), newsBean.getEndtime(), newsBean.getLanguage());
+            pageNewsBean = new PageResponseBean(newsBean.getPageNo(), newsBean.getPageSize(), countNum, tempNewsList);
+        } else {
+            pageNewsBean = new PageResponseBean(1, 15, 0, tempNewsList);
         }
         return pageNewsBean;
     }
@@ -69,11 +70,11 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
 
     @Override
     public boolean save(New news) throws Exception {
-        logger.info("----news.getId--->"+news.getId());
+        logger.info("----news.getId--->" + news.getId());
 
 
         int resultNum = 0;
-        if (news.getId()==null || news.getId()==0){
+        if (news.getId() == null || news.getId() == 0) {
 
             NewDetail newDetail_ch = news.getNewDetail_ch();
             getNewDetailDao().insertNewDetail(newDetail_ch);
@@ -84,7 +85,7 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
             news.setEnglishid(newDetail_en.getId());
 
             resultNum = getNewsDao().insertNew(news);
-        }else{
+        } else {
             New tempNews = getNewsDao().selectNewById(news.getId());
             news.setChineseid(tempNews.getChineseid());
             news.setEnglishid(tempNews.getEnglishid());
@@ -100,7 +101,7 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
             resultNum = getNewsDao().updateNew(news);
 
         }
-        return resultNum>0;
+        return resultNum > 0;
     }
 
     @Override
@@ -116,12 +117,6 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
 
         return true;
     }
-
-
-
-
-
-
 
 
 }

@@ -7,18 +7,19 @@ import java.util.List;
 
 public interface UserService extends BaseService<User> {
 
-    public List<User> selectAllUsers () throws Exception;
+    public List<User> selectAllUsers() throws Exception;
 
-    public int searchUser(String userName,String passWord);
+    public int searchUser(String userName, String passWord);
 
-    public int addUser(User user) throws  Exception;
+    public int addUser(User user) throws Exception;
 
-    public int deleteUser(Integer id) throws  Exception;
+    public int deleteUser(Integer id) throws Exception;
 
-    public User selectUserById(Integer id) throws  Exception;
+    public User selectUserById(Integer id) throws Exception;
 
     /**
      * 根据id修改User
+     *
      * @param user
      * @return
      * @throws Exception

@@ -15,7 +15,7 @@ public class UserBiz {
     @Resource
     private UserService userService;
 
-    public String userLogin(final Login login){
+    public String userLogin(final Login login) {
         return new BizTemplate<String>() {
             @Override
             public void checkParams() {

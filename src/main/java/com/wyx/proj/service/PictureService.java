@@ -8,8 +8,10 @@ import java.util.List;
 public interface PictureService extends BaseService<User> {
 
     public void updatePicsPath(Picture pictures) throws Exception;
+
     /**
      * 获取所有图片信息
+     *
      * @return
      * @throws Exception
      */
@@ -17,6 +19,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 获取一个图片信息
+     *
      * @return
      * @throws Exception
      */
@@ -24,13 +27,15 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 获取一个图片信息
+     *
      * @return
      * @throws Exception
      */
-    public List<Picture> selectCatgReleasePics(int imgCatg,int isRelease) throws Exception;
+    public List<Picture> selectCatgReleasePics(int imgCatg, int isRelease) throws Exception;
 
     /**
      * 获取一个图片信息
+     *
      * @return
      * @throws Exception
      */
@@ -38,6 +43,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 保存图片信息
+     *
      * @param pic
      * @throws Exception
      */
@@ -45,6 +51,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 根据ids删除图片
+     *
      * @param
      * @throws Exception
      */
@@ -52,6 +59,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 发布图片
+     *
      * @param picIds
      * @throws Exception
      */
@@ -60,6 +68,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 跟新图片信息
+     *
      * @param pictures
      * @throws Exception
      */
@@ -67,6 +76,7 @@ public interface PictureService extends BaseService<User> {
 
     /**
      * 发布图片
+     *
      * @param picId
      * @throws Exception
      */

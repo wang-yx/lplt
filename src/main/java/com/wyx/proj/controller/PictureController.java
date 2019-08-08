@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/image")
+@RequestMapping(value = "/image")
 //@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024,maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
 public class PictureController {
 
@@ -90,11 +90,11 @@ public class PictureController {
     //******************************************************************************************************************
 
 
-    @RequestMapping(value = "updatePic",method = RequestMethod.POST)
-    public Object uploadPhotoPic(@RequestParam(value = "file") MultipartFile file){
+    @RequestMapping(value = "updatePic", method = RequestMethod.POST)
+    public Object uploadPhotoPic(@RequestParam(value = "file") MultipartFile file) {
 
         if (file.isEmpty()) {
-            return ResponseUtil.err("文件不能为空","");
+            return ResponseUtil.err("文件不能为空", "");
         }
 
         Picture picture = new Picture();
@@ -105,7 +105,7 @@ public class PictureController {
         String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String newFileName = "img_" + new Date().getTime() + suffixName;
         String filePath = uploadDir + newFileName;
 
         File dest = new File(filePath);
@@ -116,10 +116,10 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
-            filePath = filePath.substring(filePath.indexOf("webapps")+8);
+            filePath = filePath.substring(filePath.indexOf("webapps") + 8);
             picture.setImgPath(filePath);
             picture.setImgKey(newFileName);
-            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment()) ? oldFileName : picture.getImgComment());
             picture.setId(pictureService.saveOnePics(picture));
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,22 +130,21 @@ public class PictureController {
     }
 
 
-
-    @RequestMapping(value = "update",method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public Object uploadPhoto(@RequestParam(value = "file") MultipartFile file,
-                                @FormParam("pictureInfo") String pictureInfo){
+                              @FormParam("pictureInfo") String pictureInfo) {
 
         if (file.isEmpty()) {
-            return ResponseUtil.err("文件不能为空","");
+            return ResponseUtil.err("文件不能为空", "");
         }
 
         Picture picture = new Picture();
         try {
-            if(!StringUtils.isEmpty(pictureInfo)) {
+            if (!StringUtils.isEmpty(pictureInfo)) {
                 picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
             }
         } catch (Throwable t) {
-            return ResponseUtil.err("pictureInfo无法被解析，保存失败"+t.getMessage(),"");
+            return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
         }
 
         // 获取文件名
@@ -155,7 +154,7 @@ public class PictureController {
         String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String newFileName = "img_" + new Date().getTime() + suffixName;
         String filePath = uploadDir + newFileName;
 
         File dest = new File(filePath);
@@ -166,10 +165,10 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
-            filePath = filePath.substring(filePath.indexOf("webapps")+8);
+            filePath = filePath.substring(filePath.indexOf("webapps") + 8);
             picture.setImgPath(filePath);
             picture.setImgKey(newFileName);
-            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment()) ? oldFileName : picture.getImgComment());
             picture.setId(pictureService.saveOnePics(picture));
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,27 +181,27 @@ public class PictureController {
     //******************************************************************************************************************
 
 
-    @RequestMapping(value = "searchMainPagePics",method = RequestMethod.GET)
-    public Object searchMainPagePics(){
+    @RequestMapping(value = "searchMainPagePics", method = RequestMethod.GET)
+    public Object searchMainPagePics() {
         List<Picture> pics = new ArrayList<>();
         try {
             pics = pictureService.selectMainPagePic();
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(pics);
     }
 
-    @RequestMapping(value = "deletePic",method = RequestMethod.POST)
+    @RequestMapping(value = "deletePic", method = RequestMethod.POST)
     public Object deletePic(@FormParam("pictureInfo") String pictureInfo) {
-        logger.info("---deletePic--param->"+pictureInfo.toString());
+        logger.info("---deletePic--param->" + pictureInfo.toString());
         //校验图片附带信息
         Picture picture = new Picture();
         try {
             if (!StringUtils.isEmpty(pictureInfo)) {
                 picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
-                if(picture.getId()==0){
+                if (picture.getId() == 0) {
                     return ResponseUtil.err("id不能为空", "");
                 }
                 picture = pictureService.selectOnePicById(picture.getId());
@@ -210,20 +209,20 @@ public class PictureController {
         } catch (Throwable t) {
             return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
         }
-        logger.info("---picture.getImgPath()-->"+picture.getImgPath());
+        logger.info("---picture.getImgPath()-->" + picture.getImgPath());
         //删除文件
         try {
             pictureService.deleteFile(picture.getImgPath());
         } catch (Exception e) {
             logger.error("删除图片失败：" + e.getMessage());
-            return ResponseUtil.err("删除图片失败：" + e.getMessage(),"");
+            return ResponseUtil.err("删除图片失败：" + e.getMessage(), "");
         }
-        return ResponseUtil.ok("删除成功","");
+        return ResponseUtil.ok("删除成功", "");
     }
 
-    @RequestMapping(value = "deletePic",method = RequestMethod.GET)
+    @RequestMapping(value = "deletePic", method = RequestMethod.GET)
     public Object deletePicGet(@RequestParam("id") int id) {
-        logger.info("---deletePic--param->"+id);
+        logger.info("---deletePic--param->" + id);
         //校验图片附带信息
         Picture picture = new Picture();
         try {
@@ -235,7 +234,7 @@ public class PictureController {
         } catch (Throwable t) {
             return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
         }
-        logger.info("---picture.getImgPath()-->"+picture.getImgPath());
+        logger.info("---picture.getImgPath()-->" + picture.getImgPath());
         //删除文件
         try {
             pictureService.deleteFile(picture.getImgPath());
@@ -243,29 +242,30 @@ public class PictureController {
             pictureService.updatePicsPath(picture);
         } catch (Exception e) {
             logger.error("删除图片失败：" + e.getMessage());
-            return ResponseUtil.err("删除图片失败：" + e.getMessage(),"");
+            return ResponseUtil.err("删除图片失败：" + e.getMessage(), "");
         }
-        return ResponseUtil.ok("删除成功","");
+        return ResponseUtil.ok("删除成功", "");
     }
 
 
     /**
      * 上传图片，覆盖以前的图片的（只用作首页图片上传）
+     *
      * @param base64Str
      * @param pictureInfo
      * @return
      */
-    @RequestMapping(value = "updateBase64Pic",method = RequestMethod.POST)
-    public Object uploadPhotoBase64Pic(@FormParam("base64Str") String base64Str,@FormParam("pictureInfo") String pictureInfo){
+    @RequestMapping(value = "updateBase64Pic", method = RequestMethod.POST)
+    public Object uploadPhotoBase64Pic(@FormParam("base64Str") String base64Str, @FormParam("pictureInfo") String pictureInfo) {
 
         //校验图片附带信息
         Picture picture = new Picture();
         try {
-            if(!StringUtils.isEmpty(pictureInfo)) {
+            if (!StringUtils.isEmpty(pictureInfo)) {
                 picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
             }
         } catch (Throwable t) {
-            return ResponseUtil.err("pictureInfo无法被解析，保存失败"+t.getMessage(),"");
+            return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
         }
 
         //删除文件
@@ -276,12 +276,12 @@ public class PictureController {
         }
 
         //base64转图片
-        if(StringUtils.isEmpty(base64Str)){
-            return ResponseUtil.err("base64Str不能为空","");
+        if (StringUtils.isEmpty(base64Str)) {
+            return ResponseUtil.err("base64Str不能为空", "");
         }
         MultipartFile file = base64ToMultipart(base64Str);
         if (file.isEmpty()) {
-            return ResponseUtil.err("文件不能为空","");
+            return ResponseUtil.err("文件不能为空", "");
         }
 
         //Picture picture = new Picture();
@@ -292,7 +292,7 @@ public class PictureController {
         String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String newFileName = "img_" + new Date().getTime() + suffixName;
         String filePath = uploadDir + newFileName;
 
         File dest = new File(filePath);
@@ -303,12 +303,12 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
-            filePath = filePath.substring(filePath.indexOf("webapps")+7);
+            filePath = filePath.substring(filePath.indexOf("webapps") + 7);
             picture.setImgCatg("9");
             picture.setImgPath(filePath);
             picture.setIsRelease(1);
             picture.setImgKey(newFileName);
-            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment()) ? oldFileName : picture.getImgComment());
             picture.setId(pictureService.saveOnePics(picture));
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,20 +321,21 @@ public class PictureController {
 
     /**
      * 只是上传图片的
+     *
      * @param base64Str
      * @return
      */
-    @RequestMapping(value = "updateBase64",method = RequestMethod.POST)
-    public Object uploadPhotoBase64(@FormParam("base64Str") String base64Str){
+    @RequestMapping(value = "updateBase64", method = RequestMethod.POST)
+    public Object uploadPhotoBase64(@FormParam("base64Str") String base64Str) {
 
-        if(StringUtils.isEmpty(base64Str)){
-            return ResponseUtil.err("base64Str不能为空","");
+        if (StringUtils.isEmpty(base64Str)) {
+            return ResponseUtil.err("base64Str不能为空", "");
         }
 
         MultipartFile file = base64ToMultipart(base64Str);
 
         if (file.isEmpty()) {
-            return ResponseUtil.err("文件不能为空","");
+            return ResponseUtil.err("文件不能为空", "");
         }
 
         Picture picture = new Picture();
@@ -345,7 +346,7 @@ public class PictureController {
         String suffixName = oldFileName.substring(oldFileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String newFileName = "img_"+new Date().getTime()+suffixName;
+        String newFileName = "img_" + new Date().getTime() + suffixName;
         String filePath = uploadDir + newFileName;
 
         File dest = new File(filePath);
@@ -356,10 +357,10 @@ public class PictureController {
 
         try {
             file.transferTo(dest);
-            filePath = filePath.substring(filePath.indexOf("webapps")+7);
+            filePath = filePath.substring(filePath.indexOf("webapps") + 7);
             picture.setImgPath(filePath);
             picture.setImgKey(newFileName);
-            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment())?oldFileName:picture.getImgComment());
+            picture.setImgComment(StringUtils.isEmpty(picture.getImgComment()) ? oldFileName : picture.getImgComment());
             picture.setId(pictureService.saveOnePics(picture));
         } catch (Exception e) {
             e.printStackTrace();
@@ -378,7 +379,7 @@ public class PictureController {
             byte[] b = new byte[0];
             b = decoder.decodeBuffer(baseStrs[1]);
 
-            for(int i = 0; i < b.length; ++i) {
+            for (int i = 0; i < b.length; ++i) {
                 if (b[i] < 0) {
                     b[i] += 256;
                 }

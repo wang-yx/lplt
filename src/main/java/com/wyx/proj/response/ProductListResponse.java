@@ -4,7 +4,7 @@ import com.wyx.proj.request.PageRequest;
 
 import java.util.Date;
 
-public class ProductListResponse extends PageRequest{
+public class ProductListResponse extends PageRequest {
     private long productId;
     private String productName;
     private String productPic;

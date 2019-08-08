@@ -9,21 +9,21 @@ public class Response<T> implements Serializable {
     private String msg;
     private T data;
 
-    private Response(int status, String msg, T data){
+    private Response(int status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public static <T> Response<T> success(T data){
+    public static <T> Response<T> success(T data) {
         return new Response<T>(0, null, data);
     }
 
-    public static <T> Response<T> error(int status, String msg){
+    public static <T> Response<T> error(int status, String msg) {
         return new Response<T>(status, msg, null);
     }
 
-    public static <T> Response<T> error(String msg){
+    public static <T> Response<T> error(String msg) {
         return new Response<T>(-1024, msg, null);
     }
 

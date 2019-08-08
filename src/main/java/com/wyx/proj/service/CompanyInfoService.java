@@ -12,6 +12,7 @@ public interface CompanyInfoService {
 
     /**
      * 获取公司介绍信息
+     *
      * @param infoId
      * @return
      * @throws Exception
@@ -20,6 +21,7 @@ public interface CompanyInfoService {
 
     /**
      * 获取联系方式信息
+     *
      * @param infoId
      * @return
      * @throws Exception
@@ -28,6 +30,7 @@ public interface CompanyInfoService {
 
     /**
      * 获取联系方式信息 列表
+     *
      * @return
      * @throws Exception
      */
@@ -35,6 +38,7 @@ public interface CompanyInfoService {
 
     /**
      * 保存公司介绍信息
+     *
      * @param info
      * @return
      * @throws Exception
@@ -43,6 +47,7 @@ public interface CompanyInfoService {
 
     /**
      * 保存联系方式的信息
+     *
      * @param info
      * @return
      * @throws Exception
@@ -51,6 +56,7 @@ public interface CompanyInfoService {
 
     /**
      * 根据ID删除信息
+     *
      * @param id
      * @return
      * @throws Exception

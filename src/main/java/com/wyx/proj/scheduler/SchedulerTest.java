@@ -12,8 +12,8 @@ public class SchedulerTest {
     private String taskSwitch;
 
     @Scheduled(cron = "0 0/1 * * * ?")
-    public void test(){
-        if(taskSwitch.equals("open")){
+    public void test() {
+        if (taskSwitch.equals("open")) {
 
             System.out.println("----------111----->>");
         }

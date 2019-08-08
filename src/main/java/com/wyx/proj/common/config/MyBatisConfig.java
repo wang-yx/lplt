@@ -23,7 +23,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     private DataSource dataSource;
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactoryBean(){
+    public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("com.wyx.proj");
@@ -37,7 +37,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     }
 
     @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory qlSessionFactory){
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory qlSessionFactory) {
         return new SqlSessionTemplate(qlSessionFactory);
     }
 

@@ -8,7 +8,7 @@ public class NewsQueryParam extends PageRequest {
         this.page = page;
     }
 
-    public static class Builder{
+    public static class Builder {
         private Page page;
 
         public Page getPage() {
@@ -19,7 +19,7 @@ public class NewsQueryParam extends PageRequest {
             this.page = page;
         }
 
-        public NewsQueryParam build(){
+        public NewsQueryParam build() {
             return new NewsQueryParam(page);
         }
     }

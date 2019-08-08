@@ -25,9 +25,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public int searchUser(String userName, String passWord){
+    public int searchUser(String userName, String passWord) {
 
-        return getUserDao().selectUser(userName,passWord);
+        return getUserDao().selectUser(userName, passWord);
     }
 
     @Override
@@ -54,25 +54,25 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public String updatePass(Login login) throws Exception {
-        if(login.getNewPassword()==null || login.getNewPassword()==""){
+        if (login.getNewPassword() == null || login.getNewPassword() == "") {
             return "新密码不能为空！";
         }
-        if(!login.getNewPassword().equals(login.getNewPassword_again())){
+        if (!login.getNewPassword().equals(login.getNewPassword_again())) {
             return "新密码不一致，请确认！";
         }
-        List<User> users = getUserDao().selectOneUser(login.getUserName(),login.getPassword());
-        if(users.size()>0){
-            getUserDao().updatePass(login.getNewPassword(),users.get(0).getId());
-        }else{
+        List<User> users = getUserDao().selectOneUser(login.getUserName(), login.getPassword());
+        if (users.size() > 0) {
+            getUserDao().updatePass(login.getNewPassword(), users.get(0).getId());
+        } else {
             return "原密码错误，请确认！";
         }
         return null;
     }
 
 
-
     /**
-     *  获取userDao
+     * 获取userDao
+     *
      * @return
      */
     public UserDao getUserDao() {

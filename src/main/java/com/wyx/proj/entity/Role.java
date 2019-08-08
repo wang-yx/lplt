@@ -1,20 +1,19 @@
 package com.wyx.proj.entity;
 
 
-
 public class Role extends BaseEntity {
 
-    private int id;
+    private Integer id;
 
     private String roleName;
 
     private String description;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

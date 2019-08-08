@@ -27,27 +27,27 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
     public List<Prodcategory> selectAll() throws Exception {
         List<Prodcategory> alls = getProdCategoryDao().selectAllProdcategoris();
 
-        Map<Integer,List<Prodcategory>> typeMap = new HashMap<>();
+        Map<Integer, List<Prodcategory>> typeMap = new HashMap<>();
 
-        for(Prodcategory aa: alls){
-            if(typeMap.containsKey(aa.getType())){
+        for (Prodcategory aa : alls) {
+            if (typeMap.containsKey(aa.getType())) {
                 List<Prodcategory> temp = typeMap.get(aa.getType());
                 temp.add(aa);
-                typeMap.put(aa.getType(),temp);
-            }else{
+                typeMap.put(aa.getType(), temp);
+            } else {
                 List<Prodcategory> temp = new ArrayList<>();
                 temp.add(aa);
-                typeMap.put(aa.getType(),temp);
+                typeMap.put(aa.getType(), temp);
             }
         }
-        for(int i=5;i>1;i--){
-            if(typeMap.get(i)!=null){
-                List<Prodcategory> tempParent = typeMap.get(i-1);
+        for (int i = 5; i > 1; i--) {
+            if (typeMap.get(i) != null) {
+                List<Prodcategory> tempParent = typeMap.get(i - 1);
                 List<Prodcategory> temp = typeMap.get(i);
-                for(Prodcategory pp: tempParent){
-                    for(Prodcategory tt: temp){
-                        if(pp.getId() == tt.getParent()){
-                            List<Prodcategory> tempChildren = pp.getChildren()!=null ? pp.getChildren() : new ArrayList<>();
+                for (Prodcategory pp : tempParent) {
+                    for (Prodcategory tt : temp) {
+                        if (pp.getId() == tt.getParent()) {
+                            List<Prodcategory> tempChildren = pp.getChildren() != null ? pp.getChildren() : new ArrayList<>();
                             tempChildren.add(tt);
                             pp.setChildren(tempChildren);
                         }
@@ -72,12 +72,12 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
     @Override
     public boolean save(Prodcategory prodcategory) throws Exception {
         int resultNum = 0;
-        if(prodcategory.getId()!=0){
+        if (prodcategory.getId() != 0) {
             resultNum = getProdCategoryDao().updateProdcategory(prodcategory);
-        }else{
+        } else {
             resultNum = getProdCategoryDao().insertProdcategory(prodcategory);
         }
-        return resultNum>0;
+        return resultNum > 0;
     }
 
     @Override
@@ -86,11 +86,11 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
         ProdCategoryBean prodCategoryBean = new ProdCategoryBean();
         prodCategoryBean.setParent(id);
         List<Prodcategory> prodcategorys = getProdCategoryDao().selectSome(prodCategoryBean);
-        for(Prodcategory pp: prodcategorys){
+        for (Prodcategory pp : prodcategorys) {
             ids.add(pp.getId());
         }
         ids.add(id);
-        return getProdCategoryDao().batchDeleteProdcategory(ids)>0;
+        return getProdCategoryDao().batchDeleteProdcategory(ids) > 0;
     }
 
     @Override
@@ -99,7 +99,8 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
     }
 
     /**
-     *  ProdCategoryDao
+     * ProdCategoryDao
+     *
      * @return
      */
     public ProdCategoryDao getProdCategoryDao() {

@@ -23,7 +23,7 @@ public class BASE64DecodedMultipartFile implements MultipartFile {
     @Override
     public String getOriginalFilename() {
         // TODO - implementation depends on your requirements
-        return System.currentTimeMillis() + (int)Math.random() * 10000 + "." + header.split("/")[1];
+        return System.currentTimeMillis() + (int) Math.random() * 10000 + "." + header.split("/")[1];
     }
 
     @Override

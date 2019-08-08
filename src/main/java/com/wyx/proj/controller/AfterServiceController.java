@@ -18,17 +18,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value="/afterService")
+@RequestMapping(value = "/afterService")
 public class AfterServiceController {
 
     @Resource
     private AfterServiceService afterServiceService;
 
     @PostMapping(value = "list")
-    public Object list(@RequestBody AfterServiceBean request){
+    public Object list(@RequestBody AfterServiceBean request) {
         PageResponseBean<AfterService> result = null;
         try {
-            if(request.getEndtime()!=null) {
+            if (request.getEndtime() != null) {
                 SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String dateStr = s.format(request.getEndtime());
@@ -38,64 +38,64 @@ public class AfterServiceController {
             }
             result = afterServiceService.queryAfterServiceByCondition(request);
         } catch (Exception e) {
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(result);
     }
 
     @PostMapping(value = "detail")
-    public Object detail(@FormParam("id") int id){
+    public Object detail(@FormParam("id") int id) {
         AfterService afterService = null;
         try {
             afterService = afterServiceService.queryAfterServiceDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(afterService);
     }
 
     @GetMapping(value = "detail")
-    public Object detailGet(@QueryParam("id") int id){
+    public Object detailGet(@QueryParam("id") int id) {
         AfterService afterService = null;
         try {
             afterService = afterServiceService.queryAfterServiceDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(afterService);
     }
 
     @PostMapping(value = "save")
-    public Object save(@RequestBody AfterService afterService){
+    public Object save(@RequestBody AfterService afterService) {
         try {
             afterServiceService.save(afterService);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("保存成功");
     }
 
     @PostMapping(value = "delete")
-    public Object delete(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id) {
         try {
             afterServiceService.deleteAfterServiceById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }
 
     @GetMapping(value = "delete")
-    public Object deleteGet(@QueryParam("id") int id){
+    public Object deleteGet(@QueryParam("id") int id) {
         try {
             afterServiceService.deleteAfterServiceById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }

@@ -35,35 +35,35 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
     public PageResponseBean<Product> queryByCondition(ProductBean productBean) throws Exception {
         PageResponseBean<Product> resultData = null;
         List<Product> tempList = new ArrayList<>();
-        int countNum = getProdDao().searchProductsCount(productBean.getName(),productBean.getType(),productBean.getBrand(),
-                productBean.getCategoryid(),productBean.getLanguage(),productBean.getIsrelease(),productBean.getShowhomepage(),
-                productBean.getStarttime(),productBean.getEndtime());
-        if(countNum>0){
+        int countNum = getProdDao().searchProductsCount(productBean.getName(), productBean.getType(), productBean.getBrand(),
+                productBean.getCategoryid(), productBean.getLanguage(), productBean.getIsrelease(), productBean.getShowhomepage(),
+                productBean.getStarttime(), productBean.getEndtime());
+        if (countNum > 0) {
             Integer offset = null, limit = null;
-            offset = (productBean.getPageNo()-1) * productBean.getPageSize();
+            offset = (productBean.getPageNo() - 1) * productBean.getPageSize();
             limit = productBean.getPageSize();
 
-            tempList = getProdDao().searchProducts(productBean.getName(),productBean.getType(),productBean.getBrand(),
-                    productBean.getCategoryid(),productBean.getLanguage(),productBean.getIsrelease(),productBean.getShowhomepage(),
-                    limit,offset,productBean.getStarttime(),productBean.getEndtime());
+            tempList = getProdDao().searchProducts(productBean.getName(), productBean.getType(), productBean.getBrand(),
+                    productBean.getCategoryid(), productBean.getLanguage(), productBean.getIsrelease(), productBean.getShowhomepage(),
+                    limit, offset, productBean.getStarttime(), productBean.getEndtime());
 
-            if(tempList!=null && tempList.size()>0){
+            if (tempList != null && tempList.size() > 0) {
                 List<Prodcategory> allProdcategory = getProdCategoryDao().selectAllProdcategoris();
-                HashMap<Integer,String> tempMap = new HashMap<>();
-                for(Prodcategory pc: allProdcategory){
-                    if(productBean.getLanguage()==0){
-                        tempMap.put(pc.getId(),pc.getName());
-                    }else{
-                        tempMap.put(pc.getId(),pc.getNameen());
+                HashMap<Integer, String> tempMap = new HashMap<>();
+                for (Prodcategory pc : allProdcategory) {
+                    if (productBean.getLanguage() == 0) {
+                        tempMap.put(pc.getId(), pc.getName());
+                    } else {
+                        tempMap.put(pc.getId(), pc.getNameen());
                     }
                 }
                 //赋值categoryname
-                for(Product prod :tempList){
+                for (Product prod : tempList) {
                     prod.setCategoryname(tempMap.get(prod.getCategoryid()));
                 }
             }
-            resultData = new PageResponseBean(productBean.getPageNo(),productBean.getPageSize(),countNum,tempList);
-        }else {
+            resultData = new PageResponseBean(productBean.getPageNo(), productBean.getPageSize(), countNum, tempList);
+        } else {
             resultData = new PageResponseBean(1, 15, 0, tempList);
         }
 
@@ -73,7 +73,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
     @Override
     public Product getProdDetail(int id) throws Exception {
         Product product = getProdDao().selectProdById(id);
-        if(product!=null){
+        if (product != null) {
             product.setDetail_ch(getProdDetailDao().selectProdDetailById(product.getChineseid()));
             product.setDetail_en(getProdDetailDao().selectProdDetailById(product.getEnglishid()));
         }
@@ -83,21 +83,21 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
     @Override
     public boolean save(Product product) throws Exception {
 
-        if(product.getOrdernum()!=null && getProdDao().countByIdOrOrdernum(product)>0){
+        if (product.getOrdernum() != null && getProdDao().countByIdOrOrdernum(product) > 0) {
             //进来的话，就表示有相同排序数字，重新需要调整排序
-            List <Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
-            for(Product pp: products){
-                pp.setOrdernum(pp.getOrdernum()+1);
+            List<Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
+            for (Product pp : products) {
+                pp.setOrdernum(pp.getOrdernum() + 1);
             }
             getProdDao().updateOthersByIdOrOrdernum(products);
-        }else{
+        } else {
             //目前的总数
             int countNum = getProdDao().selectAllCount();
-            product.setOrdernum(countNum+1);
+            product.setOrdernum(countNum + 1);
         }
 
         int resultNum = 0;
-        if(product.getId()==0){
+        if (product.getId() == 0) {
             ProductDetail productDetail_ch = product.getDetail_ch();
             getProdDetailDao().insertProdDetail(productDetail_ch);
             product.setChineseid(productDetail_ch.getId());
@@ -107,7 +107,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
             product.setEnglishid(productDetail_en.getId());
 
             resultNum = getProdDao().insertProd(product);
-        }else{
+        } else {
             Product tempProduce = getProdDao().selectProdById(product.getId());
 
             ProductDetail productDetail_ch = product.getDetail_ch();
@@ -120,24 +120,22 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
             getProdDetailDao().updateProdDetail(productDetail_en);
             resultNum = getProdDao().updateProd(product);
         }
-        return resultNum>0;
+        return resultNum > 0;
     }
 
 
-    public void updateOrder(Product product) throws Exception{
-        if(product.getOrdernum()!=null && getProdDao().countByIdOrOrdernum(product)>0){
+    public void updateOrder(Product product) throws Exception {
+        if (product.getOrdernum() != null && getProdDao().countByIdOrOrdernum(product) > 0) {
             //进来的话，就表示有相同排序数字，重新需要调整排序
-            List <Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
-            for(Product pp: products){
-                pp.setOrdernum(pp.getOrdernum()+1);
+            List<Product> products = getProdDao().selectOthersByIdOrOrdernum(product);
+            for (Product pp : products) {
+                pp.setOrdernum(pp.getOrdernum() + 1);
             }
-            System.out.println("---size-->"+products.size());
+            System.out.println("---size-->" + products.size());
             getProdDao().updateOthersByIdOrOrdernum(products);
         }
         getProdDao().updateByIdOrOrdernum(product);
     }
-
-
 
 
     @Override
@@ -160,7 +158,8 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
 
 
     /**
-     *  ProductDao
+     * ProductDao
+     *
      * @return
      */
     public ProductDao getProdDao() {

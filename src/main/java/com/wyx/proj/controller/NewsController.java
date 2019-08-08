@@ -14,17 +14,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value="/news")
+@RequestMapping(value = "/news")
 public class NewsController {
 
     @Resource
     private NewsService newsService;
 
     @PostMapping(value = "list")
-    public Object list(@RequestBody NewsBean request){
+    public Object list(@RequestBody NewsBean request) {
         PageResponseBean<New> result = null;
         try {
-            if(request.getEndtime()!=null) {
+            if (request.getEndtime() != null) {
                 SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat s2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String dateStr = s.format(request.getEndtime());
@@ -38,65 +38,65 @@ public class NewsController {
             System.out.println("--------------------------------------------------------------------------");
 
             //e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(result);
     }
 
     @PostMapping(value = "detail")
-    public Object detail(@FormParam("id") int id){
+    public Object detail(@FormParam("id") int id) {
         New news = null;
         try {
             news = newsService.queryNewsDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(news);
     }
 
     @GetMapping(value = "detail")
-    public Object detailGet(@RequestParam("id") int id){
+    public Object detailGet(@RequestParam("id") int id) {
         New news = null;
         try {
             news = newsService.queryNewsDetail(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(news);
     }
 
 
     @PostMapping(value = "save")
-    public Object save(@RequestBody New news){
+    public Object save(@RequestBody New news) {
         try {
             newsService.save(news);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("保存成功");
     }
 
     @PostMapping(value = "delete")
-    public Object delete(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id) {
         try {
             newsService.deleteNewsById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }
 
     @GetMapping(value = "delete")
-    public Object deleteGet(@RequestParam("id") int id){
+    public Object deleteGet(@RequestParam("id") int id) {
         try {
             newsService.deleteNewsById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }

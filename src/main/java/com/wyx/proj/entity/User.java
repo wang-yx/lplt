@@ -6,7 +6,7 @@ import java.util.Date;
 //@Table(name="t_user")
 public class User extends BaseEntity {
 
-    private int id;
+    private Integer id;
 
     private String userName;
 
@@ -19,11 +19,11 @@ public class User extends BaseEntity {
     private Date createTime;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,9 +68,9 @@ public class User extends BaseEntity {
     }
 
     @Override
-    public String toString(){
-        return "User=[id:"+ id +"; userName:"+ userName +"; passWord="+ passWord +"; nickName="+ nickName +"; isAdmin="+ isAdmin
-                +"; createTime="+ createTime +"]";
+    public String toString() {
+        return "User=[id:" + id + "; userName:" + userName + "; passWord=" + passWord + "; nickName=" + nickName + "; isAdmin=" + isAdmin
+                + "; createTime=" + createTime + "]";
     }
 
 }

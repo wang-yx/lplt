@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/contactInfo")
+@RequestMapping(value = "/contactInfo")
 public class ComtactInfoController {
 
     @Resource
@@ -24,70 +24,70 @@ public class ComtactInfoController {
 
 
     @PostMapping(value = "list")
-    public Object list(){
+    public Object list() {
         List<Info> result = null;
         try {
             result = companyInfoService.getInfoList();
         } catch (Exception e) {
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(result);
     }
 
     @PostMapping(value = "detail")
-    public Object detail(@FormParam("id") int id){
+    public Object detail(@FormParam("id") int id) {
         Info info = null;
         try {
             info = companyInfoService.getContactInfo(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(info);
     }
 
     @GetMapping(value = "detail")
-    public Object detailGet(@QueryParam("id") int id){
+    public Object detailGet(@QueryParam("id") int id) {
         Info info = null;
         try {
             info = companyInfoService.getContactInfo(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok(info);
     }
 
     @PostMapping(value = "save")
-    public Object save(@RequestBody Info info){
+    public Object save(@RequestBody Info info) {
         try {
             info.setIsinfo(1);
             companyInfoService.saveCompanyInfo(info);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("保存成功");
     }
 
     @PostMapping(value = "delete")
-    public Object delete(@FormParam("id") int id){
+    public Object delete(@FormParam("id") int id) {
         try {
             companyInfoService.deleteInfoById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }
 
     @GetMapping(value = "delete")
-    public Object deleteGet(@QueryParam("id") int id){
+    public Object deleteGet(@QueryParam("id") int id) {
         try {
             companyInfoService.deleteInfoById(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.err(e.getMessage(),"");
+            return ResponseUtil.err(e.getMessage(), "");
         }
         return ResponseUtil.ok("删除成功！");
     }

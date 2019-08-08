@@ -18,6 +18,7 @@ public interface ProdCategoryDao {
 
     /**
      * 所有产品类别
+     *
      * @return
      */
     @Select("select * from t_prodcategory order by createtime ")
@@ -25,18 +26,19 @@ public interface ProdCategoryDao {
 
     /**
      * 所有产品类别
+     *
      * @return
      */
     @Select("select * from t_prodcategory order by createtime desc ")
     public List<Prodcategory> selectAllProdcategoris2();
 
-    @SelectProvider(type = Provider.class,method = "selectSome")
+    @SelectProvider(type = Provider.class, method = "selectSome")
     public List<Prodcategory> selectSome(ProdCategoryBean prodCategoryBean);
-
 
 
     /**
      * 根据id获取
+     *
      * @return
      */
     @Select("select * from t_prodcategory where id=#{id} ")
@@ -44,6 +46,7 @@ public interface ProdCategoryDao {
 
     /**
      * 插入数据
+     *
      * @param prodcategory
      * @return
      */
@@ -52,6 +55,7 @@ public interface ProdCategoryDao {
 
     /**
      * 跟新数据
+     *
      * @param prodcategory
      * @return
      */
@@ -61,45 +65,45 @@ public interface ProdCategoryDao {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
-    @UpdateProvider(type = Provider.class,method = "batchDeleteProdcategory")
+    @UpdateProvider(type = Provider.class, method = "batchDeleteProdcategory")
     public int batchDeleteProdcategory(List<Integer> ids);
 
 
+    class Provider {
 
-    class Provider{
-
-        public String selectSome(ProdCategoryBean prodCategoryBean){
+        public String selectSome(ProdCategoryBean prodCategoryBean) {
             StringBuilder sb = new StringBuilder();
             sb.append("select * from t_prodcategory where 1=1 ");
 
-            if(prodCategoryBean.getId()!=null){
-                sb.append(" and id = "+ prodCategoryBean.getId() + " " );
+            if (prodCategoryBean.getId() != null) {
+                sb.append(" and id = " + prodCategoryBean.getId() + " ");
             }
-            if(!StringUtils.isEmpty(prodCategoryBean.getName())){
-                sb.append(" and name like '%"+ prodCategoryBean.getName() +"%' " );
+            if (!StringUtils.isEmpty(prodCategoryBean.getName())) {
+                sb.append(" and name like '%" + prodCategoryBean.getName() + "%' ");
             }
 
-            if(!StringUtils.isEmpty(prodCategoryBean.getNameen())){
-                sb.append(" and nameen like '%" + prodCategoryBean.getNameen()+"%' ");
+            if (!StringUtils.isEmpty(prodCategoryBean.getNameen())) {
+                sb.append(" and nameen like '%" + prodCategoryBean.getNameen() + "%' ");
             }
-            if(prodCategoryBean.getParent()!=null){
-                sb.append(" and parent = "+ prodCategoryBean.getParent() + " " );
+            if (prodCategoryBean.getParent() != null) {
+                sb.append(" and parent = " + prodCategoryBean.getParent() + " ");
             }
-            if(prodCategoryBean.getType()!=null){
-                sb.append(" and type = "+ prodCategoryBean.getType() + " " );
+            if (prodCategoryBean.getType() != null) {
+                sb.append(" and type = " + prodCategoryBean.getType() + " ");
             }
 
             sb.append(" order by createtime desc");
 
-            System.out.println("---->"+sb.toString());
+            System.out.println("---->" + sb.toString());
             return sb.toString();
         }
 
 
-        public String batchDeleteProdcategory(Map map){
+        public String batchDeleteProdcategory(Map map) {
             List<Integer> ids = (List<Integer>) map.get("list");
             StringBuilder sb = new StringBuilder();
             sb.append("delete from t_prodcategory where id in (");

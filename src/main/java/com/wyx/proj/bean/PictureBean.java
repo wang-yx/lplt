@@ -58,13 +58,13 @@ public class PictureBean {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "User=["
-                +" imgPath:"+ imgPath
-                +"; imgCatg:"+ imgCatg
-                +"; imgComment:"+ imgComment
-                +"; isRelease="+ isRelease
-                +"; fileName="+ file.getOriginalFilename()+"]";
+                + " imgPath:" + imgPath
+                + "; imgCatg:" + imgCatg
+                + "; imgComment:" + imgComment
+                + "; isRelease=" + isRelease
+                + "; fileName=" + file.getOriginalFilename() + "]";
     }
 
 }
