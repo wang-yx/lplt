@@ -315,7 +315,7 @@ public interface ProductDao {
         public String countByIdOrOrdernum(Product product) {
             StringBuilder sb = new StringBuilder();
             sb.append("select count(1) from  t_product where 1=1  ");
-            if (product.getId() != 0) {
+            if (product.getId() != null && product.getId() != 0) {
                 sb.append(" and id = " + product.getId());
             }
             if (product.getOrdernum() != null) {

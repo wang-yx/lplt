@@ -45,7 +45,7 @@ public class ProductController {
         if (request.getOrdernum() == null) {
             return ResponseUtil.err("ordernum不可以为空", "");
         }
-        if (request.getId() == 0) {
+        if (request.getId() ==null || request.getId() == 0) {
             return ResponseUtil.err("id不可以为空", "");
         }
         try {

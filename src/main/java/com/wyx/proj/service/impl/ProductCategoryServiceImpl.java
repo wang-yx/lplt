@@ -72,7 +72,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<Prodcategory> im
     @Override
     public boolean save(Prodcategory prodcategory) throws Exception {
         int resultNum = 0;
-        if (prodcategory.getId() != 0) {
+        if (prodcategory.getId() !=null && prodcategory.getId() != 0) {
             resultNum = getProdCategoryDao().updateProdcategory(prodcategory);
         } else {
             resultNum = getProdCategoryDao().insertProdcategory(prodcategory);

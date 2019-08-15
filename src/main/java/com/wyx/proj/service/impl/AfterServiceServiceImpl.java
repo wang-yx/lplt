@@ -54,7 +54,7 @@ public class AfterServiceServiceImpl extends BaseServiceImpl<AfterService> imple
     @Override
     public boolean save(AfterService afterService) throws Exception {
         int returnNum = 0;
-        if (afterService.getId() != 0) {
+        if (afterService.getId()!= null && afterService.getId() != 0) {
             returnNum = getAfterServiceDao().updateAfterService(afterService);
         } else {
             returnNum = getAfterServiceDao().insertAfterService(afterService);

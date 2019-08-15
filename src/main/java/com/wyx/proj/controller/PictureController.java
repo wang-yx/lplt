@@ -201,7 +201,7 @@ public class PictureController {
         try {
             if (!StringUtils.isEmpty(pictureInfo)) {
                 picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
-                if (picture.getId() == 0) {
+                if (picture.getId() ==null || picture.getId() == 0) {
                     return ResponseUtil.err("id不能为空", "");
                 }
                 picture = pictureService.selectOnePicById(picture.getId());
@@ -326,13 +326,13 @@ public class PictureController {
      * @return
      */
     @RequestMapping(value = "updateBase64", method = RequestMethod.POST)
-    public Object uploadPhotoBase64(@FormParam("base64Str") String base64Str) {
-
-        if (StringUtils.isEmpty(base64Str)) {
+    public Object uploadPhotoBase64(@RequestBody PictureParam pictureParam) {
+        logger.info("参数--base64Str--：" + pictureParam);
+        if (StringUtils.isEmpty(pictureParam.getBase64Str())) {
             return ResponseUtil.err("base64Str不能为空", "");
         }
 
-        MultipartFile file = base64ToMultipart(base64Str);
+        MultipartFile file = base64ToMultipart(pictureParam.getBase64Str());
 
         if (file.isEmpty()) {
             return ResponseUtil.err("文件不能为空", "");
@@ -390,6 +390,19 @@ public class PictureController {
             logger.error("文件转化失败：" + e.getMessage());
             return null;
         }
+    }
+
+    class PictureParam{
+        public String getBase64Str() {
+            return base64Str;
+        }
+
+        public void setBase64Str(String base64Str) {
+            this.base64Str = base64Str;
+        }
+
+        String base64Str;
+
     }
 
 }

@@ -85,7 +85,7 @@ public class PictureServiceImpl extends BaseServiceImpl<User> implements Picture
     @Override
     public int saveOnePics(Picture pic) throws Exception {
 
-        if (pic.getId() == 0) {
+        if (pic.getId() ==null || pic.getId() == 0) {
             getPicDao().insertPic(pic);
         } else {
             getPicDao().updatePicPath(pic);

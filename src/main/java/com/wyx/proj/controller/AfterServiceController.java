@@ -69,6 +69,8 @@ public class AfterServiceController {
 
     @PostMapping(value = "save")
     public Object save(@RequestBody AfterService afterService) {
+        System.out.println("--------->"+afterService);
+        System.out.println("--------->"+afterService.getName());
         try {
             afterServiceService.save(afterService);
         } catch (Exception e) {

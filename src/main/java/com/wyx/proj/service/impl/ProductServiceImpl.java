@@ -97,7 +97,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product> implements Prod
         }
 
         int resultNum = 0;
-        if (product.getId() == 0) {
+        if (product.getId() ==null || product.getId() == 0) {
             ProductDetail productDetail_ch = product.getDetail_ch();
             getProdDetailDao().insertProdDetail(productDetail_ch);
             product.setChineseid(productDetail_ch.getId());

@@ -63,14 +63,14 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
         if (info.getIsinfo() == 1) {
             info.setChineseid(0);
             info.setEnglishid(0);
-            if (info.getId() != 0) { //update
+            if (info.getId() != null && info.getId() != 0) { //update
                 resultNum = getInfoDao().updateInfo(info);
             } else { //insert
                 resultNum = getInfoDao().insertInfo(info);
             }
         } else {
 
-            if (info.getId() != 0) { //upsert
+            if (info.getId() != null && info.getId() != 0) { //upsert
                 Info tempInfo = getInfoDao().selectInfoById(info.getId());
                 Company com_ch = info.getCompany_ch();
                 com_ch.setId(tempInfo.getChineseid());
@@ -99,7 +99,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<AfterService> implem
     @Override
     public boolean saveContactInfo(Info info) throws Exception {
         int resultNum = 0;
-        if (info.getId() != 0) { //upsert
+        if (info.getId() !=null && info.getId() != 0) { //upsert
             resultNum = getInfoDao().updateInfo(info);
         } else { //insert
             resultNum = getInfoDao().insertInfo(info);
