@@ -51,4 +51,5 @@ scheduleTask:
   switch: close  # 开启 open ； 关闭 close
 
 uploadFile:
-  path: /Users/baidu/soft/workspace/workspace-test/lplt/
+#  path: /Users/baidu/soft/workspace/workspace-test/lplt/
+  path: /root/lplt/apache-tomcat/webapps/lplt/imgs/

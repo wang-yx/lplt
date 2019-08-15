@@ -4,6 +4,7 @@ package com.wyx.proj.controller;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.wyx.proj.entity.Picture;
+import com.wyx.proj.param.PictureParam;
 import com.wyx.proj.service.PictureService;
 import com.wyx.proj.util.BASE64DecodedMultipartFile;
 import com.wyx.proj.util.ResponseUtil;
@@ -256,7 +257,7 @@ public class PictureController {
      * @return
      */
     @RequestMapping(value = "updateBase64Pic", method = RequestMethod.POST)
-    public Object uploadPhotoBase64Pic(@FormParam("base64Str") String base64Str, @FormParam("pictureInfo") String pictureInfo) {
+    public Object uploadPhotoBase64Pic(@RequestBody PictureParam pictureParam, @FormParam("pictureInfo") String pictureInfo) {
 
         //校验图片附带信息
         Picture picture = new Picture();
@@ -276,10 +277,10 @@ public class PictureController {
         }
 
         //base64转图片
-        if (StringUtils.isEmpty(base64Str)) {
+        if (StringUtils.isEmpty(pictureParam.getBase64Str())) {
             return ResponseUtil.err("base64Str不能为空", "");
         }
-        MultipartFile file = base64ToMultipart(base64Str);
+        MultipartFile file = base64ToMultipart(pictureParam.getBase64Str());
         if (file.isEmpty()) {
             return ResponseUtil.err("文件不能为空", "");
         }
@@ -327,7 +328,8 @@ public class PictureController {
      */
     @RequestMapping(value = "updateBase64", method = RequestMethod.POST)
     public Object uploadPhotoBase64(@RequestBody PictureParam pictureParam) {
-        logger.info("参数--base64Str--：" + pictureParam);
+    //public Object uploadPhotoBase64(@FormParam("base64Str") String base64Str) {
+        logger.info("参数--base64Str--：" + pictureParam.getBase64Str());
         if (StringUtils.isEmpty(pictureParam.getBase64Str())) {
             return ResponseUtil.err("base64Str不能为空", "");
         }
@@ -392,17 +394,26 @@ public class PictureController {
         }
     }
 
-    class PictureParam{
-        public String getBase64Str() {
-            return base64Str;
-        }
 
-        public void setBase64Str(String base64Str) {
-            this.base64Str = base64Str;
-        }
-
-        String base64Str;
-
-    }
+//    public class PictureParam{
+//
+//        PictureParam(String base64Str){
+//            this.base64Str = base64Str;
+//        }
+//        PictureParam(){
+//
+//        }
+//
+//        public String getBase64Str() {
+//            return base64Str;
+//        }
+//
+//        public void setBase64Str(String base64Str) {
+//            this.base64Str = base64Str;
+//        }
+//
+//        public String base64Str;
+//
+//    }
 
 }
