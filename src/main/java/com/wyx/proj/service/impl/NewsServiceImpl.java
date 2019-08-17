@@ -77,10 +77,12 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
         if (news.getId() == null || news.getId() == 0) {
 
             NewDetail newDetail_ch = news.getNewDetail_ch();
+            newDetail_ch.setLanguage(0);
             getNewDetailDao().insertNewDetail(newDetail_ch);
             news.setChineseid(newDetail_ch.getId());
 
             NewDetail newDetail_en = news.getNewDetail_en();
+            newDetail_en.setLanguage(1);
             getNewDetailDao().insertNewDetail(newDetail_en);
             news.setEnglishid(newDetail_en.getId());
 
@@ -92,10 +94,12 @@ public class NewsServiceImpl extends BaseServiceImpl<New> implements NewsService
 
             NewDetail newDetail_ch = news.getNewDetail_ch();
             newDetail_ch.setId(tempNews.getChineseid());
+            newDetail_ch.setLanguage(0);
             getNewDetailDao().updateNewDetail(newDetail_ch);
 
             NewDetail newDetail_en = news.getNewDetail_en();
             newDetail_en.setId(tempNews.getEnglishid());
+            newDetail_en.setLanguage(1);
             getNewDetailDao().updateNewDetail(newDetail_en);
 
             resultNum = getNewsDao().updateNew(news);
