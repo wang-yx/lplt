@@ -252,18 +252,19 @@ public class PictureController {
     /**
      * 上传图片，覆盖以前的图片的（只用作首页图片上传）
      *
-     * @param base64Str
-     * @param pictureInfo
-     * @return
+     * @param pictureParam
+     * @returnx
      */
     @RequestMapping(value = "updateBase64Pic", method = RequestMethod.POST)
-    public Object uploadPhotoBase64Pic(@RequestBody PictureParam pictureParam, @FormParam("pictureInfo") String pictureInfo) {
+    public Object uploadPhotoBase64Pic(@RequestBody PictureParam pictureParam) {
+
+        System.out.println("---uploadPhotoBase64Pic-->"+JSON.toJSONString(pictureParam));
 
         //校验图片附带信息
         Picture picture = new Picture();
         try {
-            if (!StringUtils.isEmpty(pictureInfo)) {
-                picture = JSON.toJavaObject((JSON) JSON.parse(pictureInfo), Picture.class);
+            if (!StringUtils.isEmpty(pictureParam.getPictureInfo())) {
+                picture = JSON.toJavaObject((JSON) JSON.parse(pictureParam.getPictureInfo()), Picture.class);
             }
         } catch (Throwable t) {
             return ResponseUtil.err("pictureInfo无法被解析，保存失败" + t.getMessage(), "");
@@ -323,7 +324,7 @@ public class PictureController {
     /**
      * 只是上传图片的
      *
-     * @param base64Str
+     * @param pictureParam
      * @return
      */
     @RequestMapping(value = "updateBase64", method = RequestMethod.POST)

@@ -3,8 +3,13 @@ package com.wyx.proj.param;
 
 public class PictureParam {
 
-    PictureParam(String base64Str){
+    private String base64Str;
+
+    private String pictureInfo;
+
+    PictureParam(String base64Str,String pictureInfo){
         this.base64Str = base64Str;
+        this.pictureInfo = pictureInfo;
     }
     PictureParam(){
 
@@ -18,5 +23,11 @@ public class PictureParam {
         this.base64Str = base64Str;
     }
 
-    public String base64Str;
+    public String getPictureInfo() {
+        return pictureInfo;
+    }
+
+    public void setPictureInfo(String pictureInfo) {
+        this.pictureInfo = pictureInfo;
+    }
 }
